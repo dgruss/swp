@@ -50,7 +50,7 @@ Oft möchte man nur prüfen ob ein Wort in einer Sprache enthalten ist.
 Es ist umständlich die Menge aller Wörter einer Sprache aufzuschreiben und darin zu suchen.
 Daher wollen wir eine kürzere und Methode finden um Sprachen zu beschreiben und diese Überprüfung durchzuführen.
 
-Über Automaten (FSM) ist dies möglich. Für Binärzahlen könnte man dies z.B. so machen:
+\begin{floatingfigure}[r]{6.5cm}
 \begin{center}
 \begin{tikzpicture}[node distance=2cm, auto]
 \node [state, initial] (0) {S};
@@ -61,10 +61,16 @@ Daher wollen wir eine kürzere und Methode finden um Sprachen zu beschreiben und
 \path [draw, ->] (1) edge [loop above] node {0} ();
 \end{tikzpicture}
 \end{center}
+ \caption{Binärzahlen FSM}
+  \vspace{0.3cm}
+ \label{fsm1}
+\end{floatingfigure}
+
+Über Automaten (FSM) ist dies möglich. Für Binärzahlen könnte man dies wie in Abbildung \ref{fsm1} machen.
 
 Wir haben eine Eingabe $w$ (einem potentiellen Wort der Sprache).
 Wir beginnen im Zustand $S$. Die einzigen gültigen Übergänge sind die zu Zustand $A$. Es muss also entweder eine $0$ oder
-eine $1$ gelesen werden (wir schreiben auch gematcht/geparst). Andernfalls gibt es keinen gültigen Übergang und da $S$ kein Endzustand ist wäre die Eingabe nicht gültig.
+eine $1$ gelesen werden (wir schreiben auch gematcht bzw. geparst). Andernfalls gibt es keinen gültigen Übergang und da $S$ kein Endzustand ist wäre die Eingabe nicht gültig.
 Im Zustand $A$ wurde bereits eine $0$ oder $1$ gelesen, also ist $w \in \mathcal{B}$. Die Übergänge von $A$ zu $A$ erlauben
 weitere Zeichen zu lesen und so längere Wörter zu erhalten, die in der Sprache enthalten sind.
 
@@ -90,15 +96,21 @@ Bei den Zustandsübergängen des Automaten hatten wir beispielsweise ein Wort $w
 Mit dem Zustandsübergang würden wir nun das $A$ weglassen und hätten für das verbleibende zu lesende Wort $w'=B$.
 Wir ersetzen also $AB$ durch $B$. Bei den Produktionsregeln der Grammatik halten wir ganz konkret fest was wir ersetzen.
 
-Um die Grammatik der Binärzahlen $G_{\mathcal{B}}$ zu definieren müssen wir die Elemente des oben definierten 4-Tupels beschreiben.
-Die Menge der Terminale ist das Alphabet $\gbr{0,1}$.
-Den Startzustand nennen wir $S$. Nun müssen wir versuchen Produktionsregeln anzugeben um $\mathcal{B}$ zu definieren.
+\begin{floatingfigure}[r]{6.5cm}
 \begin{align*}
 S &\to 0 \\
 S &\to 1 \\
 S &\to 0S \\
 S &\to 1S
 \end{align*}
+ \caption{Binärzahlen Grammatik}
+  \vspace{0.3cm}
+ \label{grambin}
+\end{floatingfigure}
+
+Um die Grammatik der Binärzahlen $G_{\mathcal{B}}$ zu definieren müssen wir die Elemente des oben definierten 4-Tupels beschreiben.
+Die Menge der Terminale ist das Alphabet $\gbr{0,1}$.
+Den Startzustand nennen wir $S$. In Abbildung \ref{grambin} versuchen wir Produktionsregeln anzugeben um $\mathcal{B}$ zu definieren.
 
 Um zu verifizieren wann ein Wort von einer Grammatik erzeugt werden kann müssen wir nun zuerst definieren was eine Ableitung ist.
 
@@ -186,6 +198,8 @@ Der Parser ruft die Startfunktion auf und gibt \verb|true| zurück wenn \verb|to
 
 Sei $G_{\text{bin1}}=(\gbr{S,T},\gbr{0,1},S,\gbr{S \to 0,S \to 1T, T \to 0T, T \to 1T, T \to \varepsilon})$.
 Der Pseudo-Code des RDP zu dieser Grammatik könnte so aussehen:
+
+\begin{tabular}{p{0.47\hsize}p{0.47\hsize}}
 \begin{verbatim}
 FUNC S()
   IF token == 0
@@ -195,24 +209,25 @@ FUNC S()
     T()
   ELSE
     ERROR
-
+\end{verbatim}
+&
+\begin{verbatim}
 FUNC T()
   IF token == 0
     nextToken()
     T()
-    RETURN
   ELSE IF token == 1
     nextToken()
     T()
-    RETURN
-  ELSE IF token == epsilon
-    RETURN
-  ERROR  
+  ELSE IF token != epsilon
+    ERROR  
 \end{verbatim}
+\end{tabular}
 
 Sei $G_{\text{bin2}}=\rbr{\gbr{S,T},\gbr{0,1},S,\gbr{S \to 0, S \to 1T, T \to T0, T \to T1, T \to \varepsilon}}$.
 Wir wissen $L(G_{\text{bin1}})=L(G_{\text{bin2}})$ (ohne Beweis) und versuchen auch hier einen einfachen rekursiven Parser zu schreiben.
 
+\begin{tabular}{p{0.47\hsize}p{0.47\hsize}}
 \begin{verbatim}
 FUNC S()
   IF token == 0
@@ -222,22 +237,23 @@ FUNC S()
     T()
   ELSE
     ERROR
-
+\end{verbatim}
+&
+\begin{verbatim}
 FUNC T()
   IF token == 0
-    T()          // Endlos-Rekursion
+    T()        // Endlos-Rekursion
     nextToken()
-    RETURN
   ELSE IF token == 1
-    T()          // Endlos-Rekursion
+    T()        // Endlos-Rekursion
     nextToken()
-    RETURN
-  ELSE IF token == epsilon
-    RETURN
-  ERROR  
+  ELSE IF token != epsilon
+    ERROR  
 \end{verbatim}
+\end{tabular}
 
-Wir erhalten hier im Parser eine Endlos-Rekursion.
+Wir erhalten hier im Parser eine Endlos-Rekursion, da in $T \to T0, T \to T1$ ein Nonterminal ganz links steht. Wir nennen dies ``Linksrekursion''.
+
 \begin{defn}[Mehrdeutig, Eindeutig]
 Sei $G=(V_N,V_T,S,\Phi)$ eine Grammatik. Wenn es für ein Wort $w \in L(G)$ mehrere
 unterschiedliche Ableitungssequenzen $\omega,\psi$, d.h. $S \to \omega_1, \omega_1 \to \ldots, \ldots \to \omega_n, \omega_n \to w$,
