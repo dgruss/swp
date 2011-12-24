@@ -1,0 +1,172 @@
+% title settings etc
+\title{\titel}
+\author{\vortragender}
+\date{\semester}
+
+% various operators
+\DeclareMathOperator {\id}{id}
+\DeclareMathOperator*{\ggt}{ggT}
+\DeclareMathOperator*{\kgv}{kgV}
+\DeclareMathOperator {\ord}{ord}
+\DeclareMathOperator {\fmod}{mod}
+\DeclareMathOperator*{\trace}{tr}
+\DeclareMathOperator {\nil}{nil}
+\DeclareMathOperator*{\supp}{Supp}
+\DeclareMathOperator {\lm}{lm}
+\DeclareMathOperator {\lt}{lt}
+\DeclareMathOperator {\lc}{lc}
+\DeclareMathOperator*{\rest}{rest}
+\DeclareMathOperator {\End}{end}
+\DeclareMathOperator*{\rang}{rang}
+\DeclareMathOperator*{\dist}{d}
+\DeclareMathOperator*{\real}{Re}
+\DeclareMathOperator*{\imag}{Im}
+\DeclareMathOperator*{\sign}{sign}
+\DeclareMathOperator*{\weight}{weight}
+
+% graphics and sectioning
+\newcommand{\skizze}[1]{$ $ \begin{center}\includegraphics[scale = 0.33]{images/#1.png}\end{center}}
+\newcommand{\mychapter}[1]{\chapter{#1}}
+\newcommand{\mysection}[1]{\section{#1}}
+\newcommand{\mysubsection}[1]{\subsection{#1}}
+\newcommand{\separate}{\begin{center}*\:*\:*\end{center}}
+
+% definition and proof tools
+\newcommand{\proofdone}{\hfill \ensuremath{\Box}}
+\newcommand{\mathdone}{\tag*{\ensuremath{\Box}}}
+
+\newcommand{\defas}{\mathrel{\mathop:}=}
+\newcommand{\asdef}{=\mathrel{\mathop:}}
+
+\newcommand{\there}{``$\Rightarrow$'' \;}
+\newcommand{\back}{``$\Leftarrow$'' \;}
+
+\newcommand{\then}{\: \Rightarrow \:}
+\newcommand{\ifonlyif}{\: \Leftrightarrow \:}
+
+\newcommand{\tobe}{\overset{!}{=}}
+\newcommand{\isit}{\overset{?}{=}}
+
+% referencing
+\newcommand{\tagstar}{\tag*{$\star$}}
+\newcommand{\refstar}{\ensuremath{(\star)}}
+\newcommand{\alrefstar}{\tag*{(\star)}}
+\newcommand{\tagstarn}[1]{\tag*{$\star_{#1}$}}
+\newcommand{\refstarn}[1]{\ensuremath{(\star_{#1})}}
+\newcommand{\alrefstarn}[1]{\tag*{(\star_{#1})}}
+
+% mathtext
+\newcommand{\sonst}{\text{sonst}}
+\newcommand{\const}{\mathrm{const}}
+
+% braces
+\newcommand{\abs}[1]{\left\lvert{#1}\right\rvert}
+\newcommand{\norm}[1]{\left\lVert{#1}\right\rVert}
+\newcommand{\angled}[1]{\left\langle{#1}\right\rangle}
+\newcommand{\tangled}[1]{\langle{#1}\rangle}
+\newcommand{\braced}[1]{\left( {#1} \right)}
+\newcommand{\sbraced}[1]{\left\{#1\right\}}
+\newcommand{\bbraced}[1]{\left[#1\right]}
+
+\newcommand{\bbinom}[2]{\genfrac[]{0pt}{0}{#1}{#2}}
+\newcommand{\cbinom}[2]{\genfrac{\{}{\}}{0pt}{0}{#1}{#2}}
+\newcommand{\ebinom}[2]{\genfrac{}{}{0pt}{0}{#1}{#2}}
+
+\newcommand{\gausslo}[1]{\left\lfloor {#1} \right\rfloor}
+\newcommand{\gausshi}[1]{\left\lceil {#1} \right\rceil}
+\newcommand{\gaussround}[1]{\left\lfloor {#1} \right\rceil}
+
+% under/overlining
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\un}[1]{\underline{#1}}
+\newcommand{\vek}[1]{\vec{#1}}
+
+% relations
+\newcommand{\sm}{\setminus}
+\newcommand{\se}{\subseteq}
+\newcommand{\nse}{\nsubseteq}
+\newcommand{\sne}{\nsubseteq}
+\newcommand{\ise}{\supseteq}
+\newcommand{\nise}{\nsupseteq}
+\newcommand{\sneq}{\subsetneqq}
+\newcommand{\isneq}{\supsetneqq}
+
+\newcommand{\subideal}{\trianglelefteq}
+\newcommand{\isubideal}{\trianglerighteq}
+
+\newcommand{\divs}{\mathrel\vert}
+\newcommand{\ndivs}{\nmid}
+\newcommand{\iso}{\simeq}
+
+\newcommand{\nequiv}{\not\equiv}
+
+% sets
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\primes}{\mathbb{P}}
+\newcommand{\potenz}{\mathcal{P}}
+
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\erw}{\mathbb{E}}
+\newcommand{\variance}{\mathbb{V}}
+
+% greek symbols
+\newcommand{\fee}{\varphi}
+\newcommand{\eps}{\varepsilon}
+
+% various tools
+\newcommand{\where}{\mathrel\big\vert}
+\newcommand{\limited}{\big\vert}
+
+% complexity theory
+\newcommand{\ordn}{\mathcal{O}}
+\newcommand{\oh}{\mathcal{O}}
+
+% analysis
+\newcommand{\de}{\, \dd}
+\newcommand{\dd}{\mathrm{d}}
+
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newcommand{\rbr}[1]{\left(#1\right)}
+\newcommand{\ebr}[1]{\left[#1\right]}
+\newcommand{\sbr}[1]{\left<#1\right>}
+\newcommand{\gbr}[1]{\left\{#1\right\}}
+\renewcommand{\det}[1]{\text{det}\left(#1\right)}
+\renewcommand{\u}[1]{\underline{#1}}
+\renewcommand{\o}[1]{\overline{#1}}
+\renewcommand{\b}[1]{\textbf{#1}}
+
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\dx}{\text{d}x}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\kA}{\mathcal{A}}
+\newcommand{\kC}{\mathcal{C}}
+\newcommand{\kP}{\mathcal{P}}
+
+\newcommand{\Lra}{\:\Leftrightarrow\:}
+\newcommand{\lra}{\:\leftrightarrow\:}
+\newcommand{\Ra}{\:\Rightarrow\:}
+\newcommand{\ra}{\:\rightarrow\:}
+\newcommand{\La}{\:\Leftarrow\:}
+\newcommand{\la}{\:\leftarrow\:}
+
+\newcommand{\limi}[1]{\lim_{#1 \rightarrow \infty}}
+\newcommand{\mceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\mfloor}[1]{\left\lfloor #1 \right\rfloor}
+
+\DeclareMathOperator{\ggT}{ggT}
+\DeclareMathOperator{\kgV}{kgV}
+
+\DeclareMathOperator{\RR}{R}
+\DeclareMathOperator{\notdivides}{\nmid}
+

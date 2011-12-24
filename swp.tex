@@ -1,0 +1,42 @@
+\documentclass[11pt,a4paper]{book}
+
+\input{usepackages}
+
+\usepackage{pgf} % Version >= 2.10 notwendig
+\usepackage{tikz}
+\usetikzlibrary{automata}
+\usetikzlibrary{intersections}
+\usepackage{bbm}
+\usepackage{nicefrac}
+\tikzstyle{vertex}  = [circle, fill = none, draw = black, minimum size = 17pt, inner sep = 0pt]
+\tikzstyle{box}  = [rectangle, fill = none, draw = black]
+\tikzstyle{edge} = [->,>=latex]
+
+\input{theorems-std}
+\input{commands}
+
+
+\newcommand{\titel}{Softwareparadigmen}
+\newcommand{\vortragender}{Alexander Felfernig}
+\newcommand{\semester}{SS 2011}
+
+\newcommand{\eng}[1]{(\textit{#1})}
+\newcommand{\compl}{\mathcal{C}}
+\newcommand{\bigdotcup}{\biguplus}
+\newcommand{\one}{\mathbbm{1}}
+\newcommand{\var}{\mathbb{V}}
+\newcommand{\bit}{\, \text{bit}}
+
+\newcommand{\given}{\mathrel\vert}
+\newcommand{\ggiven}{\mathrel\Vert}
+
+\DeclareMathOperator{\error}{error}
+\DeclareMathOperator{\capacity}{Cap}
+
+\begin{document}
+
+\input{head-book}
+
+\input{swp_1}
+
+\end{document}

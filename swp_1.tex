@@ -1,0 +1,257 @@
+\chapter{Einleitung}
+
+Dieses Skriptum versucht einen kompakten und übersichtlichen Zugang zu den Themen
+dieser Lehrveranstaltung zu schaffen. Der Vollständigkeit halber verweisen wir in der Fußnote auf die
+entsprechenden Kapitel des Vorlesungsskriptums.
+
+\section{Syntax}
+In der Informatik stehen wir oft vor dem Problem, dass wir eine Art Text auf
+Fehler überprüfen wollen und in eine andere Darstellungsform übersetzen wollen.
+Ein Webbrowser prüft beispielsweise HTML-Dokumente auf Fehler und übersetzt diese
+sofern möglich in eine praktische visuelle Darstellung.
+
+Dieses Problem wollen wir auch lösen können. Dazu brauchen wir einige Definitionen.
+
+\subsection{Definitionen}
+\begin{defn}[Alphabet]
+Ein Alphabet $\Sigma$ ist eine endliche Menge von Symbolen.
+\end{defn}
+
+Binärzahlen haben das Alphabet $\Sigma=\gbr{0,1}$.
+Eine einfache Variante der Programmiersprache HTML hat das Alphabet $\Sigma=\gbr{\texttt{<},\texttt{/},\texttt{>},\ldots,a,b,c,\ldots}$.
+
+\begin{defn}
+$\Sigma^*$ ist die Menge aller beliebigen Konkatenationen von Symbolen aus $\Sigma$.
+Ein Element aus $\Sigma^*$ nennen wir Wort.
+\end{defn}
+
+Für $\Sigma=\gbr{0,1}$ ist $\Sigma^*=\gbr{\varepsilon,0,1,00,01,10,11,000,001,\ldots}$.
+
+\begin{defn}[Sprache]
+Eine Sprache $\mathcal{L}$ ist eine Teilmenge ($\subseteq$) von $\Sigma^*$.
+\end{defn}
+
+Sei $\Sigma=\gbr{0,1}$. Definieren wir die Sprache der Binärzahlen $\mathcal{B}$,
+müssen wir zu jedem Wort aus $\Sigma^*$ entscheiden ob dieses Wort in $B$ enthalten ist.
+Im Fall der Binärzahlen könnten wir z.B. $\varepsilon$ herausnehmen, dann ist die Sprache
+$\mathcal{B}=\Sigma^* \setminus \gbr{\varepsilon}$.
+
+Würden wir die Programmiersprache $\mathcal{C}$ als formale Sprache definieren, so wäre
+ein gesamtes (gültiges) $\mathcal{C}$-Programm ein Wort der Sprache, also ein Element der Menge $\mathcal{C}$.
+
+\begin{defn}[Compiler]
+Seien $\mathcal{A}$ und $\mathcal{B}$ Programmiersprachen. Ein Compiler ist ein Programm, welches Programme von $\mathcal{A}$ nach $\mathcal{B}$ übersetzt.
+\end{defn}
+
+Ein einfacher Compiler würde beispielseweise Binärzahlen zu Dezimalzahlen übersetzen.
+
+\subsection{Grammatiken und Sprachen}
+Oft möchte man nur prüfen ob ein Wort in einer Sprache enthalten ist.
+Es ist umständlich die Menge aller Wörter einer Sprache aufzuschreiben und darin zu suchen.
+Daher wollen wir eine kürzere und Methode finden um Sprachen zu beschreiben und diese Überprüfung durchzuführen.
+
+Über Automaten (FSM) ist dies möglich. Für Binärzahlen könnte man dies z.B. so machen:
+\begin{center}
+\begin{tikzpicture}[node distance=2cm, auto]
+\node [state, initial] (0) {S};
+\node [state, accepting, right of=0] (1) {A};
+\path [->, bend left=30] (0) edge node {0} (1);
+\path [->, bend right=30] (0) edge node {1} (1);
+\path [draw, ->] (1) edge [loop below] node {1} ();
+\path [draw, ->] (1) edge [loop above] node {0} ();
+\end{tikzpicture}
+\end{center}
+
+Wir haben eine Eingabe $w$ (einem potentiellen Wort der Sprache).
+Wir beginnen im Zustand $S$. Die einzigen gültigen Übergänge sind die zu Zustand $A$. Es muss also entweder eine $0$ oder
+eine $1$ gelesen werden (wir schreiben auch gematcht/geparst). Andernfalls gibt es keinen gültigen Übergang und da $S$ kein Endzustand ist wäre die Eingabe nicht gültig.
+Im Zustand $A$ wurde bereits eine $0$ oder $1$ gelesen, also ist $w \in \mathcal{B}$. Die Übergänge von $A$ zu $A$ erlauben
+weitere Zeichen zu lesen und so längere Wörter zu erhalten, die in der Sprache enthalten sind.
+
+Eine ähnliche Herangehensweise stellen Grammatiken dar:
+\begin{defn}[Grammatik]
+Eine Grammatik ist ein 4-Tupel $(V_N, V_T, S, \Phi)$.
+\begin{itemize}
+\item $V_N$ ist eine endliche Menge von Nonterminalen (entsprechen Zuständen der FSM),
+\item $V_T$ ist eine endliche Menge von Terminalen (entsprechen Alphabet der Sprache),
+\item $S \in V_N$ das Startsymbol (wie Initialzustand der FSM),
+\item $\Phi=\gbr{\alpha \to \beta}$ eine endliche Menge von Produktionsregeln (Zustandsübergänge).
+
+$\alpha$ ist hierbei eine beliebige Aneinanderreihung von Terminalen und Nonterminalen, die zumindest ein Nonterminal enthält,
+also $(V_N \cup V_T)^* V_N (V_N \cup V_T)^*$.
+
+$\beta$ ist eine beliebige Aneinanderreihung von Terminalen und Nonterminalen, einschließlich der leeren Menge,
+also $(V_N \cup V_T)^*$.
+\end{itemize}
+\end{defn}
+
+Anhand der Binärzahlen wollen wir nun genauer betrachten wie die Produktionsregeln funktionieren.
+Bei den Zustandsübergängen des Automaten hatten wir beispielsweise ein Wort $w=AB$ mit $A \in \gbr{0,1}$ und $B \in \gbr{0,1}^*$.
+Mit dem Zustandsübergang würden wir nun das $A$ weglassen und hätten für das verbleibende zu lesende Wort $w'=B$.
+Wir ersetzen also $AB$ durch $B$. Bei den Produktionsregeln der Grammatik halten wir ganz konkret fest was wir ersetzen.
+
+Um die Grammatik der Binärzahlen $G_{\mathcal{B}}$ zu definieren müssen wir die Elemente des oben definierten 4-Tupels beschreiben.
+Die Menge der Terminale ist das Alphabet $\gbr{0,1}$.
+Den Startzustand nennen wir $S$. Nun müssen wir versuchen Produktionsregeln anzugeben um $\mathcal{B}$ zu definieren.
+\begin{align*}
+S &\to 0 \\
+S &\to 1 \\
+S &\to 0S \\
+S &\to 1S
+\end{align*}
+
+Um zu verifizieren wann ein Wort von einer Grammatik erzeugt werden kann müssen wir nun zuerst definieren was eine Ableitung ist.
+
+\begin{defn}
+Sei $\rbr{V_N,V_T,S,\Phi}$ eine Grammatik und $\alpha,\beta \in \rbr{V_N \cup V_T}^*$.
+Wenn es 2 Zeichenfolgen $\tau_1,\tau_2$ gibt, so dass $\alpha=\tau_1 A \tau_2$, $\beta=\tau_1 B \tau_2$ und $A \to B \in \Phi$,
+dann kann $\beta$ direkt (in einem Schritt) von $\alpha$ abgeleitet werden $(\alpha \to \beta)$.
+\end{defn}
+
+Diese Definition ist nur geeignet um eine Aussage darüber zu treffen was in genau einem Schritt abgeleitet werden kann. Wir definieren daher die reflexive Hülle dieses Operators.
+
+\begin{defn}
+Sei $\rbr{V_N,V_T,S,\Phi}$ eine Grammatik und $\alpha,\beta \in \rbr{V_N \cup V_T}^*$.
+Wenn es $n \in \N$ Zeichenfolgen $\tau_1,\tau_n$ gibt, so dass $\alpha \to \tau_1, \tau_1 \to \tau_2 , \ldots , \tau_{n-1} \to \tau_n , \tau_n \to \beta$,
+dann kann $\beta$ von $\alpha$ (in $n$ Schritten) abgeleitet werden $(\alpha \overset{+}{\to} \beta)$.
+\end{defn}
+
+Diese Definition ist für $n \geq 1$ geeignet. Wenn $\alpha = \beta$ ist, wäre $n=0$. Wir definieren die reflexive, transitive Hülle durch eine Verknüpfung dieser beiden Fälle.
+
+\begin{defn}
+Es gilt $\alpha \overset{*}{\to} \beta$, genau dann wenn $\alpha \overset{+}{\to} \beta$ oder $\alpha = \beta$ (reflexive, transitive Hülle).
+\end{defn}
+
+Mit dieser Definition können wir alle Wörter ableiten die diese Grammatik produziert.
+
+\begin{defn}
+Sei $\rbr{V_N,V_T,S,\Phi}$ eine Grammatik $G$. $G$ akzeptiert die Sprache $L(G)=\gbr{w \: | \: S \overset{*}{\to} w, w \in V_T^*}$, d.h. die Menge aller Wörter $w$ die in beliebig
+vielen Schritten aus dem Startsymbol $S$ ableitbar sind und in der Menge aller beliebigen Konkatenationen von Terminalsymbolen $V_T$ enthalten sind.
+\end{defn}
+
+Die Äquivalenz von zwei Sprachen zu zeigen ist im Allgemeinen nicht trivial. Wenn wir versuchen eine Sprache $\mathcal{L}$ durch eine Grammatik $G$ zu beschreiben
+ist es im Allgemeinen nicht trivial zu zeigen dass $L(G)=\mathcal{L}$.
+
+An dieser Stelle möchten wir festzuhalten: Um die Gleichheit zweier Mengen (Sprachen) $M,N$ zu zeigen muss gezeigt werden, dass jedes Element (Wort) aus $M$ in $N$ enthalten ist
+und jedes Element (Wort) aus $N$ in $M$ enthalten ist. Ungleichheit ist daher viel leichter zu zeigen, da es genügt ein Element (Wort) zu finden welches nicht in beiden Mengen (Sprachen) enthalten ist. Der geneigte Leser kann probieren die Gleichheit oder Ungleichheit der Sprache unserer oben definierten Grammatik und der Sprache der Binärzahlen zu zeigen.
+
+\begin{defn}
+Ein Programm $P_{\mathcal{L}}$ welches für ein Wort $w$ entscheidet ob es in der Sprache $\mathcal{L}$ enthalten ist (d.h. \verb|true| dann und nur dann zurückliefert wenn es enthalten ist), nennen wir \textbf{Parser}.
+\end{defn}
+
+\subsubsection{Chomsky-Sprachhierarchie}
+Durch die Grammatik können wir entscheiden ob ein Wort in einer Sprache enthalten ist.
+Im Falle der Binärzahlen haben wir eine kurze und einfache Grammatik und können einen Parser schreiben
+welches entscheidet ob ein Eingabewort in der Sprache enthalten ist.
+Definieren wir eine Programmiersprache wie $\mathcal{C}$ formal, so wird nicht nur die Anzahl der Produktionsreglen höher sein
+sondern auch die Komplexität der Produktionsregeln ($\alpha \to \beta$ mit komplexen Ausdrücken für $\alpha$ und $\beta$).
+Es ist dann erheblich schwieriger einen Parser zu schreiben.
+Wir haben also Interesse daran möglichst einfache Grammatiken zu finden. Dazu müssen wir
+Grammatiken nach ihrer Komplexität vergleichen können.
+
+Wir haben Produktionsregeln definiert durch $\alpha \to \beta$, wobei
+$\alpha$ zumindest ein Nonterminal enthält.
+\begin{defn}
+Eine Grammatik ist nach der Chomsky-Sprachhierarchie:
+\begin{itemize}
+\item allgemein/uneingeschränkt (unrestricted)
+
+Keine Restriktionen
+\item Kontext-sensitiv (context sensitive): $\abs{\alpha} \leq \abs{\beta}$
+
+Es werden nicht mehr Symbole gelöscht als produziert werden)
+\item Kontext-frei (context free): $\abs{\alpha} \leq \abs{\beta}, \quad \alpha \in V_N$
+
+Wie Kontext-sensitiv; außerdem muss $\alpha$ \textbf{ein} Non-Terminal sein
+\item regulär (regular): $\abs{\alpha} \leq \abs{\beta}, \quad \alpha \in V_N, \quad \beta=aA, \quad a \in V_T \cup \gbr{\varepsilon}, A \in V_N \cup \gbr{\varepsilon}$
+
+Wie Kontext-frei; außerdem ist $\beta=aA$ wobei $a$ ein Terminal oder $\varepsilon$ ist und $A$ ein Nonterminal oder $\varepsilon$. (Anmerkung: $\varepsilon\varepsilon=\varepsilon$)
+\end{itemize}
+Es gilt $\mathbb{L}_{\text{regular}} \subset \mathbb{L}_{\text{context free}} \subset \mathbb{L}_{\text{context sensitive}} \subset \mathbb{L}_{\text{unrestricted}}$ ($\mathbb{L}_{\text{x}}$ Menge aller Sprachen der Stufe $x$).
+\end{defn}
+
+Nicht alle Grammatiken können in eine äquivalente Grammatik einer stärker eingeschränkten Stufe umgewandelt werden. Um zu zeigen dass es sich um echte Teilmengen ($A \subset B$) handelt müssen wir zeigen dass alle Elemente aus $A$ in $B$ enthalten sind und mindestens ein Element aus $B$ nicht in $A$ enthalten ist.
+Eine Beweisskizze dazu findet sich im Vorlesungsskriptum auf Seite 12. Dort wird wird unter gezeigt, dass es für $L=\gbr{a^n b a^n|n \in \N_0}$ äquivalente reguläre Grammatik $G$ gibt, d.h. $\not \exists G \in \mathbb{L}_{\text{x}} : L(G) = L$.
+
+Die Chomsky-Sprachhierarchie unterscheidet Sprachen anhand der Komplexität der produzierten Sprache.
+
+\subsubsection{Parser}
+Wir überspringen an dieser Stelle den BPARSE-Algorithmus (siehe Vorlesungsskriptum) und betrachten stattdessen
+einen Recursive Descent Parser (RDP).
+
+Bei einem RDP werden alle Nonterminale in Funktionen übersetzt und diese Funktionen behandeln die verschiedenen Produktionsregeln.
+Die Eingabe wird in die Terminale unterteilt (auch Tokens genannt).
+Wir verwenden im Pseudo-Code die Variable \verb|token|, die immer das aktuelle Token enthält, sowie die Funktion \verb|nextToken()|, die \verb|token| auf das nächste Token setzt.
+Der Parser ruft die Startfunktion auf und gibt \verb|true| zurück wenn \verb|token| leer ist (d.h. das Ende der Eingabe erreicht wurde). \verb|ERROR| führt dazu dass der Parser die Eingabe (das Wort) nicht akzeptiert.
+
+Sei $G_{\text{bin1}}=(\gbr{S,T},\gbr{0,1},S,\gbr{S \to 0,S \to 1T, T \to 0T, T \to 1T, T \to \varepsilon})$.
+Der Pseudo-Code des RDP zu dieser Grammatik könnte so aussehen:
+\begin{verbatim}
+FUNC S()
+  IF token == 0
+    nextToken()
+  ELSE IF token == 1
+    nextToken()
+    T()
+  ELSE
+    ERROR
+
+FUNC T()
+  IF token == 0
+    nextToken()
+    T()
+    RETURN
+  ELSE IF token == 1
+    nextToken()
+    T()
+    RETURN
+  ELSE IF token == epsilon
+    RETURN
+  ERROR  
+\end{verbatim}
+
+Sei $G_{\text{bin2}}=\rbr{\gbr{S,T},\gbr{0,1},S,\gbr{S \to 0, S \to 1T, T \to T0, T \to T1, T \to \varepsilon}}$.
+Wir wissen $L(G_{\text{bin1}})=L(G_{\text{bin2}})$ (ohne Beweis) und versuchen auch hier einen einfachen rekursiven Parser zu schreiben.
+
+\begin{verbatim}
+FUNC S()
+  IF token == 0
+    nextToken()
+  ELSE IF token == 1
+    nextToken()
+    T()
+  ELSE
+    ERROR
+
+FUNC T()
+  IF token == 0
+    T()          // Endlos-Rekursion
+    nextToken()
+    RETURN
+  ELSE IF token == 1
+    T()          // Endlos-Rekursion
+    nextToken()
+    RETURN
+  ELSE IF token == epsilon
+    RETURN
+  ERROR  
+\end{verbatim}
+
+Wir erhalten hier im Parser eine Endlos-Rekursion.
+\begin{defn}[Mehrdeutig, Eindeutig]
+Sei $G=(V_N,V_T,S,\Phi)$ eine Grammatik. Wenn es für ein Wort $w \in L(G)$ mehrere
+unterschiedliche Ableitungssequenzen $\omega,\psi$, d.h. $S \to \omega_1, \omega_1 \to \ldots, \ldots \to \omega_n, \omega_n \to w$,
+                                                         $S \to \psi_1, \psi_1 \to \ldots, \ldots \to \psi_k, \omega_k \to w$
+wobei $\exists \psi_i : \psi_i \neq \omega_i$, ist es mehrdeutig. Wenn eine Grammatik ist genau dann eindeutig, wenn sie nicht mehrdeutig ist.
+\end{defn}
+
+\begin{defn}[Linksrekursiv]
+Eine Grammatik ist direkt linksrekursiv wenn sie eine Produktion der Form $A\alpha \to A\beta$ enthält, wobei $A$ ein Nonterminal ist.
+Eine Grammatik ist indirekt linksrekursiv wenn sie Produktionen der Form $A\alpha \to A_1\beta_1, A_1 \alpha_1 \to A_2\beta_2, \ldots, A_n \alpha_n \to A\beta_n$ enthält, wobei $A,A_i$ Nonterminale sind.
+Eine Grammatik ist linksrekursiv wenn sie direkt oder indirekt linksrekursiv ist.
+\end{defn}
+
+Nun können wir mit Sprachen und Grammatiken umgehen und diese nach ihrer Komplexität einstufen.
+\section{Compilerbau}
+\subsection{Lexikalische Analyse}
+

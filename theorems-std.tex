@@ -1,0 +1,62 @@
+\newtheoremstyle{plain}
+  {6pt}%  space above
+  {5pt}%  space below
+  {}% body font
+  {}% indent amount
+  {\bfseries}% thm head font
+  {:}% punctuation after head
+  {0.5em}% space after thm head
+  {}%    
+
+\newtheoremstyle{remark}
+  {6pt}%  space above
+  {5pt}%  space below
+  {}% body font
+  {}% indent amount
+  {\itshape}% thm head font
+  {:}% punctuation after head
+  {0.5em}% space after thm head
+  {}% 
+  
+
+\newtheoremstyle{proof}
+  {0pt}%  space above
+  {5pt}%  space below
+  {}% body font
+  {}% indent amount
+  {\itshape}% thm head font
+  {:}% punctuation after head
+  {0.5em}% space after thm head
+  {}% 
+
+\newtheoremstyle{plainnl}
+  {6pt}%  space above
+  {5pt}%  space below
+  {}% body font
+  {}% indent amount
+  {\bfseries}% thm head font
+  {:}% punctuation after head
+  {0.5em} %{\newline}% space after thm head
+  {}%    
+  
+\theoremstyle{plain}
+\newtheorem{satz}{Satz}[chapter]
+\newtheorem{kor}[satz]{Korollar}
+\newtheorem{lem}[satz]{Lemma}
+\newtheorem{prop}[satz]{Proposition}
+%\theoremstyle{definition}
+\newtheorem{defn}{Definition}[chapter]
+\newtheorem*{notation}{Notation}
+\newtheorem*{problem}{Problem}
+\theoremstyle{plainnl}
+\newtheorem*{algo}{Algorithmus}
+\theoremstyle{proof}
+\newtheorem*{beweis}{Beweis}
+\theoremstyle{remark}
+\newtheorem*{anm}{Anmerkung}
+\newtheorem*{bsp}{Beispiel}
+\newtheorem*{beh}{Behauptung}
+\newtheorem*{frage}{Frage}
+\newtheorem*{idee}{Idee}
+\newtheorem*{beob}{Beobachtung}
+\newtheorem*{uebung}{"Ubung}
