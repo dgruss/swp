@@ -187,7 +187,7 @@ Eine Beweisskizze dazu findet sich im Vorlesungsskriptum auf Seite 12. Dort wird
 
 Die Chomsky-Sprachhierarchie unterscheidet Sprachen anhand der Komplexität der produzierten Sprache.
 
-\subsubsection{Parser}
+\subsubsection{Parser}\label{subsubsec:parser}
 Wir überspringen an dieser Stelle den BPARSE-Algorithmus (siehe Vorlesungsskriptum) und betrachten stattdessen
 einen Recursive Descent Parser (RDP).
 
@@ -268,6 +268,42 @@ Eine Grammatik ist linksrekursiv wenn sie direkt oder indirekt linksrekursiv ist
 \end{defn}
 
 Nun können wir mit Sprachen und Grammatiken umgehen und diese nach ihrer Komplexität einstufen.
-\subsection{Lexikalische Analyse}
-\subsection{Grammatikalische Analyse}
+
+\subsection{Compilerbau}
+Wir wollen uns nun damit beschäftigen wie wir Compiler für Programmiersprachen bauen können.
+Wir hatten definiert dass ein Compiler eine Wort $w$ einer Sprache $\mathcal{L}$ entgegennimmt und
+die Übersetzung des Wortes $w'$ in einer Sprache $\mathcal{L}'$ zurückgibt.
+Konkreter erhält unser Compiler einen beispielsweise einen ASCII-String, wobei unser Alphabet $\Sigma_\mathcal{L}$ meist
+nicht dem ASCII-Alphabet entspricht. Betrachten wir beispielsweise die Programmiersprache $\mathcal{C}$ so können wir
+auch Schlüsselwörter wie \verb|int| in $\Sigma_\mathcal{C}$ haben.
+Außerdem gibt es eventuell Whitespaces (Leerzeichen, Tabulatoren, Zeilenumbrüche, etc.; je nach dem positionsabhängig), die keinen Einfluss darauf haben ob das
+Eingabewort ein Wort der Sprache $\mathcal{C}$ ist, d.h. ein $\mathcal{C}$-Programm ist. Auch Variablen- oder Funktionsnamen werden abgesehen von einer
+gewissen Form die sie einhalten müssen (z.B. ``dürfen nicht nur aus Zahlen bestehen'') keinen Einfluss darauf haben ob das Programm in der Sprache enthalten ist.
+Wenn wir dies berücksichtigen, verkürzen wir die Grammatik und vereinfachen so unseren Parser sowie eventuelle weitere Rechenschritte.
+
+\subsubsection{Lexikalische Analyse}
+Wir haben bereits in Abschnitt \ref{subsubsec:parser} von Tokens geredet. Von Tokens spricht man insbesondere bei einer Sprache die durch Whitespaces getrennt werden. Ein Token ist hierbei die kleinste Sequenz von Zeichen die für die Grammatik eine Bedeutung hat.
+Der erste Schritt der Kompiliervorgangs ist es die Eingabe in eine Sequenz von Tokens umzuwandeln (dies kann natürlich wie bei unserem rekursiven Parser während dem Parsen passieren).
+
+Wir wollen z.B. den $\mathcal{C}$-Code \verb|int main() { printf("helloworld"); return 123; }| in die Sequenz von Tokens \verb|INT ID ( ) { ID ( STRING ) ; RETURN NUM ; }| umwandeln. Wir nennen dies ``Lexikalische Analyse''. Es fällt auf dass in der Token-Sequenz keine Namen oder Zahlen mehr vorkommen außerdem sind nun die Tokens
+voneinander getrennt.
+Es ist üblich zur lexikalischen Analyse nur reguläre Grammatiken zu verwenden. Diese sind mächtig genug um beispielsweise nur gewisse Variablennamen zu erlauben
+und können andererseits sehr schnell berechnet werden.
+Eine reguläre Grammatiken kann auch über einen regulären Ausdruck (Regular Expression/Regex) kompakt dargestellt werden.
+
+\begin{defn}
+Ein regulärer Ausdruck $A$ ist wie folgt rekursiv definiert (mit regulären Ausdrücken $Q$ und $R$):
+\[A = \begin{cases}
+\varepsilon & \text{Leerstring} \\
+t & \text{ein Terminal, d.h. $t \in V_T$} \\
+Q|R & \text{entweder $A=Q$ oder $A=R$} \\
+QR & \text{Konkatenation zweier regulärer Ausdrücke} \\
+Q? & \text{entweder $A=Q$ oder $A=\varepsilon$} \\
+Q* & \text{beliebige Konkatenation von $Q$ mit sich selbst, d.h. $A \in \gbr{\varepsilon,Q,QQ,\ldots}$} \\
+Q+ & \text{Gleiche Bedeutung wie $QQ*$, d.h. mindestens ein $Q$} \\
+(Q) & \text{Klammerung des Ausdrucks $Q$} \\
+\end{cases}\]
+\end{defn}
+
+\subsubsection{Grammatikalische Analyse}
 \section{Semantik von Programmiersprachen}
