@@ -1,18 +1,16 @@
-\chapter{Einleitung}
-
+\chapter{Syntax}
 Dieses Skriptum versucht einen kompakten und übersichtlichen Zugang zu den Themen
 dieser Lehrveranstaltung zu schaffen. Der Vollständigkeit halber verweisen wir in der Fußnote auf die
 entsprechenden Kapitel des Vorlesungsskriptums.
 
-\section{Syntax}
 In der Informatik stehen wir oft vor dem Problem, dass wir eine Art Text auf
 Fehler überprüfen wollen und in eine andere Darstellungsform übersetzen wollen.
 Ein Webbrowser prüft beispielsweise HTML-Dokumente auf Fehler und übersetzt diese
 sofern möglich in eine praktische visuelle Darstellung.
 
-Dieses Problem wollen wir auch lösen können. Dazu brauchen wir einige Definitionen.
+Dieses Problem wollen wir auch lösen können. Dazu brauchen wir zunächst einige grundlegende Definitionen.
 
-\subsection{Definitionen}
+\section{Definitionen}
 \begin{defn}[Alphabet]
 Ein Alphabet $\Sigma$ ist eine endliche Menge von Symbolen.
 \end{defn}
@@ -45,7 +43,7 @@ Seien $\mathcal{A}$ und $\mathcal{B}$ Programmiersprachen. Ein Compiler ist ein 
 
 Ein einfacher Compiler würde beispielseweise Binärzahlen zu Dezimalzahlen übersetzen.
 
-\subsection{Grammatiken und Sprachen}
+\section{Grammatiken und Sprachen}
 Oft möchte man nur prüfen ob ein Wort in einer Sprache enthalten ist.
 Es ist umständlich die Menge aller Wörter einer Sprache aufzuschreiben und darin zu suchen.
 Daher wollen wir eine kürzere und Methode finden um Sprachen zu beschreiben und diese Überprüfung durchzuführen.
@@ -151,7 +149,7 @@ und jedes Element (Wort) aus $N$ in $M$ enthalten ist. Ungleichheit ist daher vi
 Ein Programm $P_{\mathcal{L}}$ welches für ein Wort $w$ entscheidet ob es in der Sprache $\mathcal{L}$ enthalten ist (d.h. \verb|true| dann und nur dann zurückliefert wenn es enthalten ist), nennen wir \textbf{Parser}.
 \end{defn}
 
-\subsubsection{Chomsky-Sprachhierarchie}
+\section{Chomsky-Sprachhierarchie}
 Durch die Grammatik können wir entscheiden ob ein Wort in einer Sprache enthalten ist.
 Im Falle der Binärzahlen haben wir eine kurze und einfache Grammatik und können einen Parser schreiben
 welches entscheidet ob ein Eingabewort in der Sprache enthalten ist.
@@ -187,7 +185,7 @@ Eine Beweisskizze dazu findet sich im Vorlesungsskriptum auf Seite 12. Dort wird
 
 Die Chomsky-Sprachhierarchie unterscheidet Sprachen anhand der Komplexität der produzierten Sprache.
 
-\subsubsection{Parser}\label{subsubsec:parser}
+\section{Parser}\label{subsec:parser}
 Wir überspringen an dieser Stelle den BPARSE-Algorithmus (siehe Vorlesungsskriptum) und betrachten stattdessen
 einen Recursive Descent Parser (RDP).
 
@@ -269,7 +267,7 @@ Eine Grammatik ist linksrekursiv wenn sie direkt oder indirekt linksrekursiv ist
 
 Nun können wir mit Sprachen und Grammatiken umgehen und diese nach ihrer Komplexität einstufen.
 
-\subsection{Compilerbau}
+\section{Compilerbau}
 Wir wollen uns nun damit beschäftigen wie wir Compiler für Programmiersprachen bauen können.
 Wir hatten definiert dass ein Compiler eine Wort $w$ einer Sprache $\mathcal{L}$ entgegennimmt und
 die Übersetzung des Wortes $w'$ in einer Sprache $\mathcal{L}'$ zurückgibt.
@@ -281,8 +279,8 @@ Eingabewort ein Wort der Sprache $\mathcal{C}$ ist, d.h. ein $\mathcal{C}$-Progr
 gewissen Form die sie einhalten müssen (z.B. ``dürfen nicht nur aus Zahlen bestehen'') keinen Einfluss darauf haben ob das Programm in der Sprache enthalten ist.
 Wenn wir dies berücksichtigen, verkürzen wir die Grammatik und vereinfachen so unseren Parser sowie eventuelle weitere Rechenschritte.
 
-\subsubsection{Lexikalische Analyse}
-Wir haben bereits in Abschnitt \ref{subsubsec:parser} von Tokens geredet. Von Tokens spricht man insbesondere bei einer Sprache die durch Whitespaces getrennt werden. Ein Token ist hierbei die kleinste Sequenz von Zeichen die für die Grammatik eine Bedeutung hat.
+\section{Lexikalische Analyse}
+Wir haben bereits in Abschnitt \ref{subsec:parser} von Tokens geredet. Von Tokens spricht man insbesondere bei einer Sprache die durch Whitespaces getrennt werden. Ein Token ist hierbei die kleinste Sequenz von Zeichen die für die Grammatik eine Bedeutung hat.
 Der erste Schritt der Kompiliervorgangs ist es die Eingabe in eine Sequenz von Tokens umzuwandeln (dies kann natürlich wie bei unserem rekursiven Parser während dem Parsen passieren).
 
 Wir wollen z.B. den $\mathcal{C}$-Code \verb|int main() { printf("helloworld"); return 123; }| in die Sequenz von Tokens \verb|INT ID ( ) { ID ( STRING ) ; RETURN NUM ; }| umwandeln. Wir nennen dies ``Lexikalische Analyse''. Es fällt auf dass in der Token-Sequenz keine Namen oder Zahlen mehr vorkommen außerdem sind nun die Tokens
@@ -298,12 +296,155 @@ Ein regulärer Ausdruck $A$ ist wie folgt rekursiv definiert (mit regulären Aus
 t & \text{ein Terminal, d.h. $t \in V_T$} \\
 Q|R & \text{entweder $A=Q$ oder $A=R$} \\
 QR & \text{Konkatenation zweier regulärer Ausdrücke} \\
-Q? & \text{entweder $A=Q$ oder $A=\varepsilon$} \\
+Q? & \text{entspricht $Q|\varepsilon$, d.h. $Q$ ist optional} \\
 Q* & \text{beliebige Konkatenation von $Q$ mit sich selbst, d.h. $A \in \gbr{\varepsilon,Q,QQ,\ldots}$} \\
-Q+ & \text{Gleiche Bedeutung wie $QQ*$, d.h. mindestens ein $Q$} \\
-(Q) & \text{Klammerung des Ausdrucks $Q$} \\
+Q+ & \text{entspricht $QQ*$, d.h. mindestens ein $Q$} \\
+(Q) & \text{Klammerung des Ausdrucks $Q$}
 \end{cases}\]
 \end{defn}
 
-\subsubsection{Grammatikalische Analyse}
-\section{Semantik von Programmiersprachen}
+Die Sprache der Binärzahlen hatten wir bereits in Abschnitt \ref{subsec:parser} durch die Grammatik $G_{\text{bin1}}=(\gbr{S,T},\gbr{0,1},S,\gbr{S \to 0,S \to 1T, T \to 0T, T \to 1T, T \to \varepsilon})$
+beschrieben. Wir können nun diese Grammatik in einen regulären Ausdruck übersetzen indem wir uns nach und nach überlegen welche Werte folgen können.
+Beginnend bei $S$ erhalten wir den Teilausdruck $0|(1\tau)$. Für $\tau$ müssen wir noch einen regulären Ausdruck einsetzen: $\tau=(0|1)*$.
+Damit erhalten wir den Ausdruck $0|(1(0|1)*)$.
+
+Zur Vereinfachung erlauben wir Variablen (Bezeichner) in regulären Ausdrücken:
+\begin{defn}
+Sei $B$ die Menge aller Variablen (Bezeichnungen). Ein regulärer Ausdruck der eine Variable $b$ aus $B$ enthält ist ein erweiterter regulärer Ausdruck.
+Wenn $E$ ein erweiterter regulärer Ausdruck ist und $c$ eine Variable aus $B$, dann ist $c := E$ ist eine reguläre Definition.
+\end{defn}
+
+Die Sprache der natürlichen Zahlen inkl. Null beschreiben wir durch den Ausdruck
+\verb#0|((1|2|3|4|5|6|7|8|9)(0|1|2|3|4|5|6|7|8|9)*)#.
+Durch die Definition erweiterter regulärer Ausdrücke können wir nun komplexe Ausdrücke in due einzelnen Bestandteile kapseln und so
+besser lesbare Ausdrücke schaffen.
+Diesen Ausdruck können wir nun aufteilen indem wir die Teilausdrücke \verb#digit_not_null := (1|2|3|4|5|6|7|8|9)# und \verb#digit := 0 | digit_not_null# definieren.
+Dann erhalten wir den wesentlich leichter verständlichen Ausdruck \verb#0|(digit_not_null digit*)#.
+
+Mit erweiterten regulären Ausdrücken können wir nun einfach den Eingabestring in eine Token-Sequenz aufteilen.
+Übersetzen wir dazu den erweiterten regulären Ausdruck zu einer Funktion so beobachten wir:
+\begin{itemize}
+\item Terminale werden zu \verb|if|-Abfragen,
+\item \verb|Q*| wird zu einem Schleifenkonstrukt,
+\item \verb#Q|R# wird zu einer \verb|if, else if, else|-Abfrage wobei der \verb|else| Fall zu einem Ablehnen der Eingabe führt,
+\item \verb|QR| bedeutet dass zuerst \verb|Q| überprüft wird, danach \verb|R|.
+\end{itemize}
+\section{Grammatikalische Analyse}
+Der letzte Schritt der Syntaxanalyse ist die grammatikalische Analyse. In diesem Schritt wollen wir anhand der Token-Sequenz prüfen ob das Eingabewort in der Sprache der Grammatik enthalten ist. Den Verarbeitung einschließlich diesen Schrittes nennen wir ``Parsing''. Als Nebenprodukt wird oft ein Parse-Baum aufgebaut, der zusätzlich zur Reihenfolge der Tokens auch die Kapselung im Programm ausdrückt.
+Hierzu verwenden wir das Beispiel aus dem Vorlesungsskriptum und werden uns auch weitgehend an diesem orientieren.
+Wir entwerfen eine Grammatik für einfache arithmetische Ausdrücke, bestehend aus Zahlen, Operatoren (Addition und Multiplikation) und Klammern. Die Bindungsstärke von Operatoren
+behandeln wir auf Syntax-Ebene nicht.
+
+Bei kontext-freien oder regulären Grammatiken werden wir fortan nur noch die Produktionsregeln mit unterstrichenen Nonterminalen anschreiben, da die Grammatik dadurch vollständig definiert wird:
+\begin{itemize}
+\item $V_N$ ist die Vereinigung über alle Symbole auf der linken Seite der Produktionsregeln (d.h. alle Nonterminale),
+\item $V_T$ ist die Vereinigung aller unterstrichenen Zeichenfolgen (d.h. alle Terminale),
+\item $S$, das Startsymbol ist (soweit nicht anders festgehalten) das erste aufgeführte Nonterminal,
+\item $\Phi$ wird explizit angegeben.
+\end{itemize}
+
+Wir definieren nun die Sprache der einfachen arithmetischen Ausdrücke durch:
+\begin{enumerate}
+\item $E \to E \u{+} E$
+\item $E \to E \u{*} E$
+\item $E \to \u{(} E \u{)}$
+\item $E \to \u{\text{num}}$
+\end{enumerate}
+
+Wir sehen dass diese Grammatik eine kontext-freie Grammatik ist. Außerdem sehen wir anhand von Regel 1 und 2, dass die Grammatik linksrekursiv ist.
+Weiters können wir für den Satz \u{num + num * num} zwei mögliche Ableitungen finden. Wir verwenden dazu eine verkürzte Form der Darstellung aus Abschnitt \ref{subsec:parser}.
+Die Vorgehensweise dabei nennt man auch Top-Down-Parsing.
+\begin{enumerate}
+\item $E \to E \u{*} E \to E \u{*} E \u{+} E\to\u{\text{num+}}E\u{*}E\to\u{\text{num + num *}}E \to \u{\text{num + num * num}}$
+\item $E \to E \u{+} E \to E \u{+} E \u{*} E\to\u{\text{num+}}E\u{*}E\to\u{\text{num + num *}}E \to \u{\text{num + num * num}}$
+\end{enumerate}
+Dies zeigt dass die Grammatik mehrdeutig ist.
+
+Eine weitere Möglichkeit dies anschaulich darzustellen sind Parse-Trees. Ein Parse-Tree stellt einen konkreten Parse-Vorgang dar. Der Wurzel-Knoten das Startsymbol. Die Kinder jedes Knotens sind die einzelnen Terminale und Nonterminale die dieser Knoten produziert (von links nach rechts entsprechend der Grammatik). Die obigen Parse-Sequenzen lassen sich so darstellen:
+
+\begin{tabular}{p{0.47\hsize}p{0.47\hsize}}
+\begin{tikzpicture}[node distance=1.9cm, auto]
+\node [state] (0) {E};
+
+\node [state, below of=0, accepting] (1) {\u{+}};
+\node [state, left of=1] (2) {E};
+\node [state, right of=1] (3) {E};
+
+\node [state, below of=3, accepting] (4) {\u{*}};
+\node [state, left of=4] (5) {E};
+\node [state, right of=4] (6) {E};
+
+\node [state, below of=2, accepting] (7) {\u{num}};
+
+\node [state, below of=5, accepting] (8) {\u{num}};
+\node [state, below of=6, accepting] (9) {\u{num}};
+
+\path [->] (0) edge (1);
+\path [->] (0) edge (2);
+\path [->] (0) edge (3);
+
+\path [->] (3) edge (4);
+\path [->] (3) edge (5);
+\path [->] (3) edge (6);
+
+\path [->] (2) edge (7);
+\path [->] (5) edge (8);
+\path [->] (6) edge (9);
+\end{tikzpicture}
+&
+\begin{tikzpicture}[node distance=1.9cm, auto]
+\node [state] (0) {E};
+
+\node [state, below of=0, accepting] (1) {\u{*}};
+\node [state, left of=1] (3) {E};
+\node [state, right of=1] (2) {E};
+
+\node [state, below of=3, accepting] (4) {\u{+}};
+\node [state, left of=4] (5) {E};
+\node [state, right of=4] (6) {E};
+
+\node [state, below of=2, accepting] (7) {\u{num}};
+
+\node [state, below of=5, accepting] (8) {\u{num}};
+\node [state, below of=6, accepting] (9) {\u{num}};
+
+\path [->] (0) edge (1);
+\path [->] (0) edge (2);
+\path [->] (0) edge (3);
+
+\path [->] (3) edge (4);
+\path [->] (3) edge (5);
+\path [->] (3) edge (6);
+
+\path [->] (2) edge (7);
+\path [->] (5) edge (8);
+\path [->] (6) edge (9);
+\end{tikzpicture}
+\end{tabular}
+
+Das geparste Wort kann in den Blättern des Baumes von links nach rechts abgelesen werden. Hier ist die Mehrdeutigkeit ebenfalls sehr gut erkennbar.
+
+Eine weitere Beobachtung ist, dass es ungünstig ist wenn es für unseren Parser nicht genügt dass aktuelle Token zu kennen sondern für das Parsing auch weitere nachfolgende Tokens ermittelt werden müssen.
+Ist das Eingabewort \verb|num|, so haben wir 3 Regeln die alle zutreffen könnten (ohne Kenntnis der nachfolgenden Tokens).
+
+Wir definieren einfache Regeln zwecks Auflösung von:
+\begin{itemize}
+\item \textbf{Indirekten Linksrekursionen}
+
+Gibt es Produktionen der Form $A \to \alpha B \beta$ sowie $B \to \gamma$, dann kann man die Produktion
+$A \to \alpha \gamma \beta$ einfügen. Wenn $\alpha=\varepsilon$ ist können so indirekte Linksrekursionen gefunden werden.
+\item \textbf{Direkten Linksrekursionen}
+
+Gibt es Produktionen der Form $A \to A \alpha$ und $A \to \beta$, dann kann man diese in Produktionen der Form $A \to \beta R$ sowie 
+$R \to \alpha R | \varepsilon$ umwandeln.
+\item \textbf{Linksfaktorisierungen}
+
+Gibt es Produktionen der Form $A \to \alpha B$ sowie $A \to \alpha C$, wobei $\alpha$ der größte gemeinsame Prefix von $\alpha B$ und $\alpha C$ ist,
+so können wir diese Produktion durch $A \to \alpha R$ und $R \to B | C$ ersetzen. Der größte gemeinsame Prefix einer Sequenz von Terminalen und Nonterminalen ist die größte
+gemeinsame Zeichenkette dieser Sequenzen. Der größte gemeinsame Prefix von \u{if E then E else E} und \u{if E then E} ist \u{if E then E}.
+
+
+
+\end{itemize}
+
+\chapter{Semantik von Programmiersprachen}
