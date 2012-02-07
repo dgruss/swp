@@ -1,0 +1,212 @@
+\chapter{Semantik von Programmiersprachen}
+Im ersten Kapitel haben wir uns damit beschäftigt wie ein Wort (Programm) einer Sprache eindeutig geparst werden kann.
+Die Wörter (Programme) haben jedoch noch keine Bedeutung. Wir wollen uns nun damit beschäftigen
+Sprachen eine Bedeutung zu geben und Sprachen anhand der Bedeutung der Wörter 
+zu unterscheiden. Im Kontext der Semantik verwenden wir vermehrt den Begriff ``Programm einer Programmiersprache'' anstatt ``Wort einer Sprache''.
+
+Im zweiten Kapitel betrachten wir nur noch syntaktisch korrekte Eingaben, d.h. wir betrachten den Fall nachdem der Parser bereits
+entschieden hat, dass eine Eingabe ein syntaktisch gültiges Programm ist.
+
+Wir teilen dazu Sprachen hauptsächlich in funktionale, imperative und logische Sprachen.
+Zu jedem dieser drei Sprachparadigmen werden wir Sprachen konstruieren und deren
+Semantik definieren.
+
+Sowohl für die Definition der Semantik als auch für die Interpretation eines konkreten Programms
+in einer Sprache, werden wir mathematische Funktionen definieren: die Interpretationsfunktion sowie weitere Hilfsfunktionen.
+Diese mathematische Definition wird es uns erlauben die Korrektheit unserer Programme
+zu beweisen.
+
+Um Syntax und Semantik zu unterscheiden werden wir Programme einer Sprache wie bisher unterstreichen.
+Die Beschreibung der Semantik ist kein Programm und wird daher auch keinesfalls unterstrichen.
+
+\begin{bsp}
+Was drückt der Ausdruck \u{a = b + c} aus? (vgl. Vorlesungsskriptum Seite 42)
+
+Es gibt einige mögliche Interpretationen, hier eine Auswahl davon:
+\begin{enumerate}
+\item Imperative Interpretation: Eine Zuweisung wie in $C$. \u{a} hat nach der Ausführung des Ausdrucks den Wert der Summe der Werte von \u{b} und \u{c}.
+Andere Variante: Der Wert von \u{a} ist nach der Zuweisung die Zeichenfolge \u{b + c}.
+\item Funktionale Interpretation: Eine Funktion \u{a} wird mit den 4 Parametern \u{= b + c} aufgerufen.
+\item Logische Interpretation: Ein logischer Ausdruck, beispielsweise ist der Ausdruck Wahr wenn der Wert von \u{a} gleich der Summe der Werte von \u{b} und \u{c} ist.
+Andere Variante: Der Wert von 2 der 3 Variablen ist bekannt, der Wert der 3. Variable wird so festgelegt.
+\end{enumerate}
+Wir sehen anhand dieses Beispiels dass es wichtig ist exakt zu definieren wie ein Ausdruck
+zu interpretieren ist.
+\end{bsp}
+
+In funktionalen Programmiersprachen besteht jedes Programm aus einer oder mehreren
+Funktionen.
+\begin{defn}[Funktion]\label{defn:Funktion}
+Eine Funktion ist eine Relation zwischen einer Menge $A$ und einer Menge $B$.
+Jedem Element aus der Menge $A$ wird genau ein Element der Menge $B$ zugeordnet.
+Das heißt: Für jeden möglichen Eingabewert gibt es genau einen Ausgabewert.
+\end{defn}
+
+\section{Sprache $\mathcal{A}$ - einfache arithmetische Ausdrücke}
+Arithmetische Ausdrücke sind Funktionen. Wir können beispielsweise die Funktionen
+Addition, Subtraktion und Multiplikation von zwei Zahlen in $\R$ definieren mit einem
+Eingabewert in $\R \times \R$ und einen Ausgabewert in $\R$. Auch die Division
+können wir als Funktion definieren von $\R \times \R \setminus \gbr{0}$ (Division durch $0$ schließen
+wir damit aus, da die Division in diesem Fall nicht als Funktion definiert ist) auf Ausgabewerte in $\R$.
+
+\begin{defn}
+Die Sprache $\mathcal{A}$ definieren wir mit Alphabet $\Sigma=\gbr{\u{0},\ldots,\u{9},\u{(},\u{)},\u{+}}$.
+Zwecks Einfachheit definieren wir Ziffern (D, digits) und Zahlen:
+\begin{itemize}
+\item $\mathcal{A}_D = \gbr{\u{0},\ldots,\u{9}}$
+\item ZAHL $= (\mathcal{A}_D \setminus \gbr{\u{0}} \mathcal{A}_D^*) \cup \gbr{\u{0}}$
+\end{itemize}
+Wir definieren die Sprache $A$ nun nicht mehr über eine Grammatik sondern durch eine induktive Beschreibung (Basisfall und allgemeine Fälle):
+\begin{enumerate}
+\item ZAHL$\subset \mathcal{A}$
+\item Wenn $x,y \in \mathcal{A}$, dann ist auch $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \mathcal{A}$.
+\end{enumerate}
+\end{defn}
+An dieser Stelle sei noch einmal darauf hingewiesen dass wir $x,y$ nicht unterstreichen dürfen, da sie keine Sprachelemente sind sondern
+Platzhalter, mathematisch würde man sie auch als Variablen bezeichnen.
+
+Wir wollen nun mit unserer Sprache $\mathcal{A}$ Ausdrücke berechnen können.
+Dazu definieren wir eines unserer mächtigsten Werkzeuge im zweiten Kapitel:
+Die Interpretationsfunktion $I$ (auch genannt Semantikfunktion).
+Man kann sich diese Funktion vorstellen wie einen Interpreter einer Scriptsprache:
+Wir geben ein Programm ein und führen es aus, abhängig vom aktuellen Zustand liefert
+uns der Interpreter ein Ergebnis zurück.
+Genau so soll unsere Interpretationsfunktion arbeiten.
+Wir erwarten einen Eingabewert aus $\mathcal{A}$ und bilden auf $\N_0$ ab, d.h. geben
+einen Wert aus $\N_0$ zurück.
+Genau wie die Syntax werden wir nun die Semantik induktiv durch die Interpretationsfunktion definieren.
+\begin{defn}
+Die Semantik der Sprache $\mathcal{A}$ definieren wir durch:
+\begin{enumerate}
+\item $I_{\mathcal{A}}(x) = \sbr{x}$ wenn $x \in \mathcal{A}_N$. $x$ ist dabei eine Zeichenkette im Programm, $\sbr{x}$ die
+entsprechende Repräsentation in $\N_0$.
+\item $I_{\mathcal{A}}(\u{(}x\u{)+(}y\u{)})=I_{\mathcal{A}}(x) + I_{\mathcal{A}}(y)$ wenn $x,y \in \mathcal{A}$.
+\end{enumerate}
+\end{defn}
+\begin{bsp}
+Das Programm $\u{((10)+(9))+(3)}$ (vgl. Vorlesungsskriptum Seite 45) können wir wie folgt interpretieren:
+\begin{align*}
+I_{\mathcal{A}}(\u{((10)+(9))+(3)}) &= I_{\mathcal{A}}(\u{(10)+(9)}) + I_{\mathcal{A}}(\u{3}) \tag{entsprechend 2. Fall der Definition} \\
+                      &= I_{\mathcal{A}}(\u{10}) + I_{\mathcal{A}}(\u{9}) + 3 \tag{beim $\u{3}$ nun der 1. Fall der Definition} \\
+                      &= 10 + 9 + 3 = 22
+\end{align*}
+\end{bsp}
+Auch hier sehen wir wieder deutlich die Unterscheidung zwischen Zeichenketten im Programmcode (unterstrichen) und den Werten
+auf der semantischen Ebene (nicht unterstrichen). Um den Unterschied weiter zu verdeutlichen
+definieren wir nun die Sprache der einfachen arithmetischen Ausdrücke von Binärzahlen $\mathcal{B}$.
+\begin{defn}
+Die Sprache $\mathcal{B}$ definieren wir mit Alphabet $\Sigma=\gbr{\u{0},\u{1},\u{(},\u{)},\u{+}}$.
+\begin{enumerate}
+\item $(\u{1} \gbr{\u{0},\u{1}}^*) \cup \gbr{\u{0}} \subset \mathcal{B}$
+\item Wenn $x,y \in \mathcal{B}$, dann ist auch $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \mathcal{B}$.
+\end{enumerate}
+Die Semantik der Sprache $\mathcal{B}$ definieren wir durch:
+\begin{enumerate}
+\item $I_{\mathcal{B}}(x) = \sbr{x}$ wenn $x \in \mathcal{B}_N$. $\sbr{x} \in \N_0$ ist nun die
+durch die Binärzahl (exakt: die Binärziffernfolge) dargestellte Zahl auf semantischer Ebene, in diesem Fall also im mathematischen Sinne.
+\item $I(\u{(}x\u{)+(}y\u{)})=I(x) + I(y)$ wenn $x,y \in \mathcal{B}$.
+\end{enumerate}
+\end{defn}
+\begin{bsp}
+$I(\u{1001})=9$ aber $\u{1001}\neq 9$.
+
+Betrachten wir das Beispiel wie zuvor, nun in Binärdarstellung $\u{((1010)+(1001))+(11)}$: 
+\begin{align*}
+I_{\mathcal{B}}(\u{((1010)+(1001))+(11)}) &= I_{\mathcal{B}}(\u{(1010)+(1001)}) + I_{\mathcal{B}}(\u{11})\\
+                      &= I_{\mathcal{B}}(\u{1010}) + I_{\mathcal{B}}(\u{1001}) + 3\\
+                      &= 10 + 9 + 3 = 22
+\end{align*}
+\end{bsp}
+
+Wir versuchen nun der Sprache $\mathcal{A}$ eine zweite Funktion, die Multiplikation hinzuzufügen.
+\begin{defn}
+Die Sprache $\mathcal{C}$ ist definiert durch:
+\begin{enumerate}
+\item ZAHL$\subset \mathcal{C}$
+\item $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \mathcal{C}$, wenn $x,y \in \mathcal{C}$.
+\item $\u{(} x \u{)} \u{*} \u{(} y \u{)} \in \mathcal{C}$, wenn $x,y \in \mathcal{C}$.
+\end{enumerate}
+Die Semantik der Sprache $\mathcal{C}$ definieren wir durch:
+\begin{enumerate}
+\item $I_{\mathcal{C}}(x) = \sbr{x}$ wenn $x \in \mathcal{C}_N$.
+\item $I_{\mathcal{C}}(\u{(}x\u{)*(}y\u{)})=I_{\mathcal{C}}(x) \cdot I_{\mathcal{C}}(y)$ wenn $x,y \in \mathcal{A}$.
+\item $I_{\mathcal{C}}(\u{(}x\u{)+(}y\u{)})=I_{\mathcal{C}}(x) + I_{\mathcal{C}}(y)$ wenn $x,y \in \mathcal{A}$.
+\end{enumerate}
+\end{defn}
+Mit dieser Definition ist $I_{\mathcal{C}}$ keine Funktion.
+
+\begin{beweis}
+Laut Definition~\ref{defn:Funktion} ist eine Relation eine Funktion wenn es für jeden möglichen Eingabewert genau einen Ausgabewert gibt.
+
+Möchte man eine Aussage über ``alle'' Werte bzw. ``jeden'' Wert widerlegen so gestaltet sich ein Beweis oft relativ einfach. In so einem
+Fall müssen wir nur ein Gegenbeispiel finden, denn dann gilt die Aussage offensichtlich nicht für alle Werte, wir haben ja einen gefunden
+für den es nicht gilt. Diese Beweistechnik nennt man ``Beweis durch Widerspruch''.
+
+Wir werden nun zeigen dass $I_{\mathcal{C}}$ für das Programm \u{1+2*3} verschiedene Interpretationsmöglichkeiten zulässt da nicht festgelegt
+ist ob der 2. oder 3. Fall der Definition die höhere Priorität hat.
+\begin{align*}
+I_{\mathcal{C}}(\u{1+2*3}) &= I_{\mathcal{C}}(\u{1+2}) \cdot I_{\mathcal{C}}(\u{3}) \tag{2. Fall der Definition} \\
+&= (I_{\mathcal{C}}(\u{1}) + I_{\mathcal{C}}(\u{2})) \cdot 3 \tag{3. Fall der Definition} \\
+&= (1+2) \cdot 3 = 3 \cdot 3 = 9 \\
+I_{\mathcal{C}}(\u{1+2*3}) &= I_{\mathcal{C}}(\u{1}) \cdot I_{\mathcal{C}}(\u{2*3}) \tag{3. Fall der Definition} \\
+&= 1 + (I_{\mathcal{C}}(\u{2}) \cdot I_{\mathcal{C}}(\u{3})) \tag{2. Fall der Definition} \\
+&= 1 + (2 \cdot 3) = 1 + 6 = 7 \neq 9
+\end{align*}
+Wir haben gezeigt dass für einen Eingabewert 2 unterschiedliche Ausgabewerte möglich sind.
+Folglich gibt es nicht für \u{jeden} Eingabewert \u{genau einen} Ausgabewert, daher kann $I_{\mathcal{C}}$ keine Funktion sein. \hfill $\Box$
+\end{beweis}
+Wir müssten also die Interpretationsfunktion $I_{\mathcal{C}}$ anders definieren. Eine Lösung wäre beispielsweise zu definieren dass der 3. Fall der Interpretationsfunktion
+nur angewendet werden darf wenn in den beiden Operanden $x$ und $y$ kein $\u{*}$ vorkommt.
+
+\section{Sprache $\mathcal{VA}$ - arithmetische Ausdrücke mit Variablen}
+Wir erweitern die Sprache $\mathcal{A}$ durch Variablen und schaffen so eine mächtigere Sprache $\mathcal{VA}$.
+Um mit Variablen umgehen zu können brauchen wir nun einerseits eine Menge zulässiger
+Variablennamen und andererseits eine Funktion die von Variablennamen auf eine Wertemenge der semantischen Ebene (z.B. $\N_0$) abbildet.
+Die Menge der zulässigen Variablennamen nennen wir IVS (Individuenvariablensymbole).
+\begin{defn}
+Zwecks Einfachheit erlauben wir nur wenige Variablennamen und definieren daher
+\[\text{IVS} = \gbr{\u{a},\u{b},\ldots,\u{z}} \cup \gbr{\u{x1},\u{x2},\ldots}.\]
+\end{defn}
+Die Funktion die von Variablennamen auf eine Wertemenge abbildet nennen wir $\omega$-Environment, (Variablen-)Umgebung.
+Man kann sich diese Funktion auch als Tabelle vorstellen bzw. in einem Interpreter als Tabelle implementieren.
+\begin{defn}
+Die Menge aller Environments sei
+\[\text{ENV} = \bigcup_{x \in \text{IVS},y \in \Lambda} \gbr{(x,y)},\]
+das heißt, die Vereinigung über alle Tupel Variablenname $x \in \text{IVS}$ und Wert auf semantischer Ebene $y \in \Lambda$.
+\end{defn}
+Für die Sprache $\mathcal{VA}$ ist $\Lambda=\N_0$.
+\begin{defn}
+Die Syntax der Sprache $\mathcal{VA}$ ist definiert durch:
+\begin{enumerate}
+\item ZAHL$\subset \mathcal{VA}$
+\item IVS$\subset \mathcal{VA}$
+\item $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \mathcal{C}$, wenn $x,y \in \mathcal{VA}$.
+\end{enumerate}
+\end{defn}
+Die Interpretation eines Programms hängt nun nicht mehr allein vom Programm selbst ab,
+sondern auch von den Werten der Variablen im $\omega$-Environment.
+\begin{defn}
+Die Interpretationsfunktion $I_{\mathcal{VA}}: \text{ENV}\times\mathcal{VA} \to \Lambda$
+weist jedem Tupel aus Environment und Programm einen Wert in $\Lambda$ zu.
+\begin{enumerate}
+\item $I_{\mathcal{VA}}(\omega,k) = \sbr{k}$ wenn $k \in \text{ZAHL}$, $\omega \in \text{ENV}$.
+\item $I_{\mathcal{VA}}(\omega,v) = \omega(v)$ wenn $vk \in \text{IVS}$, $\omega \in \text{ENV}$.
+\item $I_{\mathcal{VA}}(\u{(}x\u{)+(}y\u{)})=I_{\mathcal{VA}}(\omega,x) + I_{\mathcal{VA}}(\omega,y)$ wenn $x,y \in \mathcal{VA}$, $\omega \in \text{ENV}$.
+\end{enumerate}
+\end{defn}
+\begin{bsp}
+Gegeben Sei das Environment $\omega(\u{x})=0$, $\omega(\u{y})=1$, $\omega(\u{z})=2$.
+Interpretieren Sie das Programm $\u{(((x)+(2))+(y))+(z)}$.
+\begin{align*}
+I_{\mathcal{VA}}(\omega,\u{(((x)+(2))+(y))+(z)}) &= I_{\mathcal{VA}}(\omega,\u{((x)+(2))+(y)}) + I_{\mathcal{VA}}(\omega,\u{z}) \\
+&= I_{\mathcal{VA}}(\omega,\u{(x)+(2)}) + I_{\mathcal{VA}}(\omega,\u{y}) + \omega(\u{z}) \\
+&= I_{\mathcal{VA}}(\omega,\u{x}) + I_{\mathcal{VA}}(\omega,\u{2}) + \omega(\u{y}) + 2
+&= \omega(\u{x}) + 2 + 1 + 2 \\
+&= 0 + 2 + 1 + 2 = 5
+\end{align*}
+Beachten Sie auch, dass nach wie vor $I_{\mathcal{VA}}(\omega,\u{2})=2$.
+Es ist ein bei den Übungen weit verbreiteter Fehler $I_{\mathcal{VA}}(\omega,\u{2}) = \omega(\u{2})$ zu schreiben. Die Interpretationsfunktion wurde so nicht definiert und
+außerdem ist $\u{2}$ auch kein gültiger Variablenname.
+\end{bsp}
+
+\section{Datentypen}
