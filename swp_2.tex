@@ -1,4 +1,5 @@
 \chapter{Semantik von Programmiersprachen}
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 Im ersten Kapitel haben wir uns damit beschäftigt wie ein Wort (Programm) einer Sprache eindeutig geparst werden kann.
 Die Wörter (Programme) haben jedoch noch keine Bedeutung. Wir wollen uns nun damit beschäftigen
 Sprachen eine Bedeutung zu geben und Sprachen anhand der Bedeutung der Wörter 
@@ -33,7 +34,7 @@ Andere Variante: Der Wert von 2 der 3 Variablen ist bekannt, der Wert der 3. Var
 Wir sehen anhand dieses Beispiels dass es wichtig ist exakt zu definieren wie ein Ausdruck
 zu interpretieren ist.
 \end{bsp}
-
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 In funktionalen Programmiersprachen besteht jedes Programm aus einer oder mehreren
 Funktionen.
 \begin{defn}[Funktion]\label{defn:Funktion}
@@ -64,7 +65,7 @@ Wir definieren die Sprache $A$ nun nicht mehr über eine Grammatik sondern durch
 \end{defn}
 An dieser Stelle sei noch einmal darauf hingewiesen dass wir $x,y$ nicht unterstreichen dürfen, da sie keine Sprachelemente sind sondern
 Platzhalter, mathematisch würde man sie auch als Variablen bezeichnen.
-
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 Wir wollen nun mit unserer Sprache $\mathcal{A}$ Ausdrücke berechnen können.
 Dazu definieren wir eines unserer mächtigsten Werkzeuge im zweiten Kapitel:
 Die Interpretationsfunktion $I$ (auch genannt Semantikfunktion).
@@ -75,6 +76,7 @@ Genau so soll unsere Interpretationsfunktion arbeiten.
 Wir erwarten einen Eingabewert aus $\mathcal{A}$ und bilden auf $\N_0$ ab, d.h. geben
 einen Wert aus $\N_0$ zurück.
 Genau wie die Syntax werden wir nun die Semantik induktiv durch die Interpretationsfunktion definieren.
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 \begin{defn}
 Die Semantik der Sprache $\mathcal{A}$ definieren wir durch:
 \begin{enumerate}
@@ -83,6 +85,7 @@ entsprechende Repräsentation in $\N_0$.
 \item $I_{\mathcal{A}}(\u{(}x\u{)+(}y\u{)})=I_{\mathcal{A}}(x) + I_{\mathcal{A}}(y)$ wenn $x,y \in \mathcal{A}$.
 \end{enumerate}
 \end{defn}
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
 Das Programm $\u{((10)+(9))+(3)}$ (vgl. Vorlesungsskriptum Seite 45) können wir wie folgt interpretieren:
 \begin{align*}
@@ -157,7 +160,7 @@ Folglich gibt es nicht für \u{jeden} Eingabewert \u{genau einen} Ausgabewert, d
 \end{beweis}
 Wir müssten also die Interpretationsfunktion $I_{\mathcal{C}}$ anders definieren. Eine Lösung wäre beispielsweise zu definieren dass der 3. Fall der Interpretationsfunktion
 nur angewendet werden darf wenn in den beiden Operanden $x$ und $y$ kein $\u{*}$ vorkommt.
-
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 \section{Sprache $\mathcal{VA}$ - arithmetische Ausdrücke mit Variablen}
 Wir erweitern die Sprache $\mathcal{A}$ durch Variablen und schaffen so eine mächtigere Sprache $\mathcal{VA}$.
 Um mit Variablen umgehen zu können brauchen wir nun einerseits eine Menge zulässiger
@@ -194,6 +197,7 @@ weist jedem Tupel aus Environment und Programm einen Wert in $\Lambda$ zu.
 \item $I_{\mathcal{VA}}(\u{(}x\u{)+(}y\u{)})=I_{\mathcal{VA}}(\omega,x) + I_{\mathcal{VA}}(\omega,y)$ wenn $x,y \in \mathcal{VA}$, $\omega \in \text{ENV}$.
 \end{enumerate}
 \end{defn}
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
 Gegeben Sei das Environment $\omega(\u{x})=0$, $\omega(\u{y})=1$, $\omega(\u{z})=2$.
 Interpretieren Sie das Programm $\u{(((x)+(2))+(y))+(z)}$.
@@ -208,5 +212,78 @@ Beachten Sie auch, dass nach wie vor $I_{\mathcal{VA}}(\omega,\u{2})=2$.
 Es ist ein bei den Übungen weit verbreiteter Fehler $I_{\mathcal{VA}}(\omega,\u{2}) = \omega(\u{2})$ zu schreiben. Die Interpretationsfunktion wurde so nicht definiert und
 außerdem ist $\u{2}$ auch kein gültiger Variablenname.
 \end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 
 \section{Datentypen}
+Bisher haben wir eine Sprache nur für einen Datentypen definiert. Dieser war implizit in der
+Definition der Sprache drin (beispielsweise die natürlichen Zahlen). Derartige Definitionen
+erlauben kein Ersetzen des Datentyps ohne die Definition der Sprache wesentlich zu überarbeiten.
+Da wir dies aber häufig wollen werden wir nun zuerst Datentypen auf der semantischen Ebene
+und anschließend die Repräsentation von Datentypen auf der syntaktischen Ebene definieren.
+\begin{defn}[Datentyp]
+Ein Datentyp ist ein Tupel $\Psi=\rbr{A,f,p,c}$ mit
+\begin{itemize}
+\item $A$: Grundmenge (Wertebereich)
+\item $f$: Menge von Funktionen $f_i: A^{k_i} \to A^{l_i}$.
+
+$f_i$ ist die $i$-te Funktion in der Menge, $k_i$ die Dimension vom Urbild (Dimension des Inputs, Anzahl der Funktionsargumente) und $l_i$
+die Dimension vom Bild der $i$-ten Funktion (Dimension des Outputs, Anzahl der Funktionsrückgabewerte).
+\item $p$: Menge von Prädikaten $p_i: A^{k_i} \to \gbr{T,F}$.
+
+$p_i$ ist die $i$-te Funktion in der Menge und $k_i$ die Dimension vom Urbild (Dimension des Inputs, Anzahl der Funktionsargumente) der $i$-ten Funktion.
+\item $c$: Menge von Konstanten $c_i$ wobei $c \subseteq A$.
+\end{itemize}
+\end{defn}
+
+Konstanten sind eigentlich nur spezielle Funktionen ($0$ Argumente) und wir unterscheiden nur zwecks Übersicht.
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Definieren Sie den Datentyp Integer.
+
+\textit{Lösung:}
+Im Fall der Integer ist die Definition der Funktionen und Prädikate trivial, da
+alle Funktionen und Prädikate durch die entsprechenden Operationen auf den ganzen Zahlen $\Z$ definiert sind.
+Daher genügt es zu definieren welche Funktion welcher Operation entspricht.
+\begin{itemize}
+\item Grundmenge $A=\Z$
+\item Funktionen $f_1: +$, $f_2: -$, $f_3: *$
+
+Die Funktionen $+, -, *$ sind auf $\Z$ definiert.
+\item Prädikate $p_1: <$, $p_2: =$
+
+Die Prädikate $<, =$ sind auf $\Z$ definiert.
+\item Konstanten $c_1: 0$, $c_2: 1$
+\end{itemize}
+Hinzunahme von Division ist problematisch $/$ da das Ergebnis nicht unbedingt $\in A$ ist.
+\end{bsp}
+
+\begin{bsp}
+Definieren Sie den Datentyp String.
+
+\textit{Lösung:} Hier können wir nun nicht mehr auf eine vorhandene mathematische Definition
+zurückgreifen.
+\begin{itemize}
+\item Grundmenge $A=V^*$ mit $V$ einem endlichen Alphabet $\gbr{v_1,\ldots,v_n}$ (z.B. dem ASCII-Alphabet).
+\item Funktionen
+\begin{enumerate}
+\item $f_1: \circ$ (Konkatenation)
+\begin{itemize}
+\item Wenn $x \in V^*$ ist, dann ist $x \circ \varepsilon = x$
+\item Wenn $x \in V^*$ und $a \in V$ ist, dann ist $x \circ a = xa$
+\item Wenn $x,y \in V^*$ und $a \in V$ ist, dann ist $x \circ (y \circ a) = (x \circ y) \circ a$
+\end{itemize}
+\end{enumerate}
+\item Prädikate
+\begin{enumerate}
+\item $p_1: <<$ (Präfix)
+\begin{itemize}
+\item Wenn $x \in V^*$ ist, dann ist $\varepsilon << x$
+\item Wenn $x \in V^*$ ist, dann ist $x << x$
+\item Wenn $x$ Präfix von $y$ ist, dann ist $x$ auch Präfix von $y \circ z$
+($(x << y) \ra (x << (y \circ z))$).
+\end{itemize}
+\end{enumerate}
+\item Konstanten $c_i: v_i$, $c_{n+1}: \varepsilon$ (eine Konstante für jeden Buchstaben des Alphabets und $\varepsilon$ für den Leerstring).
+\end{itemize}
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
