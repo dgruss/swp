@@ -204,7 +204,7 @@ Interpretieren Sie das Programm $\u{(((x)+(2))+(y))+(z)}$.
 \begin{align*}
 I_{\mathcal{VA}}(\omega,\u{(((x)+(2))+(y))+(z)}) &= I_{\mathcal{VA}}(\omega,\u{((x)+(2))+(y)}) + I_{\mathcal{VA}}(\omega,\u{z}) \\
 &= I_{\mathcal{VA}}(\omega,\u{(x)+(2)}) + I_{\mathcal{VA}}(\omega,\u{y}) + \omega(\u{z}) \\
-&= I_{\mathcal{VA}}(\omega,\u{x}) + I_{\mathcal{VA}}(\omega,\u{2}) + \omega(\u{y}) + 2
+&= I_{\mathcal{VA}}(\omega,\u{x}) + I_{\mathcal{VA}}(\omega,\u{2}) + \omega(\u{y}) + 2 \\
 &= \omega(\u{x}) + 2 + 1 + 2 \\
 &= 0 + 2 + 1 + 2 = 5
 \end{align*}
@@ -221,44 +221,55 @@ erlauben kein Ersetzen des Datentyps ohne die Definition der Sprache wesentlich 
 Da wir dies aber häufig wollen werden wir nun zuerst Datentypen auf der semantischen Ebene
 und anschließend die Repräsentation von Datentypen auf der syntaktischen Ebene definieren.
 \begin{defn}[Datentyp]
-Ein Datentyp ist ein Tupel $\Psi=\rbr{A,f,p,c}$ mit
+Ein Datentyp ist ein Tupel $\Psi=\rbr{A,F,P,C}$ mit
 \begin{itemize}
 \item $A$: Grundmenge (Wertebereich)
-\item $f$: Menge von Funktionen $f_i: A^{k_i} \to A^{l_i}$.
+\item $F$: Menge von Funktionen $f_i: A^{k_i} \to A^{l_i}$.
 
 $f_i$ ist die $i$-te Funktion in der Menge, $k_i$ die Dimension vom Urbild (Dimension des Inputs, Anzahl der Funktionsargumente) und $l_i$
 die Dimension vom Bild der $i$-ten Funktion (Dimension des Outputs, Anzahl der Funktionsrückgabewerte).
-\item $p$: Menge von Prädikaten $p_i: A^{k_i} \to \gbr{T,F}$.
+\item $P$: Menge von Prädikaten $p_i: A^{k_i} \to \gbr{T,F}$.
 
 $p_i$ ist die $i$-te Funktion in der Menge und $k_i$ die Dimension vom Urbild (Dimension des Inputs, Anzahl der Funktionsargumente) der $i$-ten Funktion.
-\item $c$: Menge von Konstanten $c_i$ wobei $c \subseteq A$.
+\item $C$: Menge von Konstanten $c_i$ wobei $c \subseteq A$.
+\end{itemize}
+Die Mengen $F^{\Sigma}$, $P^{\Sigma}$ und $C^{\Sigma}$ enthalten die entsprechenden Symbole für die syntaktische Repräsentation:
+\begin{itemize}
+\item Funktionssymbole $F^{\Sigma}$: je ein Symbol $f^{\Sigma}_i$ (z.B. Name der Funktion) für jede Funktion $f_i$
+\item Prädikatensymbole $P^{\Sigma}$: je ein Symbol $p^{\Sigma}_i$ (z.B. Name des Prädikats) für jedes Prädikat $p_i$
+\item Konstantensymbol $C^{\Sigma}$: je ein Symbol $c^{\Sigma}_i$ (z.B. ausgeschriebene Form der Konstante) für jede Konstante $c_i$
 \end{itemize}
 \end{defn}
 
 Konstanten sind eigentlich nur spezielle Funktionen ($0$ Argumente) und wir unterscheiden nur zwecks Übersicht.
-\ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
-Definieren Sie den Datentyp Integer.
+Definieren Sie den Datentyp Integer mit Funktionen für Addition, Subtraktion und Multiplikation sowie Prädikaten für
+``kleiner'' und Gleichheit.
 
 \textit{Lösung:}
 Im Fall der Integer ist die Definition der Funktionen und Prädikate trivial, da
 alle Funktionen und Prädikate durch die entsprechenden Operationen auf den ganzen Zahlen $\Z$ definiert sind.
 Daher genügt es zu definieren welche Funktion welcher Operation entspricht.
-\begin{itemize}
+\begin{itemize}\label{defn:integer}
 \item Grundmenge $A=\Z$
 \item Funktionen $f_1: +$, $f_2: -$, $f_3: *$
 
 Die Funktionen $+, -, *$ sind auf $\Z$ definiert.
+Auf der syntaktischen Ebene definieren wir: $f^{\Sigma}_1: \u{\tplus}$, $f^{\Sigma}_2: \u{\tminus}$, $f^{\Sigma}_3: \u{\tmult}$.
 \item Prädikate $p_1: <$, $p_2: =$
 
 Die Prädikate $<, =$ sind auf $\Z$ definiert.
+Syntaktische Ebene: $p^{\Sigma}_1: \u{\tlt}$, $p^{\Sigma}_2: \u{\teq}$.
 \item Konstanten $c_1: 0$, $c_2: 1$
+
+Syntaktische Ebene: $c^{\Sigma}_1: \u{\tnull}$, $c^{\Sigma}_2: \u{\teins}$.
 \end{itemize}
 Hinzunahme von Division ist problematisch $/$ da das Ergebnis nicht unbedingt $\in A$ ist.
 \end{bsp}
-
+Wir können bei der Definition eines Datentyps oft (z.B. bei den verschiedenen Datentypen für Zahlen) auf bekannte algebraische Strukturen (Halbgruppen, etc.) zurückgreifen.
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
-Definieren Sie den Datentyp String.
+Definieren Sie den Datentyp String mit der Funktion Konkatenation und dem Prädikat ``Präfix''.
 
 \textit{Lösung:} Hier können wir nun nicht mehr auf eine vorhandene mathematische Definition
 zurückgreifen.
@@ -285,5 +296,175 @@ zurückgreifen.
 \end{enumerate}
 \item Konstanten $c_i: v_i$, $c_{n+1}: \varepsilon$ (eine Konstante für jeden Buchstaben des Alphabets und $\varepsilon$ für den Leerstring).
 \end{itemize}
+Die syntaktische Ebene überlassen wir dem Leser.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Definieren Sie den Datentyp des binären Stacks mit Funktionen um Elemente auf den Stack zu legen oder herunterzunehmen, sowie
+Prädikaten zur Überprüfung des obersten Elementes.
+
+\textit{Lösung:}
+\begin{itemize}
+\item Grundmenge $A=\gbr{0,1}^* \cup \gbr{\varepsilon}$, d.h. Ziffernfolgen aus $0$ und $1$ oder $\varepsilon$ (leerer Stack).
+\item Funktionen
+\begin{enumerate}
+\item $f_1: \text{add0}$ liefert den Stack mit einer $0$ daraufgelegt.
+\begin{itemize}
+\item $\text{add0}(\varepsilon)=0$
+\item $\text{add0}(x)=0x$ (mit $x \neq \varepsilon$)
+\end{itemize}
+\item $f_2: \text{add1}$ liefert den Stack mit einer $1$ daraufgelegt.
+\begin{itemize}
+\item $\text{add1}(\varepsilon)=1$
+\item $\text{add1}(x)=1x$ (mit $x \neq \varepsilon$)
+\end{itemize}
+\item $f_3: \text{sub}$ liefert den Stack ohne das oberste Element.
+\begin{itemize}
+\item $\text{sub}(\varepsilon)=\varepsilon$
+\item $\text{sub}(ax)=x$ (mit $a \neq \varepsilon$)
+\end{itemize}
+\end{enumerate}
+\item Prädikate
+\begin{enumerate}
+\item $p_1: \text{ist0?}$ testet ob das oberste Element $0$ ist.
+\begin{itemize}
+\item $\text{ist0?}(x) \Lra \exists z : x = 0z$
+\end{itemize}
+\item $p_2: \text{ist1?}$ testet ob das oberste Element $1$ ist.
+\begin{itemize}
+\item $\text{ist1?}(x) \Lra \exists z : x = 1z$
+\end{itemize}
+\item $p_3: \text{istLeer?}$ testet ob das oberste Element $\varepsilon$ ist.
+\begin{itemize}
+\item $\text{istLeer?}(x) \Lra x = \varepsilon$
+\end{itemize}
+\end{enumerate}
+\item Konstanten $c_1: \varepsilon$.
+\end{itemize}
+Auf der syntaktischen Ebene werden die gleichen Bezeichnungen wie auf der semantischen Ebene verwendet.
+\end{bsp}
+
+\begin{bsp}
+Berechnen Sie den Ausdruck $\text{add0}(\text{add1}(\text{sub}(011)))$ im Datentyp des binären Stacks.
+
+\textit{Lösung:}
+\begin{align*}
+&\quad \text{add0}(\text{add1}(\text{sub}(011))) \\
+&= \text{add0}(\text{add1}(11)) \\
+&= \text{add0}(111) \\
+&= 0111
+\end{align*}
+\begin{align*}
+\text{ist0?}(0111)&=T \\
+\text{ist1?}(0111)&=F \\
+\text{istLeer?}(0111)&=F
+\end{align*}
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+\section{Sprache der Terme $\mathcal{T}$}
+Wir müssen nun um den Datentyp verwenden zu können eine grundlegende Sprache 
+definieren die diesen Datentyp verwendet. Auf dieser Sprache können dann weitere Sprachen
+aufgebaut werden.
+\begin{defn}[Sprache der Terme $\mathcal{T}$]
+Sei $\Psi=\rbr{A,F,P,C}$ ein Datentyp.
+Das Alphabet $\Sigma$ ist dann eine Vereinigung aus den Mengen der
+\begin{itemize}
+\item IVS (Individuenvariablensymbole)
+\item Funktionssymbole $F^{\Sigma}$
+\item Prädikatensymbole $P^{\Sigma}$
+\item Konstantensymbol $C^{\Sigma}$
+\item $\u{(}$,$\u{)}$ und $\u{,}$
+\item Sondersymbole (Keywords): \u{if}, \u{then}, \u{else}, \u{begin}, \u{end}, $\ldots$
+\end{itemize}
+Die Syntax von $\mathcal{T} \subseteq \Sigma$ über einem beliebigen Datentypen ist dann definiert durch:
+\begin{enumerate}
+\item $C^{\Sigma} \subseteq \mathcal{T}$, d.h. Konstantensymbole sind Terme
+\item $\text{IVS} \subseteq \mathcal{T}$, d.h. Individuenvariablensymbole sind Terme
+\item Wenn $f^{\Sigma}_i$ ein $n$-stelliges Funktionssymbol ist und $t_1,\ldots,t_n$ Terme,
+dann ist auch $f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}$ ein Term (Unterstreichungen beachten!).
+\end{enumerate}
+Die Semantik von $\mathcal{T}$ definieren wir durch die Interpretationsfunktion $I_{\mathcal{T}}: \text{ENV} \times \mathcal{T} \to A$.
+\begin{enumerate}
+\item $I_{\mathcal{T}}(\omega,c'_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c'_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
+\item $I_{\mathcal{T}}(\omega,v)=\omega(v)$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$.
+\item $I_{\mathcal{T}}(\omega,f'_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\mathcal{T}}(\omega,t_1),\ldots,I_{\mathcal{T}}(\omega,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f'_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
+\end{enumerate}
+\end{defn}
+
+\begin{bsp}
+Führen Sie das Programm \u{plus(plus(x,y),plus(eins,z))} mit dem Environment $\omega(\u{x})=0$, $\omega(\u{y})=1$, $\omega(\u{z})=2$ aus.
+
+\textit{Lösung:}
+\begin{align*}
+\I{T}{\omega}{\tplus\rbr{\tplus(x,y),\tplus(\teins,z)}}
+&= +\rbr{\I{T}{\omega}{\tplus(x,y)},\I{T}{\omega}{\tplus(\teins,z)}} \\
+&= +\rbr{+\rbr{\I{T}{\omega}{x},\I{T}{\omega}{y}},+\rbr{\I{T}{\omega}{\teins},\I{T}{\omega}{z}}} \\
+&= +\rbr{+\rbr{\omega(\u{x}),\omega(\u{y})},+\rbr{1,\omega(\u{z})}} \\
+&= +\rbr{+\rbr{0,1},+\rbr{1,2}} = +\rbr{1,3} = 4
+\end{align*}
+\end{bsp}
+
+Laut Definition von $\mathcal{T}$ gibt es nur die Konstanten $0$ und $1$. Variablen können natürlich jeden beliebigen Wert in $\Z$ annehmen.
+Es kann aber auch gezeigt werden dass alle ganzen Zahlen durch einen variablenfreien Term dargestellt werden können.
+Terme sind rekursiv definiert. Die \textbf{vollständige Induktion} ist die übliche Beweistechnik für Beweise über rekursive bzw. rekursiv definierte Ausdrücke.
+
+\begin{bsp}
+Wir wollen zeigen, dass alle ganzen Zahlen durch einen variablenfreien Term dargestellt werden können.
+Die \textbf{vollständige Induktion} besteht aus 3 Einzelschritten: In der \textbf{Induktionsbasis} werden ein oder mehrere Basisfälle direkt bewiesen.
+In der \textbf{Induktionshypothese} wird versucht eine allgemeine Aussage (eine Hypothese) zu treffen von der angenommen wird dass sie bis zum $n$-ten Fall gilt.
+Im \textbf{Induktionsschritt} gehen wir einen Schritt weiter, also in den Fall $n+1$ und versuchen diesen zu beweisen. Hier muss unbedingt auf die Induktionshypothese zurückgegriffen
+werden, sonst wurde keine vollständige Induktion durchgeführt.
+
+Um eine Induktion durchführen zu können müssen die Elemente unbedingt aufgezählt werden können (d.h. man muss eine eindeutige Reihenfolge/Sortierung für die Elemente angeben können).
+
+Bevor wir die Induktion durchführen versuchen wir ein Muster zu erkennen.
+\begin{align*}
+\I{T}{\omega}{\tnull}&=0 \tag{trivial}\\
+\I{T}{\omega}{\teins}&=1 \tag{trivial}\\
+\I{T}{\omega}{\tplus\rbr{\teins,\teins}}&=2 \tag{eine Addition}\\
+\I{T}{\omega}{\tplus\rbr{\teins,\tplus\rbr{\teins,\teins}}}&=3 \tag{verschachtelte Addition}
+\end{align*}
+Wir erkennen das Muster: Alle Zahlen $\in \N$ können durch rekursive Addition von 1 dargestellt werden.
+Diese Rekursion kann beliebig tief werden, hat allerdings immer die gleiche Form.
+Wir definieren uns einen Platzhalter $t_k$ um beliebig lange solcher Ausdrücke einfach darzustellen:
+\begin{align*}
+t_2 &= \u{\tplus(\teins,\teins)} \\
+t_3 &= \u{\tplus(\teins,\tplus(\teins,\teins))} \\
+&\vdots \\
+t_{k+1} &= \u{\tplus(\teins,}t_{k}\u{)} \\
+\end{align*}
+$k$ entsprichtder Anzahl der $\u{\teins}$ im Ausdruck.
+
+\begin{itemize}
+\item \textbf{Induktionsbasis:}\\
+In der Induktionsbasis beweisen wir einen oder mehrere Basisfälle.
+Das sind in unserem Fall die beiden Konstanten sowie der Fall $t_2$:
+\begin{align*}
+\I{T}{\omega}{\tnull}&=0 \\
+\I{T}{\omega}{\teins}&=1 \\
+\Iu{T}{\omega}{t_2}&=\I{T}{\omega}{\tplus(\teins,\teins)}=2\\
+\end{align*}
+\item \textbf{Induktionshypothese:}\\
+In der Induktionshypothese treffen wir eine Aussage über ein Element $n$ oder mehrere (evtl. alle) Elemente bis zu einem gewissen Element $n$.
+In unserem Fall sagen wir dass
+\begin{align*}
+\Iu{T}{\omega}{t_n}&=n
+\end{align*}
+\item \textbf{Induktionsschritt:}\\
+Im Induktionsschritt erfolgt zeigen wir nun dass unter Annahme der Korrektheit der Induktionshypothese der Beweis auch für das Element $n+1$ (also das erste Element über das wir
+keine Annahme getroffen haben) erbracht werden kann. (Häufiger Fehler: Wird im Induktionsschritt die Induktionshypothese nicht verwendet so handelt es sich nicht um eine vollständige Induktion!)
+Wir müssen also zeigen dass:
+\begin{align*}
+\Iu{T}{\omega}{t_{n+1}}&=n+1 \tag{Einsetzen von $t_{n+1}$}\\
+\Iu{T}{\omega}{\u{\tplus(\teins,}t_{n}\u{)}}&=n+1 \tag{Interpretationsfunktion durchführen}\\
++\rbr{\Iu{T}{\omega}{\u{\teins}},\Iu{T}{\omega}{t_{n}}}&=n+1 \\
++\rbr{1,\Iu{T}{\omega}{t_{n}}}&=n+1
+\intertext{\textbf{Unter Verwendung der Induktionshypothese (d.h. wir setzen die Induktionshypothese $\Iu{T}{\omega}{t_n}=n$ ein):}}
++\rbr{1,n}&=n+1
+\end{align*}
+Damit ist der Beweis erbracht.
+\end{itemize}
+\end{bsp}
+
