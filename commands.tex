@@ -16,13 +16,26 @@
 \DeclareMathOperator {\lt}{lt}
 \DeclareMathOperator {\lc}{lc}
 \DeclareMathOperator*{\rest}{rest}
-\DeclareMathOperator*{\tmult}{mult}
-\DeclareMathOperator*{\tplus}{plus}
-\DeclareMathOperator*{\tminus}{minus}
-\DeclareMathOperator*{\tnull}{null}
-\DeclareMathOperator*{\teins}{eins}
-\DeclareMathOperator*{\tlt}{lt?}
-\DeclareMathOperator*{\teq}{eq?}
+\DeclareMathOperator*{\tmult}{\:{mult}\:}
+\DeclareMathOperator*{\tplus}{\:{plus}\:}
+\DeclareMathOperator*{\tminus}{\:{minus}\:}
+\DeclareMathOperator*{\tnull}{\:{null}\:}
+\DeclareMathOperator*{\teins}{\:{eins}\:}
+\DeclareMathOperator*{\tif}{\:{if}\:}
+\DeclareMathOperator*{\telse}{\:{else}\:}
+\DeclareMathOperator*{\tthen}{\:{then}\:}
+\DeclareMathOperator*{\tlt}{\:{lt?}\:}
+\DeclareMathOperator*{\teq}{\:{eq?}\:}
+\DeclareMathOperator*{\tumult}{\:\u{mult}\:}
+\DeclareMathOperator*{\tuplus}{\:\u{plus}\:}
+\DeclareMathOperator*{\tuminus}{\:\u{minus}\:}
+\DeclareMathOperator*{\tunull}{\:\u{null}\:}
+\DeclareMathOperator*{\tueins}{\:\u{eins}\:}
+\DeclareMathOperator*{\tuif}{\:\u{if}\:}
+\DeclareMathOperator*{\tuelse}{\:\u{else}\:}
+\DeclareMathOperator*{\tuthen}{\:\u{then}\:}
+\DeclareMathOperator*{\tult}{\:\u{lt?}\:}
+\DeclareMathOperator*{\tueq}{\:\u{eq?}\:}
 \DeclareMathOperator {\End}{end}
 \DeclareMathOperator*{\rang}{rang}
 \DeclareMathOperator*{\dist}{d}
@@ -178,5 +191,8 @@
 \DeclareMathOperator{\RR}{R}
 \DeclareMathOperator{\notdivides}{\nmid}
 
-\newcommand{\I}[3]{I_{\mathcal{#1}}\left(#2,\u{#3}\right)}
-\newcommand{\Iu}[3]{I_{\mathcal{#1}}\left(#2,#3\right)}
+\newcommand{\lng}[1]{\mathcal{#1}}
+\newcommand{\kwu}[1]{\text{\:\u{#1}\:}}
+\newcommand{\kw}[1]{\text{\:{#1}\:}}
+\newcommand{\I}[3]{I_{\lng{#1}}\left(#2,\u{#3}\right)}
+\newcommand{\Iu}[3]{I_{\lng{#1}}\left(#2,#3\right)}

@@ -43,7 +43,7 @@ Jedem Element aus der Menge $A$ wird genau ein Element der Menge $B$ zugeordnet.
 Das heißt: Für jeden möglichen Eingabewert gibt es genau einen Ausgabewert.
 \end{defn}
 
-\section{Sprache $\mathcal{A}$ - einfache arithmetische Ausdrücke}
+\section{Sprache $\lng{A}$ - einfache arithmetische Ausdrücke}
 Arithmetische Ausdrücke sind Funktionen. Wir können beispielsweise die Funktionen
 Addition, Subtraktion und Multiplikation von zwei Zahlen in $\R$ definieren mit einem
 Eingabewert in $\R \times \R$ und einen Ausgabewert in $\R$. Auch die Division
@@ -51,63 +51,63 @@ können wir als Funktion definieren von $\R \times \R \setminus \gbr{0}$ (Divisi
 wir damit aus, da die Division in diesem Fall nicht als Funktion definiert ist) auf Ausgabewerte in $\R$.
 
 \begin{defn}
-Die Sprache $\mathcal{A}$ definieren wir mit Alphabet $\Sigma=\gbr{\u{0},\ldots,\u{9},\u{(},\u{)},\u{+}}$.
+Die Sprache $\lng{A}$ definieren wir mit Alphabet $\Sigma=\gbr{\u{0},\ldots,\u{9},\u{(},\u{)},\u{+}}$.
 Zwecks Einfachheit definieren wir Ziffern (D, digits) und Zahlen:
 \begin{itemize}
-\item $\mathcal{A}_D = \gbr{\u{0},\ldots,\u{9}}$
-\item ZAHL $= (\mathcal{A}_D \setminus \gbr{\u{0}} \mathcal{A}_D^*) \cup \gbr{\u{0}}$
+\item $\lng{A}_D = \gbr{\u{0},\ldots,\u{9}}$
+\item ZAHL $= (\lng{A}_D \setminus \gbr{\u{0}} \lng{A}_D^*) \cup \gbr{\u{0}}$
 \end{itemize}
 Wir definieren die Sprache $A$ nun nicht mehr über eine Grammatik sondern durch eine induktive Beschreibung (Basisfall und allgemeine Fälle):
 \begin{enumerate}
-\item ZAHL$\subset \mathcal{A}$
-\item Wenn $x,y \in \mathcal{A}$, dann ist auch $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \mathcal{A}$.
+\item ZAHL$\subset \lng{A}$
+\item Wenn $x,y \in \lng{A}$, dann ist auch $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \lng{A}$.
 \end{enumerate}
 \end{defn}
 An dieser Stelle sei noch einmal darauf hingewiesen dass wir $x,y$ nicht unterstreichen dürfen, da sie keine Sprachelemente sind sondern
 Platzhalter, mathematisch würde man sie auch als Variablen bezeichnen.
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
-Wir wollen nun mit unserer Sprache $\mathcal{A}$ Ausdrücke berechnen können.
+Wir wollen nun mit unserer Sprache $\lng{A}$ Ausdrücke berechnen können.
 Dazu definieren wir eines unserer mächtigsten Werkzeuge im zweiten Kapitel:
 Die Interpretationsfunktion $I$ (auch genannt Semantikfunktion).
 Man kann sich diese Funktion vorstellen wie einen Interpreter einer Scriptsprache:
 Wir geben ein Programm ein und führen es aus, abhängig vom aktuellen Zustand liefert
 uns der Interpreter ein Ergebnis zurück.
 Genau so soll unsere Interpretationsfunktion arbeiten.
-Wir erwarten einen Eingabewert aus $\mathcal{A}$ und bilden auf $\N_0$ ab, d.h. geben
+Wir erwarten einen Eingabewert aus $\lng{A}$ und bilden auf $\N_0$ ab, d.h. geben
 einen Wert aus $\N_0$ zurück.
 Genau wie die Syntax werden wir nun die Semantik induktiv durch die Interpretationsfunktion definieren.
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 \begin{defn}
-Die Semantik der Sprache $\mathcal{A}$ definieren wir durch:
+Die Semantik der Sprache $\lng{A}$ definieren wir durch:
 \begin{enumerate}
-\item $I_{\mathcal{A}}(x) = \sbr{x}$ wenn $x \in \mathcal{A}_N$. $x$ ist dabei eine Zeichenkette im Programm, $\sbr{x}$ die
+\item $I_{\lng{A}}(x) = \sbr{x}$ wenn $x \in \lng{A}_N$. $x$ ist dabei eine Zeichenkette im Programm, $\sbr{x}$ die
 entsprechende Repräsentation in $\N_0$.
-\item $I_{\mathcal{A}}(\u{(}x\u{)+(}y\u{)})=I_{\mathcal{A}}(x) + I_{\mathcal{A}}(y)$ wenn $x,y \in \mathcal{A}$.
+\item $I_{\lng{A}}(\u{(}x\u{)+(}y\u{)})=I_{\lng{A}}(x) + I_{\lng{A}}(y)$ wenn $x,y \in \lng{A}$.
 \end{enumerate}
 \end{defn}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
 Das Programm $\u{((10)+(9))+(3)}$ (vgl. Vorlesungsskriptum Seite 45) können wir wie folgt interpretieren:
 \begin{align*}
-I_{\mathcal{A}}(\u{((10)+(9))+(3)}) &= I_{\mathcal{A}}(\u{(10)+(9)}) + I_{\mathcal{A}}(\u{3}) \tag{entsprechend 2. Fall der Definition} \\
-                      &= I_{\mathcal{A}}(\u{10}) + I_{\mathcal{A}}(\u{9}) + 3 \tag{beim $\u{3}$ nun der 1. Fall der Definition} \\
+I_{\lng{A}}(\u{((10)+(9))+(3)}) &= I_{\lng{A}}(\u{(10)+(9)}) + I_{\lng{A}}(\u{3}) \tag{entsprechend 2. Fall der Definition} \\
+                      &= I_{\lng{A}}(\u{10}) + I_{\lng{A}}(\u{9}) + 3 \tag{beim $\u{3}$ nun der 1. Fall der Definition} \\
                       &= 10 + 9 + 3 = 22
 \end{align*}
 \end{bsp}
 Auch hier sehen wir wieder deutlich die Unterscheidung zwischen Zeichenketten im Programmcode (unterstrichen) und den Werten
 auf der semantischen Ebene (nicht unterstrichen). Um den Unterschied weiter zu verdeutlichen
-definieren wir nun die Sprache der einfachen arithmetischen Ausdrücke von Binärzahlen $\mathcal{B}$.
+definieren wir nun die Sprache der einfachen arithmetischen Ausdrücke von Binärzahlen $\lng{B}$.
 \begin{defn}
-Die Sprache $\mathcal{B}$ definieren wir mit Alphabet $\Sigma=\gbr{\u{0},\u{1},\u{(},\u{)},\u{+}}$.
+Die Sprache $\lng{B}$ definieren wir mit Alphabet $\Sigma=\gbr{\u{0},\u{1},\u{(},\u{)},\u{+}}$.
 \begin{enumerate}
-\item $(\u{1} \gbr{\u{0},\u{1}}^*) \cup \gbr{\u{0}} \subset \mathcal{B}$
-\item Wenn $x,y \in \mathcal{B}$, dann ist auch $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \mathcal{B}$.
+\item $(\u{1} \gbr{\u{0},\u{1}}^*) \cup \gbr{\u{0}} \subset \lng{B}$
+\item Wenn $x,y \in \lng{B}$, dann ist auch $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \lng{B}$.
 \end{enumerate}
-Die Semantik der Sprache $\mathcal{B}$ definieren wir durch:
+Die Semantik der Sprache $\lng{B}$ definieren wir durch:
 \begin{enumerate}
-\item $I_{\mathcal{B}}(x) = \sbr{x}$ wenn $x \in \mathcal{B}_N$. $\sbr{x} \in \N_0$ ist nun die
+\item $I_{\lng{B}}(x) = \sbr{x}$ wenn $x \in \lng{B}_N$. $\sbr{x} \in \N_0$ ist nun die
 durch die Binärzahl (exakt: die Binärziffernfolge) dargestellte Zahl auf semantischer Ebene, in diesem Fall also im mathematischen Sinne.
-\item $I(\u{(}x\u{)+(}y\u{)})=I(x) + I(y)$ wenn $x,y \in \mathcal{B}$.
+\item $I(\u{(}x\u{)+(}y\u{)})=I(x) + I(y)$ wenn $x,y \in \lng{B}$.
 \end{enumerate}
 \end{defn}
 \begin{bsp}
@@ -115,28 +115,28 @@ $I(\u{1001})=9$ aber $\u{1001}\neq 9$.
 
 Betrachten wir das Beispiel wie zuvor, nun in Binärdarstellung $\u{((1010)+(1001))+(11)}$: 
 \begin{align*}
-I_{\mathcal{B}}(\u{((1010)+(1001))+(11)}) &= I_{\mathcal{B}}(\u{(1010)+(1001)}) + I_{\mathcal{B}}(\u{11})\\
-                      &= I_{\mathcal{B}}(\u{1010}) + I_{\mathcal{B}}(\u{1001}) + 3\\
+I_{\lng{B}}(\u{((1010)+(1001))+(11)}) &= I_{\lng{B}}(\u{(1010)+(1001)}) + I_{\lng{B}}(\u{11})\\
+                      &= I_{\lng{B}}(\u{1010}) + I_{\lng{B}}(\u{1001}) + 3\\
                       &= 10 + 9 + 3 = 22
 \end{align*}
 \end{bsp}
 
-Wir versuchen nun der Sprache $\mathcal{A}$ eine zweite Funktion, die Multiplikation hinzuzufügen.
+Wir versuchen nun der Sprache $\lng{A}$ eine zweite Funktion, die Multiplikation hinzuzufügen.
 \begin{defn}
-Die Sprache $\mathcal{C}$ ist definiert durch:
+Die Sprache $\lng{D}$ ist definiert durch:
 \begin{enumerate}
-\item ZAHL$\subset \mathcal{C}$
-\item $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \mathcal{C}$, wenn $x,y \in \mathcal{C}$.
-\item $\u{(} x \u{)} \u{*} \u{(} y \u{)} \in \mathcal{C}$, wenn $x,y \in \mathcal{C}$.
+\item ZAHL$\subset \lng{D}$
+\item $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \lng{D}$, wenn $x,y \in \lng{D}$.
+\item $\u{(} x \u{)} \u{*} \u{(} y \u{)} \in \lng{D}$, wenn $x,y \in \lng{D}$.
 \end{enumerate}
-Die Semantik der Sprache $\mathcal{C}$ definieren wir durch:
+Die Semantik der Sprache $\lng{D}$ definieren wir durch:
 \begin{enumerate}
-\item $I_{\mathcal{C}}(x) = \sbr{x}$ wenn $x \in \mathcal{C}_N$.
-\item $I_{\mathcal{C}}(\u{(}x\u{)*(}y\u{)})=I_{\mathcal{C}}(x) \cdot I_{\mathcal{C}}(y)$ wenn $x,y \in \mathcal{A}$.
-\item $I_{\mathcal{C}}(\u{(}x\u{)+(}y\u{)})=I_{\mathcal{C}}(x) + I_{\mathcal{C}}(y)$ wenn $x,y \in \mathcal{A}$.
+\item $I_{\lng{D}}(x) = \sbr{x}$ wenn $x \in \lng{D}_N$.
+\item $I_{\lng{D}}(\u{(}x\u{)*(}y\u{)})=I_{\lng{D}}(x) \cdot I_{\lng{D}}(y)$ wenn $x,y \in \lng{A}$.
+\item $I_{\lng{D}}(\u{(}x\u{)+(}y\u{)})=I_{\lng{D}}(x) + I_{\lng{D}}(y)$ wenn $x,y \in \lng{A}$.
 \end{enumerate}
 \end{defn}
-Mit dieser Definition ist $I_{\mathcal{C}}$ keine Funktion.
+Mit dieser Definition ist $I_{\lng{D}}$ keine Funktion.
 
 \begin{beweis}
 Laut Definition~\ref{defn:Funktion} ist eine Relation eine Funktion wenn es für jeden möglichen Eingabewert genau einen Ausgabewert gibt.
@@ -145,24 +145,24 @@ Möchte man eine Aussage über ``alle'' Werte bzw. ``jeden'' Wert widerlegen so 
 Fall müssen wir nur ein Gegenbeispiel finden, denn dann gilt die Aussage offensichtlich nicht für alle Werte, wir haben ja einen gefunden
 für den es nicht gilt. Diese Beweistechnik nennt man ``Beweis durch Widerspruch''.
 
-Wir werden nun zeigen dass $I_{\mathcal{C}}$ für das Programm \u{1+2*3} verschiedene Interpretationsmöglichkeiten zulässt da nicht festgelegt
+Wir werden nun zeigen dass $I_{\lng{D}}$ für das Programm \u{1+2*3} verschiedene Interpretationsmöglichkeiten zulässt da nicht festgelegt
 ist ob der 2. oder 3. Fall der Definition die höhere Priorität hat.
 \begin{align*}
-I_{\mathcal{C}}(\u{1+2*3}) &= I_{\mathcal{C}}(\u{1+2}) \cdot I_{\mathcal{C}}(\u{3}) \tag{2. Fall der Definition} \\
-&= (I_{\mathcal{C}}(\u{1}) + I_{\mathcal{C}}(\u{2})) \cdot 3 \tag{3. Fall der Definition} \\
+I_{\lng{D}}(\u{1+2*3}) &= I_{\lng{D}}(\u{1+2}) \cdot I_{\lng{D}}(\u{3}) \tag{2. Fall der Definition} \\
+&= (I_{\lng{D}}(\u{1}) + I_{\lng{D}}(\u{2})) \cdot 3 \tag{3. Fall der Definition} \\
 &= (1+2) \cdot 3 = 3 \cdot 3 = 9 \\
-I_{\mathcal{C}}(\u{1+2*3}) &= I_{\mathcal{C}}(\u{1}) \cdot I_{\mathcal{C}}(\u{2*3}) \tag{3. Fall der Definition} \\
-&= 1 + (I_{\mathcal{C}}(\u{2}) \cdot I_{\mathcal{C}}(\u{3})) \tag{2. Fall der Definition} \\
+I_{\lng{D}}(\u{1+2*3}) &= I_{\lng{D}}(\u{1}) \cdot I_{\lng{D}}(\u{2*3}) \tag{3. Fall der Definition} \\
+&= 1 + (I_{\lng{D}}(\u{2}) \cdot I_{\lng{D}}(\u{3})) \tag{2. Fall der Definition} \\
 &= 1 + (2 \cdot 3) = 1 + 6 = 7 \neq 9
 \end{align*}
 Wir haben gezeigt dass für einen Eingabewert 2 unterschiedliche Ausgabewerte möglich sind.
-Folglich gibt es nicht für \u{jeden} Eingabewert \u{genau einen} Ausgabewert, daher kann $I_{\mathcal{C}}$ keine Funktion sein. \hfill $\Box$
+Folglich gibt es nicht für \u{jeden} Eingabewert \u{genau einen} Ausgabewert, daher kann $I_{\lng{D}}$ keine Funktion sein. \hfill $\Box$
 \end{beweis}
-Wir müssten also die Interpretationsfunktion $I_{\mathcal{C}}$ anders definieren. Eine Lösung wäre beispielsweise zu definieren dass der 3. Fall der Interpretationsfunktion
+Wir müssten also die Interpretationsfunktion $I_{\lng{D}}$ anders definieren. Eine Lösung wäre beispielsweise zu definieren dass der 3. Fall der Interpretationsfunktion
 nur angewendet werden darf wenn in den beiden Operanden $x$ und $y$ kein $\u{*}$ vorkommt.
 \ifthenelse{\boolean{long}}{}{\end{comment}}
-\section{Sprache $\mathcal{VA}$ - arithmetische Ausdrücke mit Variablen}
-Wir erweitern die Sprache $\mathcal{A}$ durch Variablen und schaffen so eine mächtigere Sprache $\mathcal{VA}$.
+\section{Sprache $\lng{V}$ - arithmetische Ausdrücke mit Variablen}
+Wir erweitern die Sprache $\lng{A}$ durch Variablen und schaffen so eine mächtigere Sprache $\lng{V}$.
 Um mit Variablen umgehen zu können brauchen wir nun einerseits eine Menge zulässiger
 Variablennamen und andererseits eine Funktion die von Variablennamen auf eine Wertemenge der semantischen Ebene (z.B. $\N_0$) abbildet.
 Die Menge der zulässigen Variablennamen nennen wir IVS (Individuenvariablensymbole).
@@ -177,24 +177,24 @@ Die Menge aller Environments sei
 \[\text{ENV} = \bigcup_{x \in \text{IVS},y \in \Lambda} \gbr{(x,y)},\]
 das heißt, die Vereinigung über alle Tupel Variablenname $x \in \text{IVS}$ und Wert auf semantischer Ebene $y \in \Lambda$.
 \end{defn}
-Für die Sprache $\mathcal{VA}$ ist $\Lambda=\N_0$.
+Für die Sprache $\lng{V}$ ist $\Lambda=\N_0$.
 \begin{defn}
-Die Syntax der Sprache $\mathcal{VA}$ ist definiert durch:
+Die Syntax der Sprache $\lng{V}$ ist definiert durch:
 \begin{enumerate}
-\item ZAHL$\subset \mathcal{VA}$
-\item IVS$\subset \mathcal{VA}$
-\item $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \mathcal{C}$, wenn $x,y \in \mathcal{VA}$.
+\item ZAHL$\subset \lng{V}$
+\item IVS$\subset \lng{V}$
+\item $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \lng{V}$, wenn $x,y \in \lng{V}$.
 \end{enumerate}
 \end{defn}
 Die Interpretation eines Programms hängt nun nicht mehr allein vom Programm selbst ab,
 sondern auch von den Werten der Variablen im $\omega$-Environment.
 \begin{defn}
-Die Interpretationsfunktion $I_{\mathcal{VA}}: \text{ENV}\times\mathcal{VA} \to \Lambda$
+Die Interpretationsfunktion $I_{\lng{V}}: \text{ENV}\times\lng{V} \to \Lambda$
 weist jedem Tupel aus Environment und Programm einen Wert in $\Lambda$ zu.
 \begin{enumerate}
-\item $I_{\mathcal{VA}}(\omega,k) = \sbr{k}$ wenn $k \in \text{ZAHL}$, $\omega \in \text{ENV}$.
-\item $I_{\mathcal{VA}}(\omega,v) = \omega(v)$ wenn $vk \in \text{IVS}$, $\omega \in \text{ENV}$.
-\item $I_{\mathcal{VA}}(\u{(}x\u{)+(}y\u{)})=I_{\mathcal{VA}}(\omega,x) + I_{\mathcal{VA}}(\omega,y)$ wenn $x,y \in \mathcal{VA}$, $\omega \in \text{ENV}$.
+\item $I_{\lng{V}}(\omega,k) = \sbr{k}$ wenn $k \in \text{ZAHL}$, $\omega \in \text{ENV}$.
+\item $I_{\lng{V}}(\omega,v) = \omega(v)$ wenn $vk \in \text{IVS}$, $\omega \in \text{ENV}$.
+\item $I_{\lng{V}}(\u{(}x\u{)+(}y\u{)})=I_{\lng{V}}(\omega,x) + I_{\lng{V}}(\omega,y)$ wenn $x,y \in \lng{V}$, $\omega \in \text{ENV}$.
 \end{enumerate}
 \end{defn}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -202,14 +202,14 @@ weist jedem Tupel aus Environment und Programm einen Wert in $\Lambda$ zu.
 Gegeben Sei das Environment $\omega(\u{x})=0$, $\omega(\u{y})=1$, $\omega(\u{z})=2$.
 Interpretieren Sie das Programm $\u{(((x)+(2))+(y))+(z)}$.
 \begin{align*}
-I_{\mathcal{VA}}(\omega,\u{(((x)+(2))+(y))+(z)}) &= I_{\mathcal{VA}}(\omega,\u{((x)+(2))+(y)}) + I_{\mathcal{VA}}(\omega,\u{z}) \\
-&= I_{\mathcal{VA}}(\omega,\u{(x)+(2)}) + I_{\mathcal{VA}}(\omega,\u{y}) + \omega(\u{z}) \\
-&= I_{\mathcal{VA}}(\omega,\u{x}) + I_{\mathcal{VA}}(\omega,\u{2}) + \omega(\u{y}) + 2 \\
+I_{\lng{V}}(\omega,\u{(((x)+(2))+(y))+(z)}) &= I_{\lng{V}}(\omega,\u{((x)+(2))+(y)}) + I_{\lng{V}}(\omega,\u{z}) \\
+&= I_{\lng{V}}(\omega,\u{(x)+(2)}) + I_{\lng{V}}(\omega,\u{y}) + \omega(\u{z}) \\
+&= I_{\lng{V}}(\omega,\u{x}) + I_{\lng{V}}(\omega,\u{2}) + \omega(\u{y}) + 2 \\
 &= \omega(\u{x}) + 2 + 1 + 2 \\
 &= 0 + 2 + 1 + 2 = 5
 \end{align*}
-Beachten Sie auch, dass nach wie vor $I_{\mathcal{VA}}(\omega,\u{2})=2$.
-Es ist ein bei den Übungen weit verbreiteter Fehler $I_{\mathcal{VA}}(\omega,\u{2}) = \omega(\u{2})$ zu schreiben. Die Interpretationsfunktion wurde so nicht definiert und
+Beachten Sie auch, dass nach wie vor $I_{\lng{V}}(\omega,\u{2})=2$.
+Es ist ein bei den Übungen weit verbreiteter Fehler $I_{\lng{V}}(\omega,\u{2}) = \omega(\u{2})$ zu schreiben. Die Interpretationsfunktion wurde so nicht definiert und
 außerdem ist $\u{2}$ auch kein gültiger Variablenname.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -242,6 +242,7 @@ Die Mengen $F^{\Sigma}$, $P^{\Sigma}$ und $C^{\Sigma}$ enthalten die entsprechen
 \end{defn}
 
 Konstanten sind eigentlich nur spezielle Funktionen ($0$ Argumente) und wir unterscheiden nur zwecks Übersicht.
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
 Definieren Sie den Datentyp Integer mit Funktionen für Addition, Subtraktion und Multiplikation sowie Prädikaten für
 ``kleiner'' und Gleichheit.
@@ -255,17 +256,18 @@ Daher genügt es zu definieren welche Funktion welcher Operation entspricht.
 \item Funktionen $f_1: +$, $f_2: -$, $f_3: *$
 
 Die Funktionen $+, -, *$ sind auf $\Z$ definiert.
-Auf der syntaktischen Ebene definieren wir: $f^{\Sigma}_1: \u{\tplus}$, $f^{\Sigma}_2: \u{\tminus}$, $f^{\Sigma}_3: \u{\tmult}$.
+Auf der syntaktischen Ebene definieren wir: $f^{\Sigma}_1: {\tuplus}$, $f^{\Sigma}_2: {\tuminus}$, $f^{\Sigma}_3: {\tumult}$.
 \item Prädikate $p_1: <$, $p_2: =$
 
 Die Prädikate $<, =$ sind auf $\Z$ definiert.
-Syntaktische Ebene: $p^{\Sigma}_1: \u{\tlt}$, $p^{\Sigma}_2: \u{\teq}$.
+Syntaktische Ebene: $p^{\Sigma}_1: {\tult}$, $p^{\Sigma}_2: {\tueq}$.
 \item Konstanten $c_1: 0$, $c_2: 1$
 
-Syntaktische Ebene: $c^{\Sigma}_1: \u{\tnull}$, $c^{\Sigma}_2: \u{\teins}$.
+Syntaktische Ebene: $c^{\Sigma}_1: {\tunull}$, $c^{\Sigma}_2: {\tueins}$.
 \end{itemize}
 Hinzunahme von Division ist problematisch $/$ da das Ergebnis nicht unbedingt $\in A$ ist.
 \end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 Wir können bei der Definition eines Datentyps oft (z.B. bei den verschiedenen Datentypen für Zahlen) auf bekannte algebraische Strukturen (Halbgruppen, etc.) zurückgreifen.
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
@@ -363,11 +365,11 @@ Berechnen Sie den Ausdruck $\text{add0}(\text{add1}(\text{sub}(011)))$ im Datent
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
-\section{Sprache der Terme $\mathcal{T}$}
+\section{Sprache der Terme $\lng{T}$}
 Wir müssen nun um den Datentyp verwenden zu können eine grundlegende Sprache 
 definieren die diesen Datentyp verwendet. Auf dieser Sprache können dann weitere Sprachen
 aufgebaut werden.
-\begin{defn}[Sprache der Terme $\mathcal{T}$]
+\begin{defn}[Sprache der Terme $\lng{T}$]
 Sei $\Psi=\rbr{A,F,P,C}$ ein Datentyp.
 Das Alphabet $\Sigma$ ist dann eine Vereinigung aus den Mengen der
 \begin{itemize}
@@ -378,21 +380,22 @@ Das Alphabet $\Sigma$ ist dann eine Vereinigung aus den Mengen der
 \item $\u{(}$,$\u{)}$ und $\u{,}$
 \item Sondersymbole (Keywords): \u{if}, \u{then}, \u{else}, \u{begin}, \u{end}, $\ldots$
 \end{itemize}
-Die Syntax von $\mathcal{T} \subseteq \Sigma$ über einem beliebigen Datentypen ist dann definiert durch:
+Die Syntax von $\lng{T} \subseteq \Sigma$ über einem beliebigen Datentypen ist dann definiert durch:
 \begin{enumerate}
-\item $C^{\Sigma} \subseteq \mathcal{T}$, d.h. Konstantensymbole sind Terme
-\item $\text{IVS} \subseteq \mathcal{T}$, d.h. Individuenvariablensymbole sind Terme
+\item $C^{\Sigma} \subseteq \lng{T}$, d.h. Konstantensymbole sind Terme
+\item $\text{IVS} \subseteq \lng{T}$, d.h. Individuenvariablensymbole sind Terme
 \item Wenn $f^{\Sigma}_i$ ein $n$-stelliges Funktionssymbol ist und $t_1,\ldots,t_n$ Terme,
 dann ist auch $f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}$ ein Term (Unterstreichungen beachten!).
 \end{enumerate}
-Die Semantik von $\mathcal{T}$ definieren wir durch die Interpretationsfunktion $I_{\mathcal{T}}: \text{ENV} \times \mathcal{T} \to A$.
+Die Semantik von $\lng{T}$ definieren wir durch die Interpretationsfunktion $I_{\lng{T}}: \text{ENV} \times \lng{T} \to A$.
 \begin{enumerate}
-\item $I_{\mathcal{T}}(\omega,c'_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c'_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
-\item $I_{\mathcal{T}}(\omega,v)=\omega(v)$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$.
-\item $I_{\mathcal{T}}(\omega,f'_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\mathcal{T}}(\omega,t_1),\ldots,I_{\mathcal{T}}(\omega,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f'_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
+\item $I_{\lng{T}}(\omega,c'_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c'_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
+\item $I_{\lng{T}}(\omega,v)=\omega(v)$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$.
+\item $I_{\lng{T}}(\omega,f'_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\lng{T}}(\omega,t_1),\ldots,I_{\lng{T}}(\omega,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f'_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
 \end{enumerate}
 \end{defn}
 
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
 Führen Sie das Programm \u{plus(plus(x,y),plus(eins,z))} mit dem Environment $\omega(\u{x})=0$, $\omega(\u{y})=1$, $\omega(\u{z})=2$ aus.
 
@@ -405,19 +408,66 @@ Führen Sie das Programm \u{plus(plus(x,y),plus(eins,z))} mit dem Environment $\
 &= +\rbr{+\rbr{0,1},+\rbr{1,2}} = +\rbr{1,3} = 4
 \end{align*}
 \end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 
-Laut Definition von $\mathcal{T}$ gibt es nur die Konstanten $0$ und $1$. Variablen können natürlich jeden beliebigen Wert in $\Z$ annehmen.
-Es kann aber auch gezeigt werden dass alle ganzen Zahlen durch einen variablenfreien Term dargestellt werden können.
-Terme sind rekursiv definiert. Die \textbf{vollständige Induktion} ist die übliche Beweistechnik für Beweise über rekursive bzw. rekursiv definierte Ausdrücke.
+Laut Definition von $\lng{T}$ gibt es nur die Konstanten $0$ und $1$. Variablen können natürlich jeden beliebigen Wert in $\Z$ annehmen.
+Es kann aber auch gezeigt werden dass alle ganzen Zahlen durch einen variablenfreien Term dargestellt werden können. Daher ist es nicht nötig dass es für jede Zahl eine Konstante gibt.
+Terme sind rekursiv definiert. Die \textbf{vollständige Induktion} (ab hier auch Induktion genannt) ist die übliche Beweistechnik für Beweise über rekursive bzw. rekursiv definierte Ausdrücke.
 
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+Versuchen wir zunächst die \textbf{vollständige Induktion} ganz allgemein zu verstehen.
 \begin{bsp}
-Wir wollen zeigen, dass alle ganzen Zahlen durch einen variablenfreien Term dargestellt werden können.
-Die \textbf{vollständige Induktion} besteht aus 3 Einzelschritten: In der \textbf{Induktionsbasis} werden ein oder mehrere Basisfälle direkt bewiesen.
+Dazu macht es Sinn sich ein kleines Beispiel zu überlegen. Dazu definieren wir, dass folgende Aussagen wahr sind:
+\begin{itemize}
+\item Aussage $A$: An Tag $n$ regnet es genau dann, wenn es an Tag $n-1$ geregnet hat.
+\item Aussage $T_1$: An Tag $1$ regnet es.
+\end{itemize}
+Wir sehen sofort dass es wohl immer regnet.
+Dies wollen wir nun auch beweisen: An jedem Tag regnet es. Man könnte auch schreiben:
+An jedem Tag $i$ regnet es. Zwecks Übersichtlichkeit bezeichnen wir die Aussage ``Es regnet an Tag $i$'' mit $T_i$
+und können dann sehr kompakt schreiben: $\forall i: T_i$.
+
+Wir erbringen nun zunächst den Beweis für die ersten Tage einzeln.
+\begin{itemize}
+\item Tag $1$: $T_1$ war schon gegeben und ist wahr.
+\item Tag $2$: $A \wedge T_1 \ra T_2$
+\item Tag $3$: $A \wedge T_1 \wedge T_2 \ra T_3$
+\item Tag $4$: $A \wedge T_1 \wedge T_2 \wedge T_3 \ra T_4$
+\end{itemize}
+Wir würden so allerdings nie fertig werden da es in unserem Beispiel so viele Tage wie natürliche Zahlen gibt.
+Was uns aber auffällt: Für den Beweis von jedem $T_i$ müssen wir auf den Beweis für $T_{i-1}$ zurückgreifen.
+Eine Induktion verkürzt hier unsere Arbeit wesentlich.
+Wir zeigen einfach die Korrektheit für einen allgemeinen Fall (z.B. $T_{n+1}$) aus seinen Vorgängern ($T_{i}$ mit $i \leq n$) folgt.
+
+Dazu müssen wir zunächst allgemein beschreiben was für jedes einzelne Element bis zu einem gewissen (beliebigen) $n$ gilt: $\forall i \leq n: T_i$. Wir nennen dies \textbf{Induktionshypothese}.
+Diese Aussage ist allerdings nicht bewiesen, es ist lediglich eine Annahme darüber was für jedes Element gilt.
+
+Den entscheidenden Schritt im Beweis führen wir jetzt durch, indem wir von $n$ auf das nachfolgende Element (in unserem Fall $n+1$) springen und zeigen dass der Beweis für das nachfolgende
+Element erbracht werden kann. Dabei müssen wir unbedingt die Annahme (die Induktionshypothese) verwenden, sonst handelt es sich bei unserem Beweis nicht um eine vollständige
+Induktion und sehr wahrscheinlich ist der Beweis dann auch nicht fehlerfrei.
+
+Wir wollen nun also beweisen: $\forall i \leq n+1: T_i$.
+Laut Induktionshypothese gilt: $\forall i \leq n: T_i$.
+Es bleibt daher nur zu beweisen übrig: $T_{n+1}$.
+Dazu versuchen wir nun umzuformen:
+\begin{align*}
+T_{n+1} \lra T_{n} \tag{laut Aussage $A$}
+\end{align*}
+$T_n$ gilt laut Induktionshypothese, der Beweis ist damit erbracht: Wir haben bewiesen, dass $\forall i: T_i$.
+Diesen Teil der Induktion nennen wir \textbf{Induktionsschritt}.
+Meist ist hier mehr Arbeit erforderlich als bei diesem kleinen Beispiel. Wir werden das auch beim nächsten Beispiel sehen.
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+Halten wir fest: Die \textbf{vollständige Induktion} besteht aus 3 Einzelschritten: In der \textbf{Induktionsbasis} werden ein oder mehrere Basisfälle direkt bewiesen.
 In der \textbf{Induktionshypothese} wird versucht eine allgemeine Aussage (eine Hypothese) zu treffen von der angenommen wird dass sie bis zum $n$-ten Fall gilt.
 Im \textbf{Induktionsschritt} gehen wir einen Schritt weiter, also in den Fall $n+1$ und versuchen diesen zu beweisen. Hier muss unbedingt auf die Induktionshypothese zurückgegriffen
-werden, sonst wurde keine vollständige Induktion durchgeführt.
+werden, sonst wurde keine vollständige Induktion durchgeführt. Um eine Induktion durchführen zu können müssen die Elemente unbedingt aufzählbar sein
+(d.h. man muss eine eindeutige Reihenfolge/Sortierung für die Elemente angeben können).
 
-Um eine Induktion durchführen zu können müssen die Elemente unbedingt aufgezählt werden können (d.h. man muss eine eindeutige Reihenfolge/Sortierung für die Elemente angeben können).
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Wir wollen zeigen, dass alle ganzen Zahlen durch einen variablenfreien Term dargestellt werden können.
 
 Bevor wir die Induktion durchführen versuchen wir ein Muster zu erkennen.
 \begin{align*}
@@ -427,7 +477,7 @@ Bevor wir die Induktion durchführen versuchen wir ein Muster zu erkennen.
 \I{T}{\omega}{\tplus\rbr{\teins,\tplus\rbr{\teins,\teins}}}&=3 \tag{verschachtelte Addition}
 \end{align*}
 Wir erkennen das Muster: Alle Zahlen $\in \N$ können durch rekursive Addition von 1 dargestellt werden.
-Diese Rekursion kann beliebig tief werden, hat allerdings immer die gleiche Form.
+Diese Rekursion kann beliebig tief werden, wir bauen sie allerdings immer in der gleichen Form (nur rechter Ast rekursiv).
 Wir definieren uns einen Platzhalter $t_k$ um beliebig lange solcher Ausdrücke einfach darzustellen:
 \begin{align*}
 t_2 &= \u{\tplus(\teins,\teins)} \\
@@ -435,7 +485,7 @@ t_3 &= \u{\tplus(\teins,\tplus(\teins,\teins))} \\
 &\vdots \\
 t_{k+1} &= \u{\tplus(\teins,}t_{k}\u{)} \\
 \end{align*}
-$k$ entsprichtder Anzahl der $\u{\teins}$ im Ausdruck.
+$k$ entsprichtder Anzahl der ${\tueins}$ im Ausdruck.
 
 \begin{itemize}
 \item \textbf{Induktionsbasis:}\\
@@ -447,19 +497,14 @@ Das sind in unserem Fall die beiden Konstanten sowie der Fall $t_2$:
 \Iu{T}{\omega}{t_2}&=\I{T}{\omega}{\tplus(\teins,\teins)}=2\\
 \end{align*}
 \item \textbf{Induktionshypothese:}\\
-In der Induktionshypothese treffen wir eine Aussage über ein Element $n$ oder mehrere (evtl. alle) Elemente bis zu einem gewissen Element $n$.
-In unserem Fall sagen wir dass
 \begin{align*}
 \Iu{T}{\omega}{t_n}&=n
 \end{align*}
 \item \textbf{Induktionsschritt:}\\
-Im Induktionsschritt erfolgt zeigen wir nun dass unter Annahme der Korrektheit der Induktionshypothese der Beweis auch für das Element $n+1$ (also das erste Element über das wir
-keine Annahme getroffen haben) erbracht werden kann. (Häufiger Fehler: Wird im Induktionsschritt die Induktionshypothese nicht verwendet so handelt es sich nicht um eine vollständige Induktion!)
-Wir müssen also zeigen dass:
 \begin{align*}
 \Iu{T}{\omega}{t_{n+1}}&=n+1 \tag{Einsetzen von $t_{n+1}$}\\
 \Iu{T}{\omega}{\u{\tplus(\teins,}t_{n}\u{)}}&=n+1 \tag{Interpretationsfunktion durchführen}\\
-+\rbr{\Iu{T}{\omega}{\u{\teins}},\Iu{T}{\omega}{t_{n}}}&=n+1 \\
++\rbr{\Iu{T}{\omega}{{\tueins}},\Iu{T}{\omega}{t_{n}}}&=n+1 \\
 +\rbr{1,\Iu{T}{\omega}{t_{n}}}&=n+1
 \intertext{\textbf{Unter Verwendung der Induktionshypothese (d.h. wir setzen die Induktionshypothese $\Iu{T}{\omega}{t_n}=n$ ein):}}
 +\rbr{1,n}&=n+1
@@ -467,4 +512,194 @@ Wir müssen also zeigen dass:
 Damit ist der Beweis erbracht.
 \end{itemize}
 \end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+\section{Sprache der Konditionale COND ($\lng{C}$)}
+Wir hatten in der Sprache der Terme $\lng{T}$ noch nicht die Möglichkeit Prädikate zu nutzen obwohl Datentypen über
+Prädikate verfügen. Dazu definieren wir die Sprache der Konditionale \textbf{COND}. Wir schreiben in diesem Skriptum großteils
+nur $\lng{C}$ zwecks Übersichtlichkeit - $\lng{C}$ gesprochen ``COND''.
+\begin{defn}[Die Sprache COND ($\lng{C}$)]
+Die Syntax von $\lng{C}$ ist wie folgt definiert:
+\begin{enumerate}
+\item $\lng{T} \subseteq \lng{C}$, d.h. alle Terme sind Konditionale.
+\item Wenn $p^{\Sigma}_i$ ein $n$-stelliges Prädikatensymbol ist und $u_1,\ldots,u_n,t_1,t_2$ Konditionale,
+dann ist auch \[{\tuif} p_i^{\Sigma}\u{(}u_1\u{,}\ldots\u{,}u_n\u{)}{\tuthen} t_1 {\tuelse} t_2\] ein Konditional.
+\end{enumerate}
+
+Die Semantikfunktion $I_{\lng{C}}$ definieren wir durch:
+\begin{enumerate}
+\item $\Iu{C}{\omega}{t} = \Iu{T}{\omega}{t}$, wenn $t \in \lng{T}$ und $\omega \in \text{ENV}$.
+\item Für jedes Prädikat $p_i$ gilt:
+\begin{itemize}
+\item Wenn $p_i\rbr{\Iu{C}{\omega}{u_1},\ldots,\Iu{C}{\omega}{u_n}}=T$, dann gilt:
+\[\Iu{C}{\omega}{{\tuif} p_{i}^{\Sigma} \u{(} u_1\u{,}\ldots\u{,}u_n\u{)}{\tuthen} t_1 {\tuelse} t_2}=\Iu{C}{\omega}{t_1}\]
+\item Sonst ist $p_i\rbr{\Iu{C}{\omega}{u_1},\ldots,\Iu{C}{\omega}{u_n}}=F$ und dann gilt:
+\[\Iu{C}{\omega}{{\tuif} p_{i}^{\Sigma} \u{(} u_1\u{,}\ldots\u{,}u_n\u{)}{\tuthen} t_1 {\tuelse} t_2}=\Iu{C}{\omega}{t_2}\]
+\end{itemize}
+\end{enumerate}
+\end{defn}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Interpretieren Sie das Programm \u{if ist0?(sub(x)) then add0(x) else sub(x)} über dem Datentyp der binären Stacks mit dem Environment $\omega(\u{x})=101$.
+
+Wir beginnen wie auch schon in der Sprache der Terme.
+\[\I{C}{\omega}{\tif \text{ist0?}\rbr{\text{sub}(x)}\tthen \text{add0}(x) \telse \text{sub}(x)}\]
+\begin{itemize}
+\item[NR] An dieser Stelle müssen wir nun eine Nebenrechnung (NR) durchführen um zu bestimmen ob der $\tthen$- oder der $\telse$-Zweig ausgeführt wird.
+\begin{align*}
+&\quad \I{C}{\omega}{\text{ist0?}\rbr{\text{sub}(x)}} \\
+&= \text{ist0?}\rbr{\I{C}{\omega}{\text{sub}(x)}} \\
+&= \text{ist0?}\rbr{\text{sub}\rbr{\I{C}{\omega}{x}}} \\
+&= \text{ist0?}\rbr{\text{sub}\rbr{\I{T}{\omega}{x}}} \tag{trivial, wird daher i.A. nicht angeschrieben}\\
+&= \text{ist0?}\rbr{\text{sub}\rbr{\omega\rbr{\u{x}}}} \\
+&= \text{ist0?}\rbr{\text{sub}\rbr{101}} \\
+&= \text{ist0?}\rbr{01} \\
+&= T
+\end{align*}
+\end{itemize}
+\begin{align*}
+&\quad \I{C}{\omega}{\tif \text{ist0?}\rbr{\text{sub}(x)}\tthen \text{add0}(x) \telse \text{sub}(x)} \tag{aus der NR folgt} \\
+&= \I{C}{\omega}{\text{add0}(x)} \\
+&= \text{add0}\rbr{\I{C}{\omega}{x}} \\
+&= \text{add0}\rbr{\omega\rbr{\u{x}}} \\
+&= \text{add0}\rbr{101} \\
+&= 0101
+\end{align*}
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+Bei Verschachtelungen von Prädikaten in $\lng{C}$ ist zu beachten dass Prädikate direkt kein Teil der Sprache sind.
+Daher ist auch der Ausdruck \u{if ist0?(ist1?(x)) then x else add0(x)} nicht in $\lng{C}$!
+Allerdings ist \u{if ist0?(if ist1?(x) then 110 else 010) then x else add0(x)} in $\lng{C}$.
+
+\section{Rekursive Programme - die Sprache Ausdrücke EXP ($\lng{E}$)}
+Bisher war es nicht möglich Funktionen (insbesondere rekursive) zu definieren. Wir müssen das Konzept ``Funktionsname''
+ähnlich wie die Variablennamen (IVS, Individuenvariablensymbole) zuerst einführen.
+Der Wert der einem Funktionsnamen zugeordnet wird ist dabei ein Programm.
+
+\begin{defn}
+Die Menge der Funktionsvariablensymbole (FVS) enthält ``Namen'' aller Funktionen.
+\end{defn}
+
+\begin{defn}
+Die Menge der Funktionsenvironments bezeichnen wir mit FENV.
+Jedes Funktionsenvironment $\delta: \text{FVS} \to \lng{E}$ liefert für ein Funktionsvariablensymbol die
+Implementation in EXP ($\lng{E}$) zurück. $\delta\u{X}$ bezeichne die Implementation der Funktion mit dem Namen $\u{X}$.
+\end{defn}
+
+Es muss unbedingt unterschieden werden zwischen
+\begin{itemize}
+\item Funktionen des Datentyps ($+$, $-$, etc.) sowie den dazugehörigen Funktionssymbolen (\u{plus}, \u{minus}, etc.)
+\item und ``benutzerdefinierten Funktionen'', d.h. Unterprogramme die auch in der Sprache implementiert werden. Diese bezeichnen wir als Funktionsvariablensymbole.
+\end{itemize}
+
+Wir definieren nun die Sprache \textbf{EXP} ($\lng{E}$). Wie schon bei \textbf{COND} kürzen wir auch hier \textbf{EXP} durch $\lng{E}$ ab - $\lng{E}$ gesprochen ``EXP''.
+\begin{defn}[Syntax von EXP ($\lng{E}$)]
+Die Syntax von $\lng{E}$ ist definiert wie folgt:
+\begin{itemize}
+\item $\lng{C} \subseteq \lng{E}$, d.h. alle Konditionale sind Ausdrücke (d.h. $\in \lng{E}$).
+\item Wenn $f$ eine $n$-stellige Funktionenvariable ($\in$ FVS)
+ist und $t_1,\ldots,t_n$ sind Ausdrücke (d.h. $\in \lng{E}$),
+dann ist $f\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}$ ein Ausdruck (d.h. $\in \lng{E}$).
+\end{itemize}
+\end{defn}
+
+Aus dieser Definition geht hervor dass alle Variablen in einer Funktion die Parameter der Funktion sind.
+Beim Funktionsaufruf werden Parameter übergeben. Wir behandeln dabei zunächst nur call-by-value.
+Hierbei werden die als Parameter übergebenen Ausdrücke \textbf{vor} der Ausführung der Funktion
+berechnet (interpretiert) und die Variablen der Funktion werden in einem neuen Variablenenvironment
+auf die entsprechenden Werte initialisiert.
+
+\begin{defn}[Semantik von EXP ($\lng{E}$)]
+Die Semantikfunktion $I_{\lng{E}}$ definieren wir durch:
+\begin{enumerate}
+\item $\Iu{E}{\delta,\omega}{c} = \Iu{C}{\omega}{c}$, wenn $c \in \lng{C}$ und $\omega \in \text{ENV}$.
+\item $\Iu{E}{\delta,\omega}{F\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}}$ mit $F \in \text{FENV}$. Funktionsaufruf mit call-by-value:
+\begin{enumerate}
+\item Definiere $\omega'$ als neues Environment mit $\omega'(x_i)=\Iu{E}{\delta,\omega}{t_i}$ (für $1 \leq i \leq n$) wobei $x_i$
+die Parameter der Funktion $\delta F$ sind. Im Normalfall ist $x_i=\u{xi}$, d.h. $x_1=\u{x1}$, $x_2=\u{x2}$, usw.
+\item $\Iu{E}{\delta,\omega}{F\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}}=\Iu{E}{\delta,\omega'}{\delta F}$
+\end{enumerate}
+\end{enumerate}
+\end{defn}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Interpretieren Sie das Programm \u{F(sub(x))} in $\lng{E}$ über dem Datentyp der Stacks, wobei $\delta\u{F}=$\u{if ist0?(x1) then sub(x1) else add1(x1)} und
+$\omega(\u{x})=100$.
+
+\textit{Lösung:}
+\begin{align*}
+\I{E}{\delta,\omega}{F(sub(x))}
+\intertext{Neues Environment (NE): $\omega'(\text{x1})=\I{E}{\delta,\omega}{\text{sub}(x)}=\text{sub}(\I{E}{\delta,\omega}{x})=\text{sub}(\omega(\u{x}))=\text{sub}(100)=00$}
+&= \I{E}{\delta,\omega'}{\text{if ist0?(x1) then sub(x1) else add1(x1)}} \\
+\intertext{NR: $\I{E}{\delta,\omega'}{\text{ist0?(x1)}}=\text{ist0?}(\I{E}{\delta,\omega'}{x1})=\text{ist0?}(\omega'(\u{\text{x1}}))=\text{ist0?}(00)=T$}
+&= \I{E}{\delta,\omega'}{\text{sub(x1)}} \\
+&= \text{sub}(\I{E}{\delta,\omega'}{\text{x1}}) \\
+&= \text{sub}(\omega'(\text{x1})) \\
+&= \text{sub}(00) \\
+&= 0
+\end{align*}
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+Im Vorlesungsskriptum findet sich außerdem auf Seite 59 die Defintion für Funktionsaufrufe mittels Call-by-Name sowie obiges Beispiel für Call-by-Name durchgerechnet.
+Außerdem wird demonstriert, dass es Funktionen gibt (die in Teilbereichen undefiniert sind) die je nach Verfahren ein unterschiedliches Verhalten zeigen.
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+Wir haben bereits die vollständige Induktion kennengelernt. Mittels vollständiger Induktion können wir auch die Korrektheit von Programmen in $\lng{E}$
+beweisen.
+
+\begin{bsp}
+Gegeben Sei der Datentyp der nicht-negativen Integer der nur die Funktionen Inkrement um 1 (\u{inc}) und Dekrement um 1 (\u{dec}), sowie die bereits bekannten
+Prädikate \u{eq?} und \u{gt?}. Implementieren Sie die Addition zweier Zahlen in $\lng{E}$.
+
+\textit{Lösung:}
+Um eine Funktion zu schreiben macht es oft Sinn sich zunächst mathematisch aufzuschreiben wie die Funktion definiert ist.
+\[\text{add}(x,y)=\begin{cases} y & \text{ wenn } x=0 \\ \text{add}(\text{dec}(x),\text{inc}(y)) & \text{sonst}\end{cases}\]
+Aus dieser Darstellung kann direkt das $\lng{E}$ Programm implementiert werden:
+\[\delta\text{\u{add}}=\u{\text{if eq?(x,0) then y else add(dec(x),inc(y))}} \qquad \text{(mit Parametern $x_1 = \u{x}, x_2 = \u{y}$)}\]
+Um einen Beweis zu führen brauchen wir nun noch ein ``Golden Device'', eine mathematische Funktion die das geforderte Verhalten korrekt berechnet. Diese
+kann für den Beweis einfach als gegeben angenommen werden.
+In unserem Fall ist es der Operator $+$ über $\N_0$.
+
+Zu zeigen ist also: $\forall \omega: \I{E}{\delta,\omega}{add(x,y)}=\omega(\u{x})+\omega(\u{y})$
+
+\begin{itemize}
+\item Induktionsbasis: Sei $\omega(\u{x})=0$ und $\omega(\u{y})=m$ ($m$ beliebig).
+\begin{align*}
+\I{E}{\delta,\omega}{add(x,y)}
+\intertext{Neues Environment? $\omega'(\u{x})=\omega(\u{x})$, $\omega'(\u{y})=\omega(\u{y})$, d.h. es wäre $\omega'=\omega$. Es gilt Gleichheit, daher ist es völlig egal
+ob hier $\omega'$ eingeführt wird oder nicht. Dieser Fall tritt immer dann auf wenn die Aufruf-Parameter gleich den Funktionsparametern aus der Definition sind. In diesen Fälllen führen wir in diesem Skriptum zwecks Übersichtlichkeit keine neuen Environments ein.}
+&= \I{E}{\delta,\omega}{\text{if eq?(x,0) then y else add(dec(x),inc(y))}}
+\intertext{NR: $\I{E}{\delta,\omega}{\text{eq?}(x,0)}=\text{eq?}(\I{E}{\delta,\omega}{x},\I{E}{\delta,\omega}{0})=\text{eq?}(\omega(\u{x}),0)=\text{eq?}(0,0)=T$}
+&= \I{E}{\delta,\omega}{y} \\
+&= \omega(\u{y}) \\
+&= m \\
+&= \omega(\u{x})+\omega(\u{y})
+\end{align*}
+Der Basisfall wurde damit bewiesen.
+\item Induktionshypothese: $\I{E}{\delta,\omega}{add(x,y)}=\omega(\u{x})+\omega(\u{y})$ gilt für $\omega(\u{x})=n$ und $\omega(\u{y})=m$ ($m$ beliebig)
+\item Induktionsschritt: Zu zeigen ist $\I{E}{\delta,\omega}{add(x,y)}=\omega(\u{x})+\omega(\u{y})$ für $\omega(\u{x})=n+1$ und $\omega(\u{y})=m$ ($m$ beliebig):
+\begin{align*}
+\I{E}{\delta,\omega}{add(x,y)}
+&= \I{E}{\delta,\omega}{\text{if eq?(x,0) then y else add(dec(x),inc(y))}}
+\intertext{NR: $\I{E}{\delta,\omega}{\text{eq?}(x,0)}=\text{eq?}(\I{E}{\delta,\omega}{x},\I{E}{\delta,\omega}{0})=\text{eq?}(\omega(\u{x}),0)=\text{eq?}(n+1,0)=F$, da $n \in \N_0$ und folglich $n+1 \geq 1$}
+&= \I{E}{\delta,\omega}{\text{add(dec(x),inc(y))}}
+\intertext{NE: $\omega'(\u{x})=\I{E}{\delta,\omega}{\text{dec(x)}}=\text{dec}(\I{E}{\delta,\omega}{\text{x}})=\text{dec}(\omega(\u{x}))=\text{dec}(n+1)=n$,
+               $\omega'(\u{y})=\I{E}{\delta,\omega}{\text{inc(y)}}=\text{inc}(\I{E}{\delta,\omega}{\text{y}})=\text{inc}(\omega(\u{y}))=\text{inc}(m)=m+1$}
+&= \I{E}{\delta,\omega'}{\text{add(x,y)}} \tag{Wir ersetzen zunächst nur das Environment!} \\
+\intertext{\textbf{Für diesen Fall ($\omega'(\u{x})=n$) gilt die Induktionshypothese!
+Wir sehen dass der obige Aufruf der Interpretationsfunktion exakt so aussieht wie in der Induktionshypothese.
+Unter Verwendung der Induktionshypothese (d.h. wir setzen die Induktionshypothese $\I{E}{\delta,\omega}{add(x,y)}=\omega(\u{x})+\omega(\u{y})$ ein):}}
+&= \omega'(\u{x})+\omega'(\u{y}) \\
+&= n+m+1 \\
+&= \omega(\u{x})+\omega(\u{y})
+\end{align*}
+Wir haben also bewiesen $\I{E}{\delta,\omega}{add(x,y)} = \ldots = \omega(\u{x})+\omega(\u{y})$. Das ist exakt
+die Gleichheit die wir für den Beweis der Korrektheit zeigen mussten.
+\end{itemize}
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 
