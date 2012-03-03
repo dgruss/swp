@@ -24,13 +24,13 @@ Die Beschreibung der Semantik ist kein Programm und wird daher auch keinesfalls 
 Was drückt der Ausdruck \u{a = b + c} aus? (vgl. Vorlesungsskriptum Seite 42)
 
 Es gibt einige mögliche Interpretationen, hier eine Auswahl davon:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Imperative Interpretation: Eine Zuweisung wie in $C$. \u{a} hat nach der Ausführung des Ausdrucks den Wert der Summe der Werte von \u{b} und \u{c}.
 Andere Variante: Der Wert von \u{a} ist nach der Zuweisung die Zeichenfolge \u{b + c}.
 \item Funktionale Interpretation: Eine Funktion \u{a} wird mit den 4 Parametern \u{= b + c} aufgerufen.
 \item Logische Interpretation: Ein logischer Ausdruck, beispielsweise ist der Ausdruck Wahr wenn der Wert von \u{a} gleich der Summe der Werte von \u{b} und \u{c} ist.
 Andere Variante: Der Wert von 2 der 3 Variablen ist bekannt, der Wert der 3. Variable wird so festgelegt.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 Wir sehen anhand dieses Beispiels dass es wichtig ist exakt zu definieren wie ein Ausdruck
 zu interpretieren ist.
 \end{bsp}
@@ -53,15 +53,15 @@ wir damit aus, da die Division in diesem Fall nicht als Funktion definiert ist) 
 \begin{defn}
 Die Sprache $\lng{A}$ definieren wir mit Alphabet $\Sigma=\gbr{\u{0},\ldots,\u{9},\u{(},\u{)},\u{+}}$.
 Zwecks Einfachheit definieren wir Ziffern (D, digits) und Zahlen:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\lng{A}_D = \gbr{\u{0},\ldots,\u{9}}$
 \item ZAHL $= (\lng{A}_D \setminus \gbr{\u{0}} \lng{A}_D^*) \cup \gbr{\u{0}}$
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Wir definieren die Sprache $A$ nun nicht mehr über eine Grammatik sondern durch eine induktive Beschreibung (Basisfall und allgemeine Fälle):
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item ZAHL$\subset \lng{A}$
 \item Wenn $x,y \in \lng{A}$, dann ist auch $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \lng{A}$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 An dieser Stelle sei noch einmal darauf hingewiesen dass wir $x,y$ nicht unterstreichen dürfen, da sie keine Sprachelemente sind sondern
 Platzhalter, mathematisch würde man sie auch als Variablen bezeichnen.
@@ -79,11 +79,11 @@ Genau wie die Syntax werden wir nun die Semantik induktiv durch die Interpretati
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 \begin{defn}
 Die Semantik der Sprache $\lng{A}$ definieren wir durch:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $I_{\lng{A}}(x) = \sbr{x}$ wenn $x \in \lng{A}_N$. $x$ ist dabei eine Zeichenkette im Programm, $\sbr{x}$ die
 entsprechende Repräsentation in $\N_0$.
 \item $I_{\lng{A}}(\u{(}x\u{)+(}y\u{)})=I_{\lng{A}}(x) + I_{\lng{A}}(y)$ wenn $x,y \in \lng{A}$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
@@ -99,16 +99,16 @@ auf der semantischen Ebene (nicht unterstrichen). Um den Unterschied weiter zu v
 definieren wir nun die Sprache der einfachen arithmetischen Ausdrücke von Binärzahlen $\lng{B}$.
 \begin{defn}
 Die Sprache $\lng{B}$ definieren wir mit Alphabet $\Sigma=\gbr{\u{0},\u{1},\u{(},\u{)},\u{+}}$.
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $(\u{1} \gbr{\u{0},\u{1}}^*) \cup \gbr{\u{0}} \subset \lng{B}$
 \item Wenn $x,y \in \lng{B}$, dann ist auch $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \lng{B}$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 Die Semantik der Sprache $\lng{B}$ definieren wir durch:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $I_{\lng{B}}(x) = \sbr{x}$ wenn $x \in \lng{B}_N$. $\sbr{x} \in \N_0$ ist nun die
 durch die Binärzahl (exakt: die Binärziffernfolge) dargestellte Zahl auf semantischer Ebene, in diesem Fall also im mathematischen Sinne.
 \item $I(\u{(}x\u{)+(}y\u{)})=I(x) + I(y)$ wenn $x,y \in \lng{B}$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 \begin{bsp}
 $I(\u{1001})=9$ aber $\u{1001}\neq 9$.
@@ -124,17 +124,17 @@ I_{\lng{B}}(\u{((1010)+(1001))+(11)}) &= I_{\lng{B}}(\u{(1010)+(1001)}) + I_{\ln
 Wir versuchen nun der Sprache $\lng{A}$ eine zweite Funktion, die Multiplikation hinzuzufügen.
 \begin{defn}
 Die Sprache $\lng{D}$ ist definiert durch:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item ZAHL$\subset \lng{D}$
 \item $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \lng{D}$, wenn $x,y \in \lng{D}$.
 \item $\u{(} x \u{)} \u{*} \u{(} y \u{)} \in \lng{D}$, wenn $x,y \in \lng{D}$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 Die Semantik der Sprache $\lng{D}$ definieren wir durch:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $I_{\lng{D}}(x) = \sbr{x}$ wenn $x \in \lng{D}_N$.
 \item $I_{\lng{D}}(\u{(}x\u{)*(}y\u{)})=I_{\lng{D}}(x) \cdot I_{\lng{D}}(y)$ wenn $x,y \in \lng{A}$.
 \item $I_{\lng{D}}(\u{(}x\u{)+(}y\u{)})=I_{\lng{D}}(x) + I_{\lng{D}}(y)$ wenn $x,y \in \lng{A}$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 Mit dieser Definition ist $I_{\lng{D}}$ keine Funktion.
 
@@ -180,22 +180,22 @@ das heißt, die Vereinigung über alle Tupel Variablenname $x \in \text{IVS}$ un
 Für die Sprache $\lng{V}$ ist $\Lambda=\N_0$.
 \begin{defn}
 Die Syntax der Sprache $\lng{V}$ ist definiert durch:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item ZAHL$\subset \lng{V}$
 \item IVS$\subset \lng{V}$
 \item $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \lng{V}$, wenn $x,y \in \lng{V}$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 Die Interpretation eines Programms hängt nun nicht mehr allein vom Programm selbst ab,
 sondern auch von den Werten der Variablen im $\omega$-Environment.
 \begin{defn}
 Die Interpretationsfunktion $I_{\lng{V}}: \text{ENV}\times\lng{V} \to \Lambda$
 weist jedem Tupel aus Environment und Programm einen Wert in $\Lambda$ zu.
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $I_{\lng{V}}(\omega,k) = \sbr{k}$ wenn $k \in \text{ZAHL}$, $\omega \in \text{ENV}$.
 \item $I_{\lng{V}}(\omega,v) = \omega(v)$ wenn $vk \in \text{IVS}$, $\omega \in \text{ENV}$.
 \item $I_{\lng{V}}(\u{(}x\u{)+(}y\u{)})=I_{\lng{V}}(\omega,x) + I_{\lng{V}}(\omega,y)$ wenn $x,y \in \lng{V}$, $\omega \in \text{ENV}$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
@@ -222,7 +222,7 @@ Da wir dies aber häufig wollen werden wir nun zuerst Datentypen auf der semanti
 und anschließend die Repräsentation von Datentypen auf der syntaktischen Ebene definieren.
 \begin{defn}[Datentyp]
 Ein Datentyp ist ein Tupel $\Psi=\rbr{A,F,P,C}$ mit
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $A$: Grundmenge (Wertebereich)
 \item $F$: Menge von Funktionen $f_i: A^{k_i} \to A^{l_i}$.
 
@@ -232,13 +232,13 @@ die Dimension vom Bild der $i$-ten Funktion (Dimension des Outputs, Anzahl der F
 
 $p_i$ ist die $i$-te Funktion in der Menge und $k_i$ die Dimension vom Urbild (Dimension des Inputs, Anzahl der Funktionsargumente) der $i$-ten Funktion.
 \item $C$: Menge von Konstanten $c_i$ wobei $c \subseteq A$.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Die Mengen $F^{\Sigma}$, $P^{\Sigma}$ und $C^{\Sigma}$ enthalten die entsprechenden Symbole für die syntaktische Repräsentation:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Funktionssymbole $F^{\Sigma}$: je ein Symbol $f^{\Sigma}_i$ (z.B. Name der Funktion) für jede Funktion $f_i$
 \item Prädikatensymbole $P^{\Sigma}$: je ein Symbol $p^{\Sigma}_i$ (z.B. Name des Prädikats) für jedes Prädikat $p_i$
 \item Konstantensymbol $C^{\Sigma}$: je ein Symbol $c^{\Sigma}_i$ (z.B. ausgeschriebene Form der Konstante) für jede Konstante $c_i$
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \end{defn}
 
 Konstanten sind eigentlich nur spezielle Funktionen ($0$ Argumente) und wir unterscheiden nur zwecks Übersicht.
@@ -251,7 +251,7 @@ Definieren Sie den Datentyp Integer mit Funktionen für Addition, Subtraktion un
 Im Fall der Integer ist die Definition der Funktionen und Prädikate trivial, da
 alle Funktionen und Prädikate durch die entsprechenden Operationen auf den ganzen Zahlen $\Z$ definiert sind.
 Daher genügt es zu definieren welche Funktion welcher Operation entspricht.
-\begin{itemize}\label{defn:integer}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}\label{defn:integer}
 \item Grundmenge $A=\Z$
 \item Funktionen $f_1: +$, $f_2: -$, $f_3: *$
 
@@ -264,7 +264,7 @@ Syntaktische Ebene: $p^{\Sigma}_1: {\tult}$, $p^{\Sigma}_2: {\tueq}$.
 \item Konstanten $c_1: 0$, $c_2: 1$
 
 Syntaktische Ebene: $c^{\Sigma}_1: {\tunull}$, $c^{\Sigma}_2: {\tueins}$.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Hinzunahme von Division ist problematisch $/$ da das Ergebnis nicht unbedingt $\in A$ ist.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -275,29 +275,29 @@ Definieren Sie den Datentyp String mit der Funktion Konkatenation und dem Prädi
 
 \textit{Lösung:} Hier können wir nun nicht mehr auf eine vorhandene mathematische Definition
 zurückgreifen.
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Grundmenge $A=V^*$ mit $V$ einem endlichen Alphabet $\gbr{v_1,\ldots,v_n}$ (z.B. dem ASCII-Alphabet).
 \item Funktionen
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $f_1: \circ$ (Konkatenation)
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Wenn $x \in V^*$ ist, dann ist $x \circ \varepsilon = x$
 \item Wenn $x \in V^*$ und $a \in V$ ist, dann ist $x \circ a = xa$
 \item Wenn $x,y \in V^*$ und $a \in V$ ist, dann ist $x \circ (y \circ a) = (x \circ y) \circ a$
-\end{itemize}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \item Prädikate
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $p_1: <<$ (Präfix)
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Wenn $x \in V^*$ ist, dann ist $\varepsilon << x$
 \item Wenn $x \in V^*$ ist, dann ist $x << x$
 \item Wenn $x$ Präfix von $y$ ist, dann ist $x$ auch Präfix von $y \circ z$
 ($(x << y) \ra (x << (y \circ z))$).
-\end{itemize}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \item Konstanten $c_i: v_i$, $c_{n+1}: \varepsilon$ (eine Konstante für jeden Buchstaben des Alphabets und $\varepsilon$ für den Leerstring).
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Die syntaktische Ebene überlassen wir dem Leser.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -307,43 +307,43 @@ Definieren Sie den Datentyp des binären Stacks mit Funktionen um Elemente auf d
 Prädikaten zur Überprüfung des obersten Elementes.
 
 \textit{Lösung:}
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Grundmenge $A=\gbr{0,1}^* \cup \gbr{\varepsilon}$, d.h. Ziffernfolgen aus $0$ und $1$ oder $\varepsilon$ (leerer Stack).
 \item Funktionen
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $f_1: \text{add0}$ liefert den Stack mit einer $0$ daraufgelegt.
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\text{add0}(\varepsilon)=0$
 \item $\text{add0}(x)=0x$ (mit $x \neq \varepsilon$)
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \item $f_2: \text{add1}$ liefert den Stack mit einer $1$ daraufgelegt.
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\text{add1}(\varepsilon)=1$
 \item $\text{add1}(x)=1x$ (mit $x \neq \varepsilon$)
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \item $f_3: \text{sub}$ liefert den Stack ohne das oberste Element.
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\text{sub}(\varepsilon)=\varepsilon$
 \item $\text{sub}(ax)=x$ (mit $a \neq \varepsilon$)
-\end{itemize}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \item Prädikate
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $p_1: \text{ist0?}$ testet ob das oberste Element $0$ ist.
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\text{ist0?}(x) \Lra \exists z : x = 0z$
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \item $p_2: \text{ist1?}$ testet ob das oberste Element $1$ ist.
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\text{ist1?}(x) \Lra \exists z : x = 1z$
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \item $p_3: \text{istLeer?}$ testet ob das oberste Element $\varepsilon$ ist.
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\text{istLeer?}(x) \Lra x = \varepsilon$
-\end{itemize}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \item Konstanten $c_1: \varepsilon$.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Auf der syntaktischen Ebene werden die gleichen Bezeichnungen wie auf der semantischen Ebene verwendet.
 \end{bsp}
 
@@ -351,12 +351,7 @@ Auf der syntaktischen Ebene werden die gleichen Bezeichnungen wie auf der semant
 Berechnen Sie den Ausdruck $\text{add0}(\text{add1}(\text{sub}(011)))$ im Datentyp des binären Stacks.
 
 \textit{Lösung:}
-\begin{align*}
-&\quad \text{add0}(\text{add1}(\text{sub}(011))) \\
-&= \text{add0}(\text{add1}(11)) \\
-&= \text{add0}(111) \\
-&= 0111
-\end{align*}
+\[\text{add0}(\text{add1}(\text{sub}(011))) = \text{add0}(\text{add1}(11)) = \text{add0}(111) = 0111\]
 \begin{align*}
 \text{ist0?}(0111)&=T \\
 \text{ist1?}(0111)&=F \\
@@ -369,30 +364,30 @@ Berechnen Sie den Ausdruck $\text{add0}(\text{add1}(\text{sub}(011)))$ im Datent
 Wir müssen nun um den Datentyp verwenden zu können eine grundlegende Sprache 
 definieren die diesen Datentyp verwendet. Auf dieser Sprache können dann weitere Sprachen
 aufgebaut werden.
-\begin{defn}[Sprache der Terme $\lng{T}$]
+\begin{defn}[Sprache der Terme $\lng{T}$]\label{defn:semt}
 Sei $\Psi=\rbr{A,F,P,C}$ ein Datentyp.
 Das Alphabet $\Sigma$ ist dann eine Vereinigung aus den Mengen der
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item IVS (Individuenvariablensymbole)
 \item Funktionssymbole $F^{\Sigma}$
 \item Prädikatensymbole $P^{\Sigma}$
 \item Konstantensymbol $C^{\Sigma}$
 \item $\u{(}$,$\u{)}$ und $\u{,}$
 \item Sondersymbole (Keywords): \u{if}, \u{then}, \u{else}, \u{begin}, \u{end}, $\ldots$
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Die Syntax von $\lng{T} \subseteq \Sigma$ über einem beliebigen Datentypen ist dann definiert durch:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $C^{\Sigma} \subseteq \lng{T}$, d.h. Konstantensymbole sind Terme
 \item $\text{IVS} \subseteq \lng{T}$, d.h. Individuenvariablensymbole sind Terme
 \item Wenn $f^{\Sigma}_i$ ein $n$-stelliges Funktionssymbol ist und $t_1,\ldots,t_n$ Terme,
 dann ist auch $f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}$ ein Term (Unterstreichungen beachten!).
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 Die Semantik von $\lng{T}$ definieren wir durch die Interpretationsfunktion $I_{\lng{T}}: \text{ENV} \times \lng{T} \to A$.
-\begin{enumerate}
-\item $I_{\lng{T}}(\omega,c'_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c'_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
+\item $I_{\lng{T}}(\omega,c^{\Sigma}_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c^{\Sigma}_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
 \item $I_{\lng{T}}(\omega,v)=\omega(v)$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$.
-\item $I_{\lng{T}}(\omega,f'_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\lng{T}}(\omega,t_1),\ldots,I_{\lng{T}}(\omega,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f'_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
-\end{enumerate}
+\item $I_{\lng{T}}(\omega,f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\lng{T}}(\omega,t_1),\ldots,I_{\lng{T}}(\omega,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f^{\Sigma}_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -418,22 +413,22 @@ Terme sind rekursiv definiert. Die \textbf{vollständige Induktion} (ab hier auc
 Versuchen wir zunächst die \textbf{vollständige Induktion} ganz allgemein zu verstehen.
 \begin{bsp}
 Dazu macht es Sinn sich ein kleines Beispiel zu überlegen. Dazu definieren wir, dass folgende Aussagen wahr sind:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Aussage $A$: An Tag $n$ regnet es genau dann, wenn es an Tag $n-1$ geregnet hat.
 \item Aussage $T_1$: An Tag $1$ regnet es.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Wir sehen sofort dass es wohl immer regnet.
 Dies wollen wir nun auch beweisen: An jedem Tag regnet es. Man könnte auch schreiben:
 An jedem Tag $i$ regnet es. Zwecks Übersichtlichkeit bezeichnen wir die Aussage ``Es regnet an Tag $i$'' mit $T_i$
 und können dann sehr kompakt schreiben: $\forall i: T_i$.
 
 Wir erbringen nun zunächst den Beweis für die ersten Tage einzeln.
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Tag $1$: $T_1$ war schon gegeben und ist wahr.
 \item Tag $2$: $A \wedge T_1 \ra T_2$
 \item Tag $3$: $A \wedge T_1 \wedge T_2 \ra T_3$
 \item Tag $4$: $A \wedge T_1 \wedge T_2 \wedge T_3 \ra T_4$
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Wir würden so allerdings nie fertig werden da es in unserem Beispiel so viele Tage wie natürliche Zahlen gibt.
 Was uns aber auffällt: Für den Beweis von jedem $T_i$ müssen wir auf den Beweis für $T_{i-1}$ zurückgreifen.
 Eine Induktion verkürzt hier unsere Arbeit wesentlich.
@@ -487,8 +482,8 @@ t_{k+1} &= \u{plus(eins,}t_{k}\u{)} \\
 \end{align*}
 $k$ entsprichtder Anzahl der ${\tueins}$ im Ausdruck.
 
-\begin{itemize}
-\item \textbf{Induktionsbasis:}\\
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
+\item \textbf{Induktionsbasis:} \quad
 In der Induktionsbasis beweisen wir einen oder mehrere Basisfälle.
 Das sind in unserem Fall die beiden Konstanten sowie der Fall $t_2$:
 \begin{align*}
@@ -496,10 +491,7 @@ Das sind in unserem Fall die beiden Konstanten sowie der Fall $t_2$:
 \I{T}{\omega}{eins}&=1 \\
 \Iu{T}{\omega}{t_2}&=\I{T}{\omega}{plus(eins,eins)}=2\\
 \end{align*}
-\item \textbf{Induktionshypothese:}\\
-\begin{align*}
-\Iu{T}{\omega}{t_n}&=n
-\end{align*}
+\item \textbf{Induktionshypothese:} \quad $\Iu{T}{\omega}{t_n}=n$
 \item \textbf{Induktionsschritt:}\\
 \begin{align*}
 \Iu{T}{\omega}{t_{n+1}}&=n+1 \tag{Einsetzen von $t_{n+1}$}\\
@@ -510,7 +502,7 @@ Das sind in unserem Fall die beiden Konstanten sowie der Fall $t_2$:
 +\rbr{1,n}&=n+1
 \end{align*}
 Damit ist der Beweis erbracht.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
@@ -518,25 +510,24 @@ Damit ist der Beweis erbracht.
 Wir hatten in der Sprache der Terme $\lng{T}$ noch nicht die Möglichkeit Prädikate zu nutzen obwohl Datentypen über
 Prädikate verfügen. Dazu definieren wir die Sprache der Konditionale \textbf{COND}. Wir schreiben in diesem Skriptum großteils
 nur $\lng{C}$ zwecks Übersichtlichkeit - $\lng{C}$ gesprochen ``COND''.
-\begin{defn}[Die Sprache COND ($\lng{C}$)]
+\begin{defn}[Die Sprache COND ($\lng{C}$)]\label{defn:semcond}
 Die Syntax von $\lng{C}$ ist wie folgt definiert:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $\lng{T} \subseteq \lng{C}$, d.h. alle Terme sind Konditionale.
 \item Wenn $p^{\Sigma}_i$ ein $n$-stelliges Prädikatensymbol ist und $u_1,\ldots,u_n,t_1,t_2$ Konditionale,
-dann ist auch \[{\tuif} p_i^{\Sigma}\u{(}u_1\u{,}\ldots\u{,}u_n\u{)}{\tuthen} t_1 {\tuelse} t_2\] ein Konditional.
-\end{enumerate}
-
+dann ist auch \; ${\tuif} p_i^{\Sigma}\u{(}u_1\u{,}\ldots\u{,}u_n\u{)}{\tuthen} t_1 {\tuelse} t_2$ \; ein Konditional.
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 Die Semantikfunktion $I_{\lng{C}}$ definieren wir durch:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $\Iu{C}{\omega}{t} = \Iu{T}{\omega}{t}$, wenn $t \in \lng{T}$ und $\omega \in \text{ENV}$.
 \item Für jedes Prädikat $p_i$ gilt:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Wenn $p_i\rbr{\Iu{C}{\omega}{u_1},\ldots,\Iu{C}{\omega}{u_n}}=T$, dann gilt:
 \[\Iu{C}{\omega}{{\tuif} p_{i}^{\Sigma} \u{(} u_1\u{,}\ldots\u{,}u_n\u{)}{\tuthen} t_1 {\tuelse} t_2}=\Iu{C}{\omega}{t_1}\]
 \item Sonst ist $p_i\rbr{\Iu{C}{\omega}{u_1},\ldots,\Iu{C}{\omega}{u_n}}=F$ und dann gilt:
 \[\Iu{C}{\omega}{{\tuif} p_{i}^{\Sigma} \u{(} u_1\u{,}\ldots\u{,}u_n\u{)}{\tuthen} t_1 {\tuelse} t_2}=\Iu{C}{\omega}{t_2}\]
-\end{itemize}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -555,10 +546,7 @@ $=\text{ist0?}\rbr{\text{sub}\rbr{\omega\rbr{\u{x}}}}$
 $=\text{ist0?}\rbr{\text{sub}\rbr{101}}$
 $=\text{ist0?}\rbr{01} = T$}}
 &= \I{C}{\omega}{add0(x)} \tag{folgt aus der NR} \\
-&= \text{add0}\rbr{\I{C}{\omega}{x}} \\
-&= \text{add0}\rbr{\omega\rbr{\u{x}}} \\
-&= \text{add0}\rbr{101} \\
-&= 0101
+&= \text{add0}\rbr{\I{C}{\omega}{x}} = \text{add0}\rbr{\omega\rbr{\u{x}}} = \text{add0}\rbr{101} = 0101
 \end{align*}
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -567,10 +555,11 @@ Bei Verschachtelungen von Prädikaten in $\lng{C}$ ist zu beachten dass Prädika
 Daher ist auch der Ausdruck \u{if ist0?(ist1?(x)) then x else add0(x)} nicht in $\lng{C}$!
 Allerdings ist \u{if ist0?(if ist1?(x) then 110 else 010) then x else add0(x)} in $\lng{C}$.
 
-\section{Rekursive Programme - die Sprache Ausdrücke EXP ($\lng{E}$)}
+\section{Rekursionen - Sprache der Ausdrücke EXP ($\lng{E}$)}
 Bisher war es nicht möglich Funktionen (insbesondere rekursive) zu definieren. Wir müssen das Konzept ``Funktionsname''
 ähnlich wie die Variablennamen (IVS, Individuenvariablensymbole) zuerst einführen.
 Der Wert der einem Funktionsnamen zugeordnet wird ist dabei ein Programm.
+Wir definieren nun die Sprache \textbf{EXP} ($\lng{E}$). Wie schon bei \textbf{COND} kürzen wir auch hier \textbf{EXP} durch $\lng{E}$ ab - $\lng{E}$ gesprochen ``EXP''.
 
 \begin{defn}
 Die Menge der Funktionsvariablensymbole (FVS) enthält ``Namen'' aller Funktionen.
@@ -583,47 +572,67 @@ Implementation in EXP ($\lng{E}$) zurück. $\delta\u{X}$ bezeichne die Implement
 \end{defn}
 
 Es muss unbedingt unterschieden werden zwischen
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Funktionen des Datentyps ($+$, $-$, etc.) sowie den dazugehörigen Funktionssymbolen (\u{plus}, \u{minus}, etc.)
 \item und ``benutzerdefinierten Funktionen'', d.h. Unterprogramme die auch in der Sprache implementiert werden. Diese bezeichnen wir als Funktionsvariablensymbole.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 
-Wir definieren nun die Sprache \textbf{EXP} ($\lng{E}$). Wie schon bei \textbf{COND} kürzen wir auch hier \textbf{EXP} durch $\lng{E}$ ab - $\lng{E}$ gesprochen ``EXP''.
 \begin{defn}[Syntax von EXP ($\lng{E}$)]
 Die Syntax von $\lng{E}$ ist definiert wie folgt:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\lng{C} \subseteq \lng{E}$, d.h. alle Konditionale sind Ausdrücke (d.h. $\in \lng{E}$).
 \item Wenn $f$ eine $n$-stellige Funktionenvariable ($\in$ FVS)
 ist und $t_1,\ldots,t_n$ sind Ausdrücke (d.h. $\in \lng{E}$),
 dann ist $f\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}$ ein Ausdruck (d.h. $\in \lng{E}$).
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \end{defn}
 
-Aus dieser Definition geht hervor dass alle Variablen in einer Funktion die Parameter der Funktion sind.
+Eine Funktion kann also über die Parameter hinaus keine weiteren Variablen haben.
 Beim Funktionsaufruf werden Parameter übergeben. Wir behandeln dabei zunächst nur call-by-value.
-Hierbei werden die als Parameter übergebenen Ausdrücke \textbf{vor} der Ausführung der Funktion
+Hierbei werden die als Parameter übergebenen Ausdrücke \textbf{vor} Ausführung der Funktion
 berechnet (interpretiert) und die Variablen der Funktion werden in einem neuen Variablenenvironment
 auf die entsprechenden Werte initialisiert.
 
-\begin{defn}[Semantik von EXP ($\lng{E}$)]
+\begin{defn}[Semantik von EXP ($\lng{E}$)]\label{defn:semexp}
 Die Semantikfunktion $I_{\lng{E}}$ definieren wir durch:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $\Iu{E}{\delta,\omega}{c} = \Iu{C}{\omega}{c}$, wenn $c \in \lng{C}$ und $\omega \in \text{ENV}$.
 \item $\Iu{E}{\delta,\omega}{F\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}}$ mit $F \in \text{FENV}$. Funktionsaufruf mit call-by-value:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Definiere $\omega'$ als neues Environment mit $\omega'(x_i)=\Iu{E}{\delta,\omega}{t_i}$ (für $1 \leq i \leq n$) wobei $x_i$
 die Parameter der Funktion $\delta F$ sind. Im Normalfall ist $x_i=\u{xi}$, d.h. $x_1=\u{x1}$, $x_2=\u{x2}$, usw.
 \item $\Iu{E}{\delta,\omega}{F\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}}=\Iu{E}{\delta,\omega'}{\delta F}$
-\end{enumerate}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 
-Die Definition einer Funktion \u{func} in $\lng{E}$ sieht dann so aus:
-\[\delta\tu{func}=\u{\ldots}\]
-Im Rahmen der Übung ist es auch zulässig explizit andere Parameter anzugeben:
-\[\delta\tu{func(x,v)}=\u{\ldots}.\]
-Dann ist implizit definiert dass $x_1 = \u{x}$ und $x_2 = \u{v}$.
-Die Komplexität eines derartigen Interpreters wird dadurch nur geringfügig beeinflusst.
+\begin{anm}
+Mit den Definitionen \ref{defn:semt}, \ref{defn:semcond} und \ref{defn:semexp} halten wir zwecks Übersicht fest:
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
+\item $I_{\lng{T}}(\omega,c^{\Sigma}_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c^{\Sigma}_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
+\item $I_{\lng{T}}(\omega,v)=\omega(v)$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$.
+\item $I_{\lng{T}}(\omega,f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\lng{T}}(\omega,t_1),\ldots,I_{\lng{T}}(\omega,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f^{\Sigma}_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
+\item $\Iu{C}{\omega}{t} = \Iu{T}{\omega}{t}$, wenn $t \in \lng{T}$ und $\omega \in \text{ENV}$.
+\item Für jedes Prädikat $p_i$ gilt:
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
+\item Wenn $p_i\rbr{\Iu{C}{\omega}{u_1},\ldots,\Iu{C}{\omega}{u_n}}=T$, dann gilt:
+\[\Iu{C}{\omega}{{\tuif} p_{i}^{\Sigma} \u{(} u_1\u{,}\ldots\u{,}u_n\u{)}{\tuthen} t_1 {\tuelse} t_2}=\Iu{C}{\omega}{t_1}\]
+\item Sonst ist $p_i\rbr{\Iu{C}{\omega}{u_1},\ldots,\Iu{C}{\omega}{u_n}}=F$ und dann gilt:
+\[\Iu{C}{\omega}{{\tuif} p_{i}^{\Sigma} \u{(} u_1\u{,}\ldots\u{,}u_n\u{)}{\tuthen} t_1 {\tuelse} t_2}=\Iu{C}{\omega}{t_2}\]
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\item $\Iu{E}{\delta,\omega}{F\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}}$ mit $F \in \text{FENV}$. Funktionsaufruf mit call-by-value:
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
+\item Definiere $\omega'$ als neues Environment mit $\omega'(x_i)=\Iu{E}{\delta,\omega}{t_i}$ (für $1 \leq i \leq n$) wobei $x_i$
+die Parameter der Funktion $\delta F$ sind. Im Normalfall ist $x_i=\u{xi}$, d.h. $x_1=\u{x1}$, $x_2=\u{x2}$, usw.
+\item $\Iu{E}{\delta,\omega}{F\u{(}t_1\u{,}\ldots\u{,}t_n\u{)}}=\Iu{E}{\delta,\omega'}{\delta F}$
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+\end{anm}
+
+Wir definieren eine Funktion \u{func} in $\lng{E}$ durch $\delta\tu{func}=\u{\ldots}$.
+Im Rahmen der Übung ist es auch zulässig bei der Funktionsdefinition explizit andere Parameter anzugeben ($\delta\tu{func(x,v)}=\u{\ldots}$)
+um die Parameternamen festzulegen. In unserem Fall wäre dann $x_1 = \u{x}$ und $x_2 = \u{v}$.
+Die Komplexität des $\lng{E}$-Interpreters wird dadurch nicht wesentlich beeinflusst.
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
@@ -667,7 +676,7 @@ In unserem Fall ist es der Operator $+$ über $\N_0$.
 
 Zu zeigen ist also: $\forall \omega: \I{E}{\delta,\omega}{add(x,y)}=\omega(\u{x})+\omega(\u{y})$
 
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Induktionsbasis: Sei $\omega(\u{x})=0$ und $\omega(\u{y})=m$ ($m$ beliebig).
 \begin{align*}
 \I{E}{\delta,\omega}{add(x,y)}
@@ -700,7 +709,7 @@ Unter Verwendung der Induktionshypothese (d.h. wir setzen die Induktionshypothes
 \end{align*}
 Wir haben also bewiesen $\I{E}{\delta,\omega}{add(x,y)} = \ldots = \omega(\u{x})+\omega(\u{y})$. Das ist exakt
 die Gleichheit die wir für den Beweis der Korrektheit zeigen mussten.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 
 Im obigen Beweis haben wir folgende Umformung durchgeführt:
 \begin{align*}
@@ -730,56 +739,59 @@ zutrifft.
 Der Datentyp der Listen kommt in vielen Sprachen vor. Wir verwenden dazu die Darstellung mit eckigen Klammern und groß geschriebenen
 Wörtern ([ APE BEE CAT ]).
 \begin{defn}[Atom]
+Etwas ist ein Atom genau dann wenn kein [ und kein ] darin vorkommt.
+
 Listenelemente die keine ``echten'' Listen sind (APE, BEE, CAT, etc.) werden Atom genannt.
 Alle anderen Listen sind keine Atome.
 \end{defn}
-\begin{defn}[Datentyp der Listen $\mathcal{L}$] \quad \\
-\begin{itemize}
+\begin{defn}[Datentyp der Listen $\mathcal{L}$] \quad
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Grundmenge $A$:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item ATOM $\subseteq A$, d.h. alle Atome sind Listen
 \item $[ ] \subseteq A$, d.h. die leere Liste ist eine Liste
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \item Funktionen
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $f_1: \text{first}$ (liefert das erste Element einer Liste)
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Wenn $a \in \text{ATOM}$, dann ist $\text{first}(a)=[ ]$.
 \item $\text{first}([ ])=[ ]$.
 \item Wenn $\forall i, \quad 1 \leq i \leq k: \quad \ell_i \in L$, dann ist $\text{first}([ \ell_1 \ldots \ell_k ])=\ell_1$
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \item $f_2: \text{rest}$ (liefert die Liste ohne das erste Element)
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Wenn $a \in \text{ATOM}$, dann ist $\text{rest}(a)=[ ]$.
 \item $\text{rest}([ ])=[ ]$.
 \item Wenn $\ell \in L$, dann ist $\text{rest}([\ell])=[ ]$
 \item Wenn $\forall i, \quad 1 \leq i \leq k: \quad \ell_i \in L$ und $k > 1$, dann ist $\text{rest}([ \ell_1 \ell_2 \ldots \ell_k ])=[ \ell_2 \ldots \ell_k ]$
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \item $f_3: \text{build}$ (nimmt 2 Listen entgegen und fügt die eine als erste Element in die andere ein)
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Wenn $a \in \text{ATOM}$ und $\ell \in L$, dann ist $\text{build}(\ell,a)=a$.
 \item Wenn $\ell \in L$, $\text{build}(\ell,[ ])=[\ell]$.
 \item Wenn $\ell \in L$ und $\forall i, \quad 1 \leq i \leq k: \quad \ell_i \in L$, dann ist $\text{build}(\ell,[ \ell_1 \ldots \ell_k ])=[ \ell \ell_1 \ldots \ell_k ]$
-\end{itemize}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \item Prädikate
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $p_1: \text{atom?}$
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\text{atom?}(x)=T$, genau dann wenn $x \in \text{ATOM}$
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \item $p_2: \text{eq?}$
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $\text{eq?}(x,y)=T$, genau dann wenn $x=y$
-\end{itemize}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \item Konstanten: Je eine Konstante für jedes Atom, nil für die leere Liste
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Die Symbole auf der syntaktischen Ebene werden entsprechend der zuvor verwendeten Bezeichnungen gewählt (z.B. $p_1^{\Sigma}=\tu{atom?}$).
 \end{defn}
 
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
-Definieren Sie ein Programm \u{second} welches immer das 2. Element einer Liste zurückliefert.
+Definieren Sie ein Programm \u{second} in $\lng{E}$ welches immer das 2. Element einer Liste zurückliefert.
 Interpetieren Sie ihr Programm für den Parameter [ FIR SEC THI ].
 
 \textit{Lösung:} Zuerst trennen wir das erste Element von der Liste, anschließend
@@ -797,9 +809,10 @@ geben wir das neue erste Element zurück:
 &= \text{SEC}
 \end{align*}
 \end{bsp}
-
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
-Definieren Sie ein Programm \u{reverse} welches eine Liste elementweise umgedreht zurückliefert.
+Definieren Sie ein Programm \u{reverse} in $\lng{E}$ welches eine Liste elementweise umgedreht zurückliefert.
 Interpetieren Sie ihr Programm für den Parameter [ FIR SEC THI ].
 
 \textit{Lösung:} Bei der Konstruktion rekursiver Programme versuchen wir meist von einem Basisfall ausgehend
@@ -860,20 +873,314 @@ Verhält sich dieses Programm wie beabsichtigt?
 \end{align*}
 Das Programm verhält sich für diesen Fall wie gewünscht. Um zu beweisen dass es sich immer korrekt verhält wäre ein Beweis nötig.
 \end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 
 \section{Kodierung von Datentypen}
-In nahezu jedem Programm wird mehr als ein Datentyp verwendet. Angenommen wir haben
-einen Datentyp Listen $L$ definiert, so könnten wir kein Programm schreiben welches die Länge
-der Liste zurückliefert, da die Länge einer Liste eine Zahl ist und keine Liste.
+In nahezu jedem Programm wird mehr als ein Datentyp verwendet.
+Nach unseren Definitionen können wir kein Programm schreiben welches die Länge
+einer Liste zurückliefert, da die Länge einer Liste eine Zahl in $\N_0$ ist und keine Liste.
 
 Eine einfache Lösung für dieses Problem ist es Datentypen zu kombinieren.
-$L$
+Wir erzeugen also einen neuen Datentyp der beispielsweise die Kombination aus $L$ und $\N_0$ ist,
+wir schreiben dann $L + \N_0$.
 
-\section{Kodierung von $\lng{E}$ in den Datentyp der Listen}
+\begin{defn}
+Die Kombination von 2 Datentypen $D_1$, $D_2$ ergibt einen neuen Datentyp $D_1+D_2$.
+Die Mengen $A,F,P,C$ sowie die Mengen der syntaktischen Repräsentationen $A^{\Sigma}, F^{\Sigma}, P^{\Sigma}, C^{\Sigma}, \ldots$
+des neuen Datentyps entsprechen der Vereinigung der jeweiligen Mengen der Datentypen $D_1$ und $D_2$.
 
-\section{Ein $\lng{E}$-Interpreter in $\lng{E}$}
-\section{Das Halteproblem}
+Funktionen und Prädikate sind weiterhin nur für die Argumente aus dem eigenen Datentyp definiert.
+Im Falle eines Aufrufs mit Parametern eines fremden Datentyps wird ein definierter konstanter Wert (ein Fehlerwert) zurückgeliefert.
+Dazu können auch neue Konstanten eingeführt werden, welche dann jedoch wieder in allen Funktionen und Prädikaten behandelt werden müssen.
+Im Fall von Prädikaten ist der Fehlerwert entweder $T$ oder $F$.
+\end{defn}
+
+Die Definition von Atomen beim Datentyp der Listen erlaubt es den Listen leicht zu kombinieren. Elemente des
+zweiten Datentyps sind Atome.
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Schreiben Sie ein Programm \tu{nth} in $\lng{E}$ über dem Datentyp $L + \N_0$
+welches das $n$-te Element ($n > 0$) einer Liste zurückliefert und die leere Liste falls es kein solches gibt.
+Beweisen Sie die Korrektheit Ihrer Implementation.
+
+\textit{Lösung:} Der Basisfall ist das erste Element zurückzuliefern.
+In jedem weiteren Fall müssen wir das erste Element entfernen und eine Zählvariable inkrementieren.
+\[\delta\tu{nth(x,y)}=\tu{if eq?(y,eins) then first(x) else nth(rest(x),minus(y,eins))}\]
+Listen haben die Form $\ebr{\ell_1 \ell_2 \ldots \ell_k}$, wir bezeichnen daher in unserem Beweis mit $\ell_i$ das $i$-te Element.
+
+Bevor wir die Induktion durchführen können müssen wir überlegen nach welcher Variable wir die Induktion führen.
+Beide Variablen (\u{x}, \u{y}) werden im Laufe der Rekursion verändert.
+Entscheidend ist allerdings welche Variable zum Programmabbruch führt. Das ist bei uns \u{y}.
+
+\u{x} hat dennoch Einfluss auf unseren Beweis, denn es können 2 Fälle auftreten:
+Die Anzahl der Elemente der Liste \u{x} kann größer-gleich dem Wert von \u{y} sein,
+er kann aber auch kleiner sein.
+Wir müssen daher in unserem Beweis eine \textbf{Fallunterscheidung} durchführen.
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
+\item Induktionshypothese:
+\[\forall \omega(\tu{y}) \leq n \leq \abs{\omega(\tu{x})}: \quad \I{E}{\delta,\omega}{nth(x,y)}=\ell_{\omega(\tu{y})}
+  \wedge \forall \abs{\omega(\tu{x})} < \omega(\tu{y}) \leq n: \quad \I{E}{\delta,\omega}{nth(x,y)}=\ebr{}\]
+Die Fallunterscheidung ist hier durch die $\wedge$-Verknüpfung vorhanden.
+Wir haben damit alle Fälle abgedeckt denn $\abs{\omega(\tu{x})} < \omega(\tu{y})$ ist genau dann wahr, wenn
+$\omega(\tu{y}) \leq \abs{\omega(\tu{x})}$ nicht wahr ist.
+\item Induktionsbasis: In der Induktionsbasis müssen wir nun beide Fälle der Hypothese für den Basisfall beweisen, d.h.
+einmal mit $0 = \abs{\omega(\tu{x})} < \omega(\tu{y}) \leq n = 1$ und einmal mit $1 = \abs{\omega(\tu{x})} < \omega(\tu{y}) \leq n = 1$
+\begin{align*}
+&\qquad \abs{\omega(\tu{x})} = 0 \qquad \omega(\tu{y}) = 1 \\
+&\quad \I{E}{\delta,\omega}{nth(x,y)} \\
+&=\I{E}{\delta,\omega}{if eq?(y,eins) then first(x) else nth(rest(x),minus(y,eins))} \\
+\intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{eq?(y)}=\text{eq?}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{eq?}\rbr{\omega(\tu{y}),1}=\text{eq?}\rbr{1,1}=T$}}
+&=\I{E}{\delta,\omega}{first(x)} \\
+&=\text{first}\rbr{\I{E}{\delta,\omega}{x}} \\
+&=\text{first}\rbr{\omega(\tu{x})} \\
+&=\text{first}\rbr{\ebr{}} \tag{wissen wir da $\abs{\omega(\tu{x})} = 0$} \\
+&=\ebr{}
+\intertext{Nun den zweiten Teil der Basis.}
+&\qquad \abs{\omega(\tu{x})} = 1 \qquad \omega(\tu{y}) = 1 \\
+&\quad \I{E}{\delta,\omega}{nth(x,y)} \\
+&=\I{E}{\delta,\omega}{if eq?(y,eins) then first(x) else nth(rest(x),minus(y,eins))} \\
+\intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{eq?(y)}=\text{eq?}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{eq?}\rbr{\omega(\tu{y}),1}=\text{eq?}\rbr{1,1}=T$}}
+&=\I{E}{\delta,\omega}{first(x)} \\
+&=\text{first}\rbr{\I{E}{\delta,\omega}{x}} \\
+&=\text{first}\rbr{\omega(\tu{x})} \\
+&=\text{first}\rbr{\ebr{\ell_1}} \tag{wissen wir da $\abs{\omega(\tu{x})} = 1$} \\
+&=\ell_1
+\end{align*}
+Die Basisfälle haben wir damit bewiesen.
+\item Induktionsschritt:
+\begin{align*}
+&\qquad \abs{\omega(\tu{x})} \geq 1 \tag{den Fall $0$ haben wir ja schon bewiesen} \\
+&\qquad \omega(\tu{y}) = n+1 \\
+&\quad \I{E}{\delta,\omega}{nth(x,y)} \\
+&=\I{E}{\delta,\omega}{if eq?(y,eins) then first(x) else nth(rest(x),minus(y,eins))}
+\intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{eq?(y)}=\text{eq?}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{eq?}\rbr{\omega(\tu{y}),1}=\text{eq?}\rbr{n+1,1}=F$}}
+&=\I{E}{\delta,\omega}{nth(rest(x),minus(y,eins))}
+\intertext{\textcolor{darkblue}{NE: $\omega'(\tu{x})=\I{E}{\delta,\omega}{rest(x)}=\text{rest}\rbr{\I{E}{\delta,\omega}{x}}=\text{rest}\rbr{\omega(\tu{x})}=\text{rest}\rbr{\ebr{\ell_1 \ell_2 \ldots}}=\ebr{\ell_2 \ldots}=\ebr{\ell'_1 \ldots}$\newline
+                                    Wir definieren hier $\forall i: \ell'_{i} = \ell_{i+1}$.
+                                    \newline
+                                    $\omega'(\tu{y})=\I{E}{\delta,\omega}{minus(y,eins)}=\text{minus}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{minus}\rbr{\omega(\tu{y}),1}=\text{minus}\rbr{n+1,1}=n$}}
+&=\I{E}{\delta,\omega'}{nth(x,y)}
+\intertext{Beobachtung: Über diesen Programmaufruf mit $\omega'(\tu{y})=n$ trifft die Induktionshypothese eine Aussage.}
+\end{align*}
+Fallunterscheidung nach $\abs{\omega'(\tu{x})}$:
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
+\item Fall $\abs{\omega'(\tu{x})} < \omega'(\tu{y})$:
+\[\I{E}{\delta,\omega'}{nth(x,y)} = \ebr{}\]
+Was das geforderte Ergebnis für diesen Fall ist.
+\item Fall $\abs{\omega'(\tu{x})} \geq \omega'(\tu{y})$:
+\[\I{E}{\delta,\omega'}{nth(x,y)} = \ell'_{\omega'(\tu{y})} = \ell'_{n} = \ell_{n+1}\]
+Was ebenfalls das geforderte Ergebnis für diesen Fall ist.
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+Damit ist der Beweis erbracht. Wir stellen fest dass Beweise von $\lng{E}$-Programmen oft kürzer sind als
+die Interpretation für einen bestimmten Eingabewert.
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+Eine Alternative zur Kombination von Datentypen ist die \textbf{Kodierung} eines Datentyps in einem anderen Datentyp.
+Dies findet auch in vielen alltäglichen Programmen Anwendung - genau genommen immer dann wenn nicht nur die eingebauten Datentypen einer Sprache verwendet werden.
+
+\begin{defn}[Mapping-Funktion $\pi$]
+Gegeben ein Datentyp $D=(A,F,P,C)$ und ein Datentyp $E$ mit der Grundmenge $B$.
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
+\item Die Funktion $\pi: A \to B$ weist jedem Wert aus $A$ einen Wert in $B$ zu, d.h. $\forall x \in A: \: \pi(x) \in B$.
+\item $\forall f_i(\ldots) \in F$ wird ein Funktionausdruck $\pi\ebr{f_i}(\ldots)$ über dem Datentyp $E$ konstruiert welcher die Funktion implementiert.
+\item $\forall p_i(\ldots) \in P$ wird ein Prädikatenausdruck $\pi\ebr{p_i}(\ldots)$ über dem Datentyp $E$ konstruiert welcher das Prädikat implementiert.
+\item $\forall c_i \in C$ wird ein Funktionsausdruck (mglw. eine Konstante als 0-parametrige Funktion) $\pi\ebr{c_i}$ über dem Datentyp $E$ konstruiert welcher die Konstante darstellt.
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\end{defn}
+
+\begin{defn}[Kodierungseigenschaften] \quad
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
+\item $\forall x \in A, f_i \in F: \pi\ebr{f_i}\rbr{\pi\rbr{x}} = \pi\rbr{f_i\rbr{x}}$, d.h.
+für alle Werte $x$ in $A$ und alle Funktionen in $F$ darf es keinen Einfluss auf das Ergebnis haben,
+ob der Wert $x$ zuerst kodiert und dann die kodierte Funktion mit diesem berechnet wird
+oder zuerst der die Funktion mit dem Wert $x$ berechnet und das Ergebnis kodiert wird.
+\item $\forall x \in A, p_i \in P: \pi\ebr{p_i}\rbr{\pi\rbr{x}} \lra \pi\rbr{p_i\rbr{x}}$, gleich wie bei den Funktionen
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\end{defn}
+
+In Abbildung~\ref{Kodierungseigenschaften} ist die Definition als kommutierendes Diagramm dargestellt.
+\begin{figure}[h!t]
+\begin{center}
+\begin{tikzpicture}[node distance=2cm, auto]
+\node (A) {$A$};
+\node [right of=A,node distance=4cm] (A2) {$A$};
+\node [below of=A] (B2) {$B$};
+\node [right of=B2,node distance=4cm] (B) {$B$};
+\path [->] (A) edge node {$f_i$} (A2);
+\path [->] (A2) edge node {$\pi$} (B);
+\path [->] (A) edge node {$\pi$} (B2);
+\path [->] (B2) edge node {$\pi\ebr{f_i}$} (B);
+\node [right of=A2,node distance=4cm] (rA) {$A$};
+\node [right of=rA,node distance=4cm] (rTF1) {$\gbr{T,F}$};
+\node [below of=rA] (rB) {$B$};
+\node [right of=rB,node distance=4cm] (rTF2) {$\gbr{T,F}$};
+\path [->] (rA) edge node {$p_i$} (rTF1);
+\path [->] (rTF1) edge node {$\pi$} (rTF2);
+\path [->] (rA) edge node {$\pi$} (rB);
+\path [->] (rB) edge node {$\pi\ebr{p_i}$} (rTF2);
+\end{tikzpicture}
+\end{center}
+ \caption{Kodierungseigenschaften}
+ \label{Kodierungseigenschaften}
+\end{figure}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Kodieren Sie die natürlichen Zahlen inkl. Null (mit der Funktion $+$, Prädikat $\text{eq?}$ und der Konstante $0$) in den Datentyp der Listen und zeigen Sie die Korrektheit
+von $\pi[+](x,y)$.
+
+\textit{Lösung:} Wir stellen die natürlichen Zahlen als Verschachtelung von Listen dar.
+\begin{align*}
+\pi(0)&= \ebr{} \\
+\pi(x)&= \text{build}(\pi(x-1),[]) \quad \text{für $x > 0$}
+\intertext{Die Funktionen und Prädikate nehmen als Argumente in Listen kodierte natürliche Zahlen entgegen}
+\pi[+](\pi(x),\pi(0)) &= \pi(x)\\
+\pi[+](\pi(x),\pi(y+1)) &= \pi[+](\pi(x+1),\pi(y)) \\
+\pi[\text{eq?}]([],[]) &= T\\
+\pi[\text{eq?}](\pi(x+1),\pi(y+1)) &= \pi[\text{eq?}](\pi(x),\pi(y))
+\end{align*}
+
+Der Beweis der Korrektheit von $\pi[+](x,y)$ erfolgt durch vollständige Induktion.
+Zu zeigen ist $\forall x,y \in \N_0: \pi\ebr{+}\rbr{\pi(x),\pi(y)} = \pi\rbr{x + y}$.
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
+\item Induktionsbasis: mit $x$ beliebig, $y=0$
+\begin{align*}
+&\quad \pi\ebr{+}\rbr{\pi(x),\pi(y)} \\
+&= \pi\ebr{+}\rbr{\pi(x),\pi(0)} \\
+&= \pi(x) \\
+&= \pi(x + y)
+\end{align*}
+\item Induktionshypothese:
+\[\forall x,y \in \N_0, x \text{ beliebig}, y \leq n: \pi\ebr{+}\rbr{\pi(x),\pi(y)} = \pi\rbr{x + y}\]
+\item Induktionsschritt: $y=n+1$
+\begin{align*}
+&\quad \pi\ebr{+}\rbr{\pi(x),\pi(y)} \\
+&= \pi\ebr{+}\rbr{\pi(x),\pi(n+1)} \\
+&= \pi\ebr{+}\rbr{\pi(x+1),\pi(n)}
+\intertext{Nun können wir die Induktionshypothese anwenden:}
+&= \pi\rbr{x + 1 + n} \\
+&= \pi\rbr{x + y}
+\end{align*}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
+\hfill $\Box$
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+\begin{defn}[Dekodierungs-Funktion $\rho$]
+$\rho$ ist die Umkehrfunktion zur Mapping-Funktion $\pi$.
+Es gilt $\rho(\pi(x))=x$.
+\end{defn}
+
+\section{Kodierung von $\lng{E}$ in den Datentyp der Listen}\label{sec:codingE}
+Wir werden nun darauf hin arbeiten die Unentscheidbarkeit des Halteproblems zu lösen (Kapitel~\ref{sec:halteproblem}).
+Dazu werden wir zunächst $\lng{E}$ in den Datentyp der Listen kodieren (Kapitel~\ref{sec:codingE}) und anschließend einen Interpreter für
+kodierte $\lng{E}$-Programme in $\lng{E}$ schreiben (Kapitel~\ref{sec:interpreter}).
+
+Wir wollen nun die Interpretationsfunktion ($I_{\lng{E}}: \text{FENV} \times \text{ENV} \times \lng{E} \to A$ mit einem Datentyp $A$) in $\lng{E}$ implementieren.
+Wir nennen diesen Interpreter $\delta\tu{IX(delta,omega,exp}$.
+Die verschiedenen Input-Mengen müssen wir in Listen kodieren. Dabei unterscheiden wir die Kodierungs- und
+Dekodierungsfunktionen: $\pi_{\text{FENV}}$, $\pi_{\text{ENV}}$, $\pi_{\lng{E}}$, $\pi_{A}$, die jedem Element der angegebenen Menge eine
+Repräsentation im Datentyp der Listen zuweisen.
+
+Für den Interpreter sollen die Kodierungseigenschaften gelten:
+\[\I{E}{\delta,\omega}{IX(delta,omega,exp)}=\pi_{A}\rbr{\I{E}{\rho_{\text{FENV}}(\omega(\tu{delta})),\rho_{ENV}(\omega(\tu{delta}))}{$\rho_{\lng{E}}(\omega(\tu{exp}))$}}\]
+Der Einfachheit halber behandeln wir nur den Fall $A=L$, dann ist in unserem Fall $\pi_{A}(x)=x$.
+Die Kodierung von $\omega$ kann beispielsweise durch eine Liste von 2-elementigen Listen geschehen wobei das 1. Element jeweils der Variablenname
+und das 2. Element jeweils der Variablenwert ist. Das heißt der Sachverhalt $\omega(\tu{x1})=\ell_1, \omega(\tu{x2})=\ell_2$ wird dargestellt durch
+$\ebr{ \ebr{\text{X1 } \ell_1} \ebr{\rbr{X2 } \ell_2} }$. Analog kann die Kodierung von FENV geschehen wobei hier 2 Werte pro Variable gespeichert werden: Die Parameterliste und das Programm in Listekodierung.
+$\delta$ hat dann folgende Form: 
+\[\ebr{\quad\ebr{F_1 \ebr{ \ebr{x_1 \ldots x_n} \pi_{\lng{E}}(\text{exp})}} \quad \ldots \quad \ebr{F_n \ebr{ \ebr{x_1 \ldots x_n} \pi_{\lng{E}}(\text{exp}')}}\quad}.\]
+
+Wir definieren $\ell$ als Funktion die jedes Symbol in ein entsprechendes Atom übersetzt. D.h. $\ell(\tu{first})=\text{FIRST}$, $\ell(\tu{variable}) = \text{VARIABLE}$, $\ell(\tu{myfunc}) = \text{MYFUNC}$, etc.
+\begin{defn}[Mapping-Funktion $\pi_{\lng{E}}$]
+Wir definieren $\pi_{\lng{E}}$ so dass jeweils das erste Element einer Liste definiert ob diese Liste eine
+Konstante, Variable, Konditional, etc. ist.
+\begin{align*}
+\forall c \in C^{\Sigma}: \quad &\pi_{\lng{E}}(c)= \ebr{\text{CONST } \ell(c)} \tag{Konstanten}\\
+\forall v \in \text{IVS}: \quad &\pi_{\lng{E}}(v)= \ebr{\text{IVS } \ell(v)} \tag{Variablen}\\
+\forall f \in F^{\Sigma}: \quad &\pi_{\lng{E}}(f\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}) \\
+&= \ebr{\text{APPLY } \ell(f) \pi_{\lng{E}}(t_1) \ldots \pi_{\lng{E}}(t_n)} \tag{Datentyp-Funktionen}\\
+\forall p \in P^{\Sigma}: \quad &\pi_{\lng{E}}(\tu{if}\;p\;\tu{(}u_1\tu{,}\ldots\tu{,}u_n\tu{)}\;\tu{then}\;t_1\;\tu{else}\;t_2) \\
+&= \ebr{\text{COND } \ell(p) \ebr{ \pi_{\lng{E}}(u_1) \ldots \pi_{\lng{E}}(u_n)} \pi_{\lng{E}}(t_1) \pi_{\lng{E}}(t_2)} \tag{Datentyp-Prädikate}\\
+\forall F \in \text{FENV}: \quad &\pi_{\lng{E}}(F\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}) \\
+&= \ebr{\text{CALL } \ell(F) \pi_{\lng{E}}(t_1) \ldots \pi_{\lng{E}}(t_n)} \tag{Funktionen des Funktionsenvironments}
+\end{align*}
+\end{defn}
+
+Diese Definition erlaubt uns jedes $\lng{E}$-Programm in einer Liste zu kodieren.
+\section{Ein $\lng{E}$-Interpreter in $\lng{E}$}\label{sec:interpreter}
+Die Implementation des $\lng{E}$-Interpreters $\delta\tu{IX(delta,omega,exp)}$ in $\lng{E}$
+erfolgt nun direkt entsprechend der Definition \ref{defn:semexp} (sowie den dort verwendeten Definitionen \ref{defn:semt} und \ref{defn:semcond})
+wobei wir die größeren Teile der Definition auf Unterfunktionen aufteilen:
+\begin{align*}
+\delta &\tu{IX(delta,omega,exp)}\\
+=\;&\tu{if eq?(first(exp),CONST) then nth(exp,2)} \tag{z.B. [CONST NIL]}\\
+&\tu{else if eq?(first(exp),IVS) then DoIVS(omega,exp)}\\
+&\tu{else if eq?(first(exp),APPLY) then DoAppl(delta,omega,exp)}\\
+&\tu{else if eq?(first(exp),COND) then DoCond(delta,omega,exp)}\\
+&\tu{else DoCall(delta,omega,exp)}
+\intertext{\u{DoIVS} implementieren wir indem wir rekursiv durch die Liste \u{omega} suchen und einen Fehler zurückgeben falls die Variable
+nicht definiert wurde oder eben die Variable}
+\delta &\tu{DoIVS(omega,exp)} \tag{Aufruf z.B. mit [IVS X1]}\\
+=\;&\tu{if eq?(nth(exp,2),first(first(omega))) then nth(first(omega),2)} \\
+&\tu{else DoIVS(rest(omega),exp)}
+\intertext{\u{DoApply} implementieren wir nach der Definition der Interpretationsfunktion, wobei wir hier sämtliche Datentypfunktionen (first, rest, build) hineinkodieren müssen. \u{DoApply} sieht
+folglich für jeden Datentyp unterschiedlich aus.}
+\delta &\tu{DoApply(delta,omega,exp)} \tag{Aufruf z.B. mit [APPLY BUILD X1 X2]} \\
+=\;&\tu{if eq?(nth(exp,2),FIRST) then first(IX(delta,omega,nth(exp,3)))} \\
+&\tu{else if eq?(nth(exp,2),REST) then rest(IX(delta,omega,nth(exp,3)))} \\
+&\tu{else build(IX(delta,omega,nth(exp,3)),IX(delta,omega,nth(exp,4)))}
+\intertext{Wir definieren eine Unterfunktion die nur die Überprüfung macht (für die beiden Prädikate atom? und eq?):}
+\delta &\tu{Check(pred,exp)} \\
+=\;&\tu{if eq?(pred,ATOM?) then if atom?(first(exp)) then TRUE else FALSE} \\
+&\tu{else if eq?(exp) then if eq?(first(exp),nth(exp,2)) TRUE else FALSE} \\
+\intertext{\u{DoCond} ist sehr ähnlich wie \u{DoApply}, eine Abfrage für jedes Prädikat. Unter Verwendung der \u{Check} Funktion entspricht \u{DoCond} genau dem Konditional-Teil der Interpretationsfunktion.}
+\delta &\tu{DoCond(delta,omega,exp)} \tag{Aufruf z.B. [COND P [ X1 ] X2 X3]} \\
+=\;&\tu{if eq?(Check(nth(exp,2),nth(exp,3)),TRUE) then IX(delta,omega,nth(exp,4))} \\
+&\tu{else IX(delta,omega,nth(exp,5))}
+\intertext{\u{DoCall} ist nun etwas aufwändiger: Wir müssen eine neue Liste \u{omega} bauen und die Anzahl der Parameter ist variabel.
+Wir beginnen mit einer Funktion \u{NewEnv}, die ein neues \u{omega} baut und returniert und einer Hilfsfunktion \u{build2} die aus 2 Elementen eine Liste baut.}
+\delta &\tu{build2(x,y)} \\
+=\;&\tu{build(x,build(y,nil))} \\
+\delta &\tu{NewEnv(params,values)} \\
+=\;&\tu{if eq?(params,nil) then nil } \\
+&\tu{else build(build2(first(params),first(values)),NewEnv(rest(params),rest(values)))}
+\intertext{Wir können nun also ein Environment bauen. Die Werte für die Parameter bekommen wir als Listenrest nach dem Funktionsvariablennamen. Die Parameternamen
+finden sich in \u{delta} als Liste, als 1. Element vom Funktionsvariablenwert. Wir müssen allerdings noch die richtige Funktionsvariable finden. Dazu definieren wir
+eine Funktion \u{FindFVS}}
+\delta &\tu{FindFVS(delta,name)} \\
+=\;&\tu{if eq?(name,first(first(delta))) then nth(first(delta),2)} \\
+&\tu{else FindFVS(rest(delta),name)}
+\intertext{Damit können wir \u{DoCall} bauen:}
+\delta &\tu{DoCall(delta,omega,exp)}  \tag{Aufruf z.B. [CALL F X1 X2 X3]} \\
+=\;&\tu{IX(delta,} \\
+   &\;\;\quad\tu{NewEnv(FindFVS(delta,first(nth(exp,2))),rest(rest(exp))),} \\
+   &\;\;\quad\tu{FindFVS(delta,rest(nth(exp,2))))}
+\end{align*}
+Damit ist der Interpreter vollständig.
+
+Es fällt auf dass keinerlei Fehlerfälle bzw. Fehlerbehandlung in dem Interpreter vorkommen.
+Dies ist für unsere Zwecke auch nicht nötig da wir nur syntaktisch korrekte Programme interpetieren wollen.
+
+
+\section{Das Halteproblem}\label{sec:halteproblem}
+$\lng{E}$ ist turing-vollständig. Der Beweis dazu kann erbracht werden indem man einen 
+Interpreter für (in einer definierten Art und Weise) kodierte Turingmaschinen in EXP schreibt.
+Ein Beweis für ein Problem in EXP gilt folglich auch für alle anderen turing-vollständigen Sprachen.
+
+TODO
+
 \section{Sprache der Prädikatenlogischen Ausdrücke PL ($\lng{P}$)}
+TODO
+
 \section{Assignmentsprachen / Sprache AL ($\lng{A}$)}
+TODO
+
 \section{Die Sprache LP ($\lng{L}$)}
+TODO
+
 \section{Beweise in LP ($\lng{L}$)}
+TODO
+
