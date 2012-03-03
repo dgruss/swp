@@ -80,7 +80,7 @@ Eine ähnliche Herangehensweise stellen Grammatiken dar:
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 \begin{defn}[Grammatik]
 Eine Grammatik ist ein 4-Tupel $(V_N, V_T, S, \Phi)$.
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $V_N$ ist eine endliche Menge von Nonterminalen (entsprechen Zuständen der FSM),
 \item $V_T$ ist eine endliche Menge von Terminalen (entsprechen Alphabet der Sprache),
 \item $S \in V_N$ das Startsymbol (wie Initialzustand der FSM),
@@ -91,7 +91,7 @@ also $(V_N \cup V_T)^* V_N (V_N \cup V_T)^*$.
 
 $\beta$ ist eine beliebige Aneinanderreihung von Terminalen und Nonterminalen, einschließlich der leeren Menge,
 also $(V_N \cup V_T)^*$.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \end{defn}
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -170,7 +170,7 @@ Wir haben Produktionsregeln definiert durch $\alpha \to \beta$, wobei
 $\alpha$ zumindest ein Nonterminal enthält.
 \begin{defn}
 Eine Grammatik ist nach der Chomsky-Sprachhierarchie:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item allgemein/uneingeschränkt (unrestricted)
 
 Keine Restriktionen
@@ -183,7 +183,7 @@ Wie Kontext-sensitiv; außerdem muss $\alpha$ genau \textbf{ein} Non-Terminal se
 \item regulär (regular): $\abs{\alpha} \leq \abs{\beta}, \quad \alpha \in V_N, \quad \beta=aA, \quad a \in V_T \cup \gbr{\varepsilon}, A \in V_N \cup \gbr{\varepsilon}$
 
 Wie Kontext-frei; außerdem ist $\beta=aA$ wobei $a$ ein Terminal oder $\varepsilon$ ist und $A$ ein Nonterminal oder $\varepsilon$. (Anmerkung: $\varepsilon\varepsilon=\varepsilon$)
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 Es gilt $\mathbb{L}_{\text{regular}} \subset \mathbb{L}_{\text{context free}} \subset \mathbb{L}_{\text{context sensitive}} \subset \mathbb{L}_{\text{unrestricted}}$ ($\mathbb{L}_{\text{x}}$ Menge aller Sprachen der Stufe $x$).
 \end{defn}
 
@@ -346,12 +346,12 @@ Dann erhalten wir den wesentlich leichter verständlichen Ausdruck \verb#0|(digi
 Mit erweiterten regulären Ausdrücken können wir nun einfach den Eingabestring in eine Token-Sequenz aufteilen.
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 Übersetzen wir dazu den erweiterten regulären Ausdruck zu einer Funktion so beobachten wir:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item Terminale werden zu \verb|if|-Abfragen,
 \item \verb|Q*| wird zu einem Schleifenkonstrukt,
 \item \verb#Q|R# wird zu einer \verb|if, else if, else|-Abfrage wobei der \verb|else| Fall zu einem Ablehnen der Eingabe führt,
 \item \verb|QR| bedeutet dass zuerst \verb|Q| überprüft wird, danach \verb|R|.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \section{Grammatikalische Analyse}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 Der letzte Schritt der Syntaxanalyse ist die grammatikalische Analyse. In diesem Schritt wollen wir anhand der Token-Sequenz prüfen ob das Eingabewort in der Sprache der Grammatik enthalten ist. Den Verarbeitung einschließlich diesen Schrittes nennen wir ``Parsing''. Als Nebenprodukt wird oft ein Parse-Baum aufgebaut, der zusätzlich zur Reihenfolge der Tokens auch die Kapselung im Programm ausdrückt.
@@ -361,29 +361,29 @@ behandeln wir auf Syntax-Ebene nicht.
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
 Bei kontext-freien oder regulären Grammatiken werden wir fortan nur noch die Produktionsregeln mit unterstrichenen Nonterminalen anschreiben, da die Grammatik dadurch vollständig definiert wird:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item $V_N$ ist die Vereinigung über alle Symbole auf der linken Seite der Produktionsregeln (d.h. alle Nonterminale),
 \item $V_T$ ist die Vereinigung aller unterstrichenen Zeichenfolgen (d.h. alle Terminale),
 \item $S$, das Startsymbol ist (soweit nicht anders festgehalten) das erste aufgeführte Nonterminal,
 \item $\Phi$ wird explizit angegeben.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 Wir definieren nun die Sprache der einfachen arithmetischen Ausdrücke durch:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $E \to E \u{+} E$
 \item $E \to E \u{*} E$
 \item $E \to \u{(} E \u{)}$
 \item $E \to \u{\text{num}}$
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 
 Wir sehen dass diese Grammatik eine kontext-freie Grammatik ist. Außerdem sehen wir anhand von Regel 1 und 2, dass die Grammatik linksrekursiv ist.
 Weiters können wir für den Satz \u{num + num * num} zwei mögliche Ableitungen finden. Wir verwenden dazu eine verkürzte Form der Darstellung aus Abschnitt \ref{subsec:parser}.
 Die Vorgehensweise dabei nennt man auch Top-Down-Parsing.
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $E \to E \u{*} E \to E \u{*} E \u{+} E\to\u{\text{num+}}E\u{*}E\to\u{\text{num + num *}}E \to \u{\text{num + num * num}}$
 \item $E \to E \u{+} E \to E \u{+} E \u{*} E\to\u{\text{num+}}E\u{*}E\to\u{\text{num + num *}}E \to \u{\text{num + num * num}}$
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 Dies zeigt dass die Grammatik mehrdeutig ist.
 
 Eine weitere Möglichkeit dies anschaulich darzustellen sind Parse-Trees. Ein Parse-Tree stellt einen konkreten Parse-Vorgang dar. Der Wurzel-Knoten das Startsymbol. Die Kinder jedes Knotens sind die einzelnen Terminale und Nonterminale die dieser Knoten produziert (von links nach rechts entsprechend der Grammatik). Die obigen Parse-Sequenzen lassen sich so darstellen:
@@ -456,18 +456,18 @@ Ist das Eingabewort \verb|num|, so haben wir 3 Regeln die alle zutreffen könnte
 \section{LL(1)-Grammatiken}
 \begin{defn}[LL(1)-Grammatik]
 Eine kontextfreie Grammatik $G$ ist eine LL(1)-Grammatik (ist in LL(1)-Form) wenn sie
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item keine Linksrekursionen enthält
 \item keine Produktionen mit gleichen Prefixen für die selbe linke Seite enthält
 \item ermöglicht immer in einem Schritt (d.h. nur mit Kenntnis des nächsten Tokens) zu entscheiden,
 welche Produktionsregel zur Ableitung verwendet werden muss.
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 \end{defn}
 
 LL(1) steht für ``\textbf{L}eft to right'', ``\textbf{L}eftmost derivation'', ``\textbf{1} Token Look-ahead''.
 
 Wir definieren einfache Regeln zwecks Auflösung von:
-\begin{itemize}
+\ifthenelse{\boolean{long}}{\begin{itemize}}{\begin{compactitem}}
 \item \textbf{Indirekten Linksrekursionen}
 
 Gibt es Produktionen der Form $A \to \alpha B \beta$ sowie $B \to \gamma$, dann kann man die Produktion
@@ -482,7 +482,7 @@ Gibt es Produktionen der Form $A \to \alpha B$ sowie $A \to \alpha C$, wobei $\a
 so können wir diese Produktion durch $A \to \alpha R$ und $R \to B | C$ ersetzen. Der größte gemeinsame Prefix einer Sequenz von Terminalen und Nonterminalen ist die größte
 gemeinsame Zeichenkette dieser Sequenzen. Der größte gemeinsame Prefix von \u{if E then E else E} und \u{if E then E} ist \u{if E then E}.
 
-\end{itemize}
+\ifthenelse{\boolean{long}}{\end{itemize}}{\end{compactitem}}
 
 Mit diesen Regeln können wir oftmals Grammatiken in äquivalente LL(1)-Grammatiken umformen.
 Es gibt natürlich Grammatiken bei denen dies nicht möglich ist. In diesem Fall bleibt nur
@@ -493,38 +493,38 @@ die Möglichkeit eine andere Parsing-Methode zu verwenden oder die Sprache zu ve
 \begin{tabular}{p{0.75\hsize}p{0.2\hsize}}
 Überlegen wir uns einmal anhand eines kleineren Beispiels was eine direkte Linksrekursion eigentlich bedeutet und wie man diese intuitiv auflöst.
 Wir werden anhand dieses Beispiels eine Herleitung der Regel für die direkte Linksrekursion skizzieren.&
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $A \to \u{b}$
 \item \textcolor{red}{$A \to A \u{a}$}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{tabular}\\\begin{tabular}{p{0.75\hsize}p{0.2\hsize}}
 Wir erkennen auf den ersten Blick dass jedes Wort der Sprache dieser Grammatik wohl mit $\u{b}$ beginnen muss.
 Dann folgen eine beliebige Anzahl von $\u{a}$. Als regulären Ausdruck könnte man schreiben \verb|ba*|
 Versuchen wir nun die Sprache intuitiv umzubauen. Dazu ändern wir zunächst wie folgt die 2. Regel um:&
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $A \to \u{b}$
 \item \textcolor{red}{$A \to \u{a} A$}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \\
 Jetzt haben wir \verb|a*b| gebaut, also bauen wir ein neues Non-Terminal für die Produktionen der $\u{a}$, die
 man erst nach einem $\u{b}$ produzieren können sollte.&
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $A \to \u{b}$
 \item \textcolor{red}{$B \to \u{a} B$}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{tabular}\\\begin{tabular}{p{0.75\hsize}p{0.2\hsize}}
 Nun können wir nur noch \verb|b| produzieren, daher fügen wir ein $B$ in die 1. Produktion ein. Außerdem würde die Rekursion von $B$ nie terminieren.&
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item \textcolor{red}{$A \to \u{b} B$}
 \item $B \to \u{a} B$
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \\
 Nun produzieren wir zuerst ein $\u{b}$ und dann beliebig viele $\u{a}$, allerdings terminiert die Rekursion nie. Wir fügen also eine regel $B \to \varepsilon$ ein
 und erhalten die richtig umgeformte Grammatik:&
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $A \to \u{b} B$
 \item \textcolor{red}{$B \to \u{a} B | \varepsilon$}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{tabular}
 Es ist auffällig dass unsere Umformung der Form entspricht die in den Regeln beschrieben wurde.
 \end{bsp}
@@ -535,14 +535,14 @@ In diesem Beispiel möchten wir nun auch die Regeln der Linksfaktorisierung und 
 herleiten.
 Gegeben Sei die folgende Grammatik die arithmetische Ausdrücken einer bestimmten Form beschreibt:&
 \vspace{-0.5cm}
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $E \to G$
 \item $G \to E \u{+} E$
 \item $G \to E \u{*} E$
 \item $E \to \u{(} E \u{)}$
 \item $E \to \u{(} \u{\text{num}} \u{)}$
 \item $E \to \u{(} G \u{)} \u{/} \u{(} G \u{)}$
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{tabular}\\
 \begin{tabular}{p{\hsize}}
 Versuchen wir nun zu Bestimmen: Gibt es Linksrekursionen oder gemeinsame Prefixe? Gibt es weitere Probleme bei dieser Grammatik?
@@ -556,7 +556,7 @@ Wenn wir uns überlegen wie man die gemeinsamen Prefixe entfernen kann wird man 
 die oben in den Regeln festgehalten wurde: Wir führen ein neues Non-Terminal ein welches die Produktion von ($\u{(}$) übernimmt
 und anschließend einen der Reste produziert.
 Wir erhalten dann die nebenstehende Grammatik.&
-\vspace{-0.75cm}\begin{enumerate}
+\vspace{-0.75cm}\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $E \to G$
 \item $G \to E \u{+} E$
 \item $G \to E \u{*} E$
@@ -564,12 +564,12 @@ Wir erhalten dann die nebenstehende Grammatik.&
 \item \textcolor{red}{$B \to E \u{)}$}
 \item \textcolor{red}{$B \to \u{(} \u{\text{num}} \u{)}$}
 \item \textcolor{red}{$B \to G \u{)} \u{/} \u{(} G \u{)}$}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{tabular}\\\begin{tabular}{p{0.65\hsize}p{0.3\hsize}}
 Wie können wir nun die indirekte Linksrekursion lösen?
 Wir hatten sie durch die Produktionen $E \to G \to E \u{*} E$ erkannt. Versuchen wir nun diesen Zwischenschritt zu eliminieren.
 Dazu können wir die Regel $G$ einfach ``einsetzen'' - d.h. aus Regel 1 werden 2 neue Regeln, aus Regel 7 werden sogar 4 neue Regeln (alle Kombinationen).&
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item \textcolor{red}{$E \to E \u{+} E$}
 \item \textcolor{red}{$E \to E \u{*} E$}
 \item $E \to \u{(} B$
@@ -579,13 +579,13 @@ Dazu können wir die Regel $G$ einfach ``einsetzen'' - d.h. aus Regel 1 werden 2
 \item \textcolor{red}{$B \to E \u{+} E \u{)} \u{/} \u{(} E \u{+} E \u{)}$}
 \item \textcolor{red}{$B \to E \u{*} E \u{)} \u{/} \u{(} E \u{*} E \u{)}$}
 \item \textcolor{red}{$B \to E \u{*} E \u{)} \u{/} \u{(} E \u{+} E \u{)}$}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{tabular}
 
 Lösen wir zunächst wieder die gemeinsamen Prefixe (Regeln 6-9).
 Dadurch entstehen wieder neue gemeinsame Prefixe die dann gelöst werden müssen (Regeln 7-10): \\
 \begin{tabular}{p{0.3\hsize}p{0.3\hsize}p{0.3\hsize}}
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $E \to E \u{+} E$
 \item $E \to E \u{*} E$
 \item $E \to \u{(} B$
@@ -597,8 +597,8 @@ Dadurch entstehen wieder neue gemeinsame Prefixe die dann gelöst werden müssen
 \item \textcolor{red}{$C \to \u{+} E \u{)} \u{/} \u{(} E \u{+} E \u{)}$}
 \item \textcolor{red}{$C \to \u{*} E \u{)} \u{/} \u{(} E \u{*} E \u{)}$}
 \item \textcolor{red}{$C \to \u{*} E \u{)} \u{/} \u{(} E \u{+} E \u{)}$}
-\end{enumerate}
-&\begin{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+&\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $E \to E \u{+} E$
 \item $E \to E \u{*} E$
 \item $E \to \u{(} B$
@@ -610,8 +610,8 @@ Dadurch entstehen wieder neue gemeinsame Prefixe die dann gelöst werden müssen
 \item \textcolor{red}{$C \to \u{*} E \u{)} \u{/} \u{(} E D$}
 \item \textcolor{red}{$D \to \u{+} E \u{)}$}
 \item \textcolor{red}{$D \to \u{*} E \u{)}$}
-\end{enumerate}
-&\begin{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+&\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item $E \to E \u{+} E$
 \item $E \to E \u{*} E$
 \item $E \to \u{(} B$
@@ -623,14 +623,14 @@ Dadurch entstehen wieder neue gemeinsame Prefixe die dann gelöst werden müssen
 \item $C \to \u{*} E \u{)} \u{/} \u{(} E D$
 \item $D \to \u{+} E \u{)}$
 \item $D \to \u{*} E \u{)}$
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{tabular}\\\begin{tabular}{p{0.65\hsize}p{0.3\hsize}}
 Nun haben wir nur noch die direkte Linksrekursionen (Regeln 1 und 2).
 Wir wissen aus dem vorherigen Beispiel bereits wie wir diese auflösen und erhalten die nebenstehende Grammatik.
 Wir sehen dass die Regeln genau unser intuitives Vorgehen festhalten und verallgemeinern.
 Außerdem garantieren korrekte Anwendungen der Regeln dass die Grammatik nach der
 Umformung noch die gleiche Sprache beschreiben.&
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item \textcolor{red}{$E \to \u{(} B R$}
 \item \textcolor{red}{$R \to \u{+} E$}
 \item \textcolor{red}{$R \to \u{*} E$}
@@ -643,7 +643,7 @@ Umformung noch die gleiche Sprache beschreiben.&
 \item $C \to \u{*} E \u{)} \u{/} \u{(} E D$
 \item $D \to \u{+} E \u{)}$
 \item $D \to \u{*} E \u{)}$
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{tabular}
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -657,18 +657,18 @@ Die FIRST-Menge eines Nonterminals $X$ ist die Menge aller Terminalsymbole die i
 Die FIRST-Menge eines Terminals $x$ ist immer das Terminalsymbol selbst.
 
 Formal bedeutet dies:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Wenn $x$ ein Terminal ist: $\text{FIRST}(x)=\gbr{x}$
 \item Wenn die Grammatik Produktionsregeln enthält so dass $X \to \ldots \to \varepsilon$, dann ist: $\varepsilon \in \text{FIRST}(X)$
 \item Für jede Produktionsregel $X \to Y_1 Y_2 \ldots Y_n$, ist $x \in \text{FIRST}(X)$ wenn $x \in \text{FIRST}(Y_i)$ und für alle
 $Y_j$ mit $j < i$ gilt, dass $\varepsilon \in \text{FIRST}(Y_j)$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 Für aufeinanderfolgende Terminal- bzw. Nonterminalsymbole $X_1 X_2 \ldots X_n$:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Wenn $x \in \text{FIRST}(X_i)$ und für alle $X_j$ mit $j < i$ gilt, dass $\varepsilon \in \text{FIRST}(X_j)$,
 dann ist $x \in \text{FIRST}(X_1 X_2 \ldots X_n)$.
 \item Wenn für alle $X_i$ $\varepsilon \in \text{FIRST}(X_i)$ ist, dann ist auch $\varepsilon \in \text{FIRST}(X_1 X_2 \ldots X_n)$.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 
 Aus dieser Definition folgt beispielsweise für einfache Regeln $A \to B$, dass $\text{FIRST}(A) = \rbr{\text{FIRST}(B) \setminus \gbr{\varepsilon}}\cup \ldots$ ist.
@@ -730,12 +730,12 @@ Die Follow-Menge eines Nonterminals $X$ ist die Menge aller Terminalsymbole die 
 Das heißt, alle Terminalsymbole die nach Abarbeitung des Zustands $X$ als erstes geparst werden können.
 
 Formal bedeutet dies:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Wenn $X$ das Startsymbol ist, dann ist $\$ \in \text{FOLLOW}(X)$
 \item Für alle Regeln der Form $A \to \alpha B \beta$ ist $\text{FIRST*}(\beta) \subseteq \text{FOLLOW}(X)$
 \item Für alle Regeln der Form $A \to \alpha B$ bzw. $A \to \alpha B \beta$ mit $\varepsilon \in \text{FIRST}(\beta)$
 ist $\text{FOLLOW}(A) \subseteq \text{FOLLOW}(B)$
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{defn}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
@@ -770,22 +770,22 @@ C &\to A \u{c} \\
 
 \begin{algo}[Parse-Table]
 Der Parse-Table Algorithmus berechnet aus einer Grammatik eine Parse-Table (auch LL(1)-Tabelle) $M$.
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Für jede Produktion $X \to \alpha$:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Für jedes Element $y \in \text{FIRST*}(\alpha)$ bzw. wenn $\alpha = y$:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Füge $X \to \alpha$ in $M(X,y)$ ein.
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \item Wenn $\varepsilon \in \text{FIRST}(\alpha)$:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Für alle $y \in \text{FOLLOW}(X)$:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Füge $X \to \alpha$ in $M(X,y)$ ein.
-\end{enumerate}
-\end{enumerate}
-\end{enumerate}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 Leere Einträge in der Tabelle sind Fehlerfälle. Diese können auch explizit mit ERROR beschriftet werden.
 \end{algo}
 
@@ -882,20 +882,20 @@ In Spalten werden Stack, Eingabe und die angewandte Produktionsregel aufgetragen
 
 \begin{algo}[LL(1)-Parsing mit Tabelle]
 Sei $X$ das oberste Stack-Element, $t$ das aktuelle Token der Eingabe $w$ und $\mathcal{L}$ die von der Grammatik akzeptierte Sprache.
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Wenn $X$ ein Non-Terminal ist:
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Nimm den Wert von $M(X,t)$
 \item Ist der Eintrag leer oder ein Fehlereintrag: Abbruch ($w \not \in \mathcal{L}$).
 \item Sonst: Ersetze das oberste Stack-Element $X$ durch Produktion in umgekehrter Reihenfolge ($WVU$ wenn $M(X,t)=X\to UVW$).
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \item Andernfalls ($X$ ist ein Terminal):
-\begin{enumerate}
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
 \item Wenn $X=t=\$$: Parsing erfolgreich ($w \not \in \mathcal{L}$).
 \item Sonst, wenn $X=t\neq\$$, dann nimm $X$ vom Stack und gehe zum nächsten Token im Input.
 \item Sonst: Abbruch ($w \not \in \mathcal{L}$).
-\end{enumerate}
-\end{enumerate}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
 \end{algo}
 \end{defn}
 

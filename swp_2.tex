@@ -1137,9 +1137,9 @@ folglich für jeden Datentyp unterschiedlich aus.}}{\\}
 \ifthenelse{\boolean{long}}{\intertext{Wir definieren eine Unterfunktion die nur die Überprüfung macht (für die beiden Prädikate atom? und eq?):}}{\\}
 \delta &\tu{Check(pred, exp)} \\
 =\;&\tu{if eq?(pred, ATOM?) then if atom?(first(exp)) then TRUE else FALSE} \\
-&\tu{else if eq?(exp) then if eq?(first(exp), nth(exp, 2)) TRUE else FALSE} \\
+&\tu{else if eq?(exp) then if eq?(first(exp), nth(exp, 2)) TRUE else FALSE}
 \ifthenelse{\boolean{long}}{\intertext{\u{DoCond} ist sehr ähnlich wie \u{DoApply},  eine Abfrage für jedes Prädikat. Unter Verwendung der \u{Check} Funktion entspricht \u{DoCond} genau dem Konditional-Teil der Interpretationsfunktion.}}{\\}
-\delta &\tu{DoCond(delta, omega, exp)} \tag{Aufruf z.B. [COND P [ X1 ] X2 X3]} \\
+\delta &\tu{DoCond(delta, omega, exp)} \tag{Aufruf z.B. mit [COND P [ X1 ] X2 X3]} \\
 =\;&\tu{if eq?(Check(nth(exp, 2), nth(exp, 3)), TRUE) then IX(delta, omega, nth(exp, 4))} \\
 &\tu{else IX(delta, omega, nth(exp, 5))}
 \ifthenelse{\boolean{long}}{\intertext{\u{DoCall} ist nun etwas aufwändiger: Wir müssen eine neue Liste \u{omega} bauen und die Anzahl der Parameter ist variabel.
@@ -1156,7 +1156,7 @@ eine Funktion \u{FindFVS}}}{\\}
 =\;&\tu{if eq?(name, first(first(delta))) then nth(first(delta), 2)} \\
 &\tu{else FindFVS(rest(delta), name)}
 \ifthenelse{\boolean{long}}{\intertext{Damit können wir \u{DoCall} bauen:}}{\\}
-\delta &\tu{DoCall(delta, omega, exp)}  \tag{Aufruf z.B. [CALL F X1 X2 X3]} \\
+\delta &\tu{DoCall(delta, omega, exp)}  \tag{Aufruf z.B. mit [CALL F X1 X2 X3]} \\
 =\;&\tu{IX(delta,  NewEnv(FindFVS(delta, first(nth(exp, 2))), rest(rest(exp))), } \\
    &\qquad\;\qquad\tu{FindFVS(delta, rest(nth(exp, 2))))}
 \end{align*}
