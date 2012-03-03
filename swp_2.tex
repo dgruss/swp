@@ -1074,9 +1074,11 @@ Es gilt $\rho(\pi(x))=x$.
 \end{defn}
 
 \section{Kodierung von $\lng{E}$ in den Datentyp der Listen}\label{sec:codingE}
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 Wir werden nun darauf hin arbeiten die Unentscheidbarkeit des Halteproblems zu lösen (Kapitel~\ref{sec:halteproblem}).
 Dazu werden wir zunächst $\lng{E}$ in den Datentyp der Listen kodieren (Kapitel~\ref{sec:codingE}) und anschließend einen Interpreter für
 kodierte $\lng{E}$-Programme in $\lng{E}$ schreiben (Kapitel~\ref{sec:interpreter}).
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 
 Wir wollen nun die Interpretationsfunktion ($I_{\lng{E}}: \text{FENV} \times \text{ENV} \times \lng{E} \to A$ mit einem Datentyp $A$) in $\lng{E}$ implementieren.
 Wir nennen diesen Interpreter $\delta\tu{IX(delta,omega,exp}$.
@@ -1111,58 +1113,59 @@ Konstante, Variable, Konditional, etc. ist.
 
 Diese Definition erlaubt uns jedes $\lng{E}$-Programm in einer Liste zu kodieren.
 \section{Ein $\lng{E}$-Interpreter in $\lng{E}$}\label{sec:interpreter}
-Die Implementation des $\lng{E}$-Interpreters $\delta\tu{IX(delta,omega,exp)}$ in $\lng{E}$
+Die Implementation des $\lng{E}$-Interpreters $\delta\tu{IX(delta, omega, exp)}$ in $\lng{E}$
 erfolgt nun direkt entsprechend der Definition \ref{defn:semexp} (sowie den dort verwendeten Definitionen \ref{defn:semt} und \ref{defn:semcond})
 wobei wir die größeren Teile der Definition auf Unterfunktionen aufteilen:
 \begin{align*}
-\delta &\tu{IX(delta,omega,exp)}\\
-=\;&\tu{if eq?(first(exp),CONST) then nth(exp,2)} \tag{z.B. [CONST NIL]}\\
-&\tu{else if eq?(first(exp),IVS) then DoIVS(omega,exp)}\\
-&\tu{else if eq?(first(exp),APPLY) then DoAppl(delta,omega,exp)}\\
-&\tu{else if eq?(first(exp),COND) then DoCond(delta,omega,exp)}\\
-&\tu{else DoCall(delta,omega,exp)}
-\intertext{\u{DoIVS} implementieren wir indem wir rekursiv durch die Liste \u{omega} suchen und einen Fehler zurückgeben falls die Variable
-nicht definiert wurde oder eben die Variable}
-\delta &\tu{DoIVS(omega,exp)} \tag{Aufruf z.B. mit [IVS X1]}\\
-=\;&\tu{if eq?(nth(exp,2),first(first(omega))) then nth(first(omega),2)} \\
-&\tu{else DoIVS(rest(omega),exp)}
-\intertext{\u{DoApply} implementieren wir nach der Definition der Interpretationsfunktion, wobei wir hier sämtliche Datentypfunktionen (first, rest, build) hineinkodieren müssen. \u{DoApply} sieht
-folglich für jeden Datentyp unterschiedlich aus.}
-\delta &\tu{DoApply(delta,omega,exp)} \tag{Aufruf z.B. mit [APPLY BUILD X1 X2]} \\
-=\;&\tu{if eq?(nth(exp,2),FIRST) then first(IX(delta,omega,nth(exp,3)))} \\
-&\tu{else if eq?(nth(exp,2),REST) then rest(IX(delta,omega,nth(exp,3)))} \\
-&\tu{else build(IX(delta,omega,nth(exp,3)),IX(delta,omega,nth(exp,4)))}
-\intertext{Wir definieren eine Unterfunktion die nur die Überprüfung macht (für die beiden Prädikate atom? und eq?):}
-\delta &\tu{Check(pred,exp)} \\
-=\;&\tu{if eq?(pred,ATOM?) then if atom?(first(exp)) then TRUE else FALSE} \\
-&\tu{else if eq?(exp) then if eq?(first(exp),nth(exp,2)) TRUE else FALSE} \\
-\intertext{\u{DoCond} ist sehr ähnlich wie \u{DoApply}, eine Abfrage für jedes Prädikat. Unter Verwendung der \u{Check} Funktion entspricht \u{DoCond} genau dem Konditional-Teil der Interpretationsfunktion.}
-\delta &\tu{DoCond(delta,omega,exp)} \tag{Aufruf z.B. [COND P [ X1 ] X2 X3]} \\
-=\;&\tu{if eq?(Check(nth(exp,2),nth(exp,3)),TRUE) then IX(delta,omega,nth(exp,4))} \\
-&\tu{else IX(delta,omega,nth(exp,5))}
-\intertext{\u{DoCall} ist nun etwas aufwändiger: Wir müssen eine neue Liste \u{omega} bauen und die Anzahl der Parameter ist variabel.
-Wir beginnen mit einer Funktion \u{NewEnv}, die ein neues \u{omega} baut und returniert und einer Hilfsfunktion \u{build2} die aus 2 Elementen eine Liste baut.}
-\delta &\tu{build2(x,y)} \\
-=\;&\tu{build(x,build(y,nil))} \\
-\delta &\tu{NewEnv(params,values)} \\
-=\;&\tu{if eq?(params,nil) then nil } \\
-&\tu{else build(build2(first(params),first(values)),NewEnv(rest(params),rest(values)))}
-\intertext{Wir können nun also ein Environment bauen. Die Werte für die Parameter bekommen wir als Listenrest nach dem Funktionsvariablennamen. Die Parameternamen
-finden sich in \u{delta} als Liste, als 1. Element vom Funktionsvariablenwert. Wir müssen allerdings noch die richtige Funktionsvariable finden. Dazu definieren wir
-eine Funktion \u{FindFVS}}
-\delta &\tu{FindFVS(delta,name)} \\
-=\;&\tu{if eq?(name,first(first(delta))) then nth(first(delta),2)} \\
-&\tu{else FindFVS(rest(delta),name)}
-\intertext{Damit können wir \u{DoCall} bauen:}
-\delta &\tu{DoCall(delta,omega,exp)}  \tag{Aufruf z.B. [CALL F X1 X2 X3]} \\
-=\;&\tu{IX(delta,} \\
-   &\;\;\quad\tu{NewEnv(FindFVS(delta,first(nth(exp,2))),rest(rest(exp))),} \\
-   &\;\;\quad\tu{FindFVS(delta,rest(nth(exp,2))))}
+\delta &\tu{IX(delta, omega, exp)}\\
+=\;&\tu{if eq?(first(exp), CONST) then nth(exp, 2)} \tag{z.B. [CONST NIL]}\\
+&\tu{else if eq?(first(exp), IVS) then DoIVS(omega, exp)}\\
+&\tu{else if eq?(first(exp), APPLY) then DoAppl(delta, omega, exp)}\\
+&\tu{else if eq?(first(exp), COND) then DoCond(delta, omega, exp)}\\
+&\tu{else DoCall(delta, omega, exp)}
+\ifthenelse{\boolean{long}}{\intertext{\u{DoIVS} implementieren wir indem wir rekursiv durch die Liste \u{omega} suchen und einen Fehler zurückgeben falls die Variable
+nicht definiert wurde oder eben die Variable}}{\\}
+\delta &\tu{DoIVS(omega, exp)} \tag{Aufruf z.B. mit [IVS X1]}\\
+=\;&\tu{if eq?(nth(exp, 2), first(first(omega))) then nth(first(omega), 2)} \\
+&\tu{else DoIVS(rest(omega), exp)}
+\ifthenelse{\boolean{long}}{\intertext{\u{DoApply} implementieren wir nach der Definition der Interpretationsfunktion,  wobei wir hier sämtliche Datentypfunktionen (first,  rest,  build) hineinkodieren müssen. \u{DoApply} sieht
+folglich für jeden Datentyp unterschiedlich aus.}}{\\}
+\delta &\tu{DoApply(delta, omega, exp)} \tag{Aufruf z.B. mit [APPLY BUILD X1 X2]} \\
+=\;&\tu{if eq?(nth(exp, 2), FIRST) then first(IX(delta, omega, nth(exp, 3)))} \\
+&\tu{else if eq?(nth(exp, 2), REST) then rest(IX(delta, omega, nth(exp, 3)))} \\
+&\tu{else build(IX(delta, omega, nth(exp, 3)), IX(delta, omega, nth(exp, 4)))}
+\ifthenelse{\boolean{long}}{\intertext{Wir definieren eine Unterfunktion die nur die Überprüfung macht (für die beiden Prädikate atom? und eq?):}}{\\}
+\delta &\tu{Check(pred, exp)} \\
+=\;&\tu{if eq?(pred, ATOM?) then if atom?(first(exp)) then TRUE else FALSE} \\
+&\tu{else if eq?(exp) then if eq?(first(exp), nth(exp, 2)) TRUE else FALSE} \\
+\ifthenelse{\boolean{long}}{\intertext{\u{DoCond} ist sehr ähnlich wie \u{DoApply},  eine Abfrage für jedes Prädikat. Unter Verwendung der \u{Check} Funktion entspricht \u{DoCond} genau dem Konditional-Teil der Interpretationsfunktion.}}{\\}
+\delta &\tu{DoCond(delta, omega, exp)} \tag{Aufruf z.B. [COND P [ X1 ] X2 X3]} \\
+=\;&\tu{if eq?(Check(nth(exp, 2), nth(exp, 3)), TRUE) then IX(delta, omega, nth(exp, 4))} \\
+&\tu{else IX(delta, omega, nth(exp, 5))}
+\ifthenelse{\boolean{long}}{\intertext{\u{DoCall} ist nun etwas aufwändiger: Wir müssen eine neue Liste \u{omega} bauen und die Anzahl der Parameter ist variabel.
+Wir beginnen mit einer Funktion \u{NewEnv},  die ein neues \u{omega} baut und returniert und einer Hilfsfunktion \u{build2} die aus 2 Elementen eine Liste baut.}}{\\}
+\delta &\tu{build2(x, y)} \\
+=\;&\tu{build(x, build(y, nil))} \\
+\delta &\tu{NewEnv(params, values)} \\
+=\;&\tu{if eq?(params, nil) then nil } \\
+&\tu{else build(build2(first(params), first(values)), NewEnv(rest(params), rest(values)))}
+\ifthenelse{\boolean{long}}{\intertext{Wir können nun also ein Environment bauen. Die Werte für die Parameter bekommen wir als Listenrest nach dem Funktionsvariablennamen. Die Parameternamen
+finden sich in \u{delta} als Liste,  als 1. Element vom Funktionsvariablenwert. Wir müssen allerdings noch die richtige Funktionsvariable finden. Dazu definieren wir
+eine Funktion \u{FindFVS}}}{\\}
+\delta &\tu{FindFVS(delta, name)} \\
+=\;&\tu{if eq?(name, first(first(delta))) then nth(first(delta), 2)} \\
+&\tu{else FindFVS(rest(delta), name)}
+\ifthenelse{\boolean{long}}{\intertext{Damit können wir \u{DoCall} bauen:}}{\\}
+\delta &\tu{DoCall(delta, omega, exp)}  \tag{Aufruf z.B. [CALL F X1 X2 X3]} \\
+=\;&\tu{IX(delta,  NewEnv(FindFVS(delta, first(nth(exp, 2))), rest(rest(exp))), } \\
+   &\qquad\;\qquad\tu{FindFVS(delta, rest(nth(exp, 2))))}
 \end{align*}
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
 Damit ist der Interpreter vollständig.
 
 Es fällt auf dass keinerlei Fehlerfälle bzw. Fehlerbehandlung in dem Interpreter vorkommen.
 Dies ist für unsere Zwecke auch nicht nötig da wir nur syntaktisch korrekte Programme interpetieren wollen.
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 
 
 \section{Das Halteproblem}\label{sec:halteproblem}
