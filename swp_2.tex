@@ -791,8 +791,8 @@ Die Symbole auf der syntaktischen Ebene werden entsprechend der zuvor verwendete
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
-Definieren Sie ein Programm \u{second} in $\lng{E}$ welches immer das 2. Element einer Liste zurückliefert.
-Interpetieren Sie ihr Programm für den Parameter [ FIR SEC THI ].
+Definieren Sie eine Funktion \u{second} in $\lng{E}$ welches immer das 2. Element einer Liste zurückliefert.
+Interpetieren Sie ihre Funktion für den Parameter [ FIR SEC THI ].
 
 \textit{Lösung:} Zuerst trennen wir das erste Element von der Liste, anschließend
 geben wir das neue erste Element zurück:
@@ -812,8 +812,8 @@ geben wir das neue erste Element zurück:
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
-Definieren Sie ein Programm \u{reverse} in $\lng{E}$ welches eine Liste elementweise umgedreht zurückliefert.
-Interpetieren Sie ihr Programm für den Parameter [ FIR SEC THI ].
+Definieren Sie eine Funktion \u{reverse} in $\lng{E}$ welches eine Liste elementweise umgedreht zurückliefert.
+Interpetieren Sie ihre Funktion für den Parameter [ FIR SEC THI ].
 
 \textit{Lösung:} Bei der Konstruktion rekursiver Programme versuchen wir meist von einem Basisfall ausgehend
 komplexere Fälle aufzubauen.
@@ -1157,7 +1157,7 @@ eine Funktion \u{FindFVS}}}{\\}
 &\tu{else FindFVS(rest(delta), name)}
 \ifthenelse{\boolean{long}}{\intertext{Damit können wir \u{DoCall} bauen:}}{\\}
 \delta &\tu{DoCall(delta, omega, exp)}  \tag{Aufruf z.B. mit [CALL F X1 X2 X3]} \\
-=\;&\tu{IX(delta,  NewEnv(FindFVS(delta, first(nth(exp, 2))), rest(rest(exp))), } \\
+=\;&\tu{IX(delta, NewEnv(FindFVS(delta, first(nth(exp, 2))), rest(rest(exp))), } \\
    &\qquad\;\qquad\tu{FindFVS(delta, rest(nth(exp, 2))))}
 \end{align*}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -1165,15 +1165,87 @@ Damit ist der Interpreter vollständig.
 
 Es fällt auf dass keinerlei Fehlerfälle bzw. Fehlerbehandlung in dem Interpreter vorkommen.
 Dies ist für unsere Zwecke auch nicht nötig da wir nur syntaktisch korrekte Programme interpetieren wollen.
-\ifthenelse{\boolean{long}}{}{\end{comment}}
 
+Den Interpreter IX kann auch sich selbst interpretieren. Dazu muss er nur in Listenkodierung gebracht werden.
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 
 \section{Das Halteproblem}\label{sec:halteproblem}
 $\lng{E}$ ist turing-vollständig. Der Beweis dazu kann erbracht werden indem man einen 
 Interpreter für (in einer definierten Art und Weise) kodierte Turingmaschinen in EXP schreibt.
-Ein Beweis für ein Problem in EXP gilt folglich auch für alle anderen turing-vollständigen Sprachen.
+\begin{defn}[Church-Turing These]
+Die Klasse der Turing-berechenbaren Funktionen ist genau die Klasse der intuitiv berechenbaren Funktionen.
+\end{defn}
+Sofern die Church-Turing These stimmt gilt ein Beweis für ein Problem in EXP auch für alle anderen turing-vollständigen Sprachen.
 
-TODO
+\begin{defn}[Entscheidungsproblem]
+Ein Prädikat $P$ ist entscheidbar, wenn es ein Programm $\Pi$ in $\lng{E}$ mit folgender Eigenschaft gibt:
+\begin{itemize}
+\item Wenn $P(x_1,\ldots,x_n)=T$: $\I{E}{\delta,\omega}{$\Pi$}=T$ mit $\omega(\tu{xi})=x_i$
+\item Wenn $P(x_1,\ldots,x_n)=F$: $\I{E}{\delta,\omega}{$\Pi$}=F$ mit $\omega(\tu{xi})=x_i$
+\end{itemize}
+D.h. in einer endlichen Anzahl von Rechenschritten wird eine Entscheidung getroffen.
+\end{defn}
+
+Ein Programm hält für eine Eingabe wenn es mit dieser Eingabe ausgeführt in einer endlichen Anzahl von Rechenschritten terminiert.
+
+\begin{defn}[Halteproblem]
+Gibt es ein Programm das entscheiden kann ob ein beliebiges Programm $\Pi$ auf einer Eingabe $x$ hält?
+\end{defn}
+
+\begin{satz}
+Das Halteproblem ist unentscheidbar.
+\end{satz}
+
+\begin{beweis}
+Wir beweisen dass das Halteproblem (in $\lng{E}$) unentscheidbar ist, indem wir zeigen
+dass es kein Programm in $\lng{E}$ geben kann, welches für beliebige Programme
+und Inputs entscheidet ob das Programm hält. Dazu nehmen wir an es wäre entscheidbar in $\lng{E}$ und führen dies dann auf
+einen Widerspruch zurück. Diese Beweistechnik nennt man ``Beweis durch Widerspruch''.
+
+Ein $\lng{E}$-Programm kann ein Programm aus mehreren Funktionen bestehen. Jedes $\lng{E}$-Programm kann aber auch mit nur einer Funktion
+implementiert werden. Sei $L_\Pi$ die Listenkodierung einer Funktion $\Pi$.
+
+\textit{Annahme:} Es gibt eine Funktion $H(L_\Pi,X): L \times L \to L$ die TRUE zurückgibt falls $L_\Pi$ mit Input $X$ hält,
+und FALSE zurückgibt falls $L_\Pi$ mit Input $X$ nicht hält und NIL als Fehlerwert zurückgibt falls $L_\Pi$ keine $\abs{X}$-stellige Funktion kodiert.
+
+\textit{Für den Widerspruch zu zeigen:} 
+\[\not \exists \delta: \; \tu{H(x,y)=\ldots} \in \delta, \forall \omega \in \text{ENV}: \; \I{E}{\delta,\omega}{H(x,y)}=H(\omega(\tu{x}),\omega(\tu{y})),\]
+d.h. es existiert kein Funktionsenvironment indem \u{H(x,y)} definiert wurde, so dass für alle möglichen $\omega$-Environments $\I{E}{\delta,\omega}{H(x,y)}=H(\omega(\tu{x}),\omega(\tu{y}))$ berechnet werden kann.
+
+Um dies zu zeigen konstruieren wir eine Funktion $\delta$\u{A}, die genau dann halten soll wenn sie nicht hält:
+\[\delta\tu{A(x)}=\tu{if eq?(H(x,x),TRUE) then A(x) else x}\]
+
+Mit $\omega(\tu{x})=\pi(\delta\u{A})$ berechnen wir nun $\I{E}{\delta,\omega}{A(x)}$:
+\[\I{E}{\delta,\omega}{A(x)} =\I{E}{\delta,\omega}{if eq?(H(x,x),TRUE) then A(x) else x}=\bigstar\]
+Fallunterscheidung nach $\I{E}{\delta,\omega}{H(x,x)}=$
+\begin{itemize}
+\item[TRUE] (d.h. $\I{E}{\delta,\omega}{A(x)}$ hält): Laut Definition der Interpretationsfunktion wird dann der \u{then}-Zweig ausgeführt.
+\[\bigstar=\I{E}{\delta,\omega}{A(x)}
+=\I{E}{\delta,\omega}{if eq?(H(x,x),TRUE) then A(x) else x}=\bigstar\]
+und da $\I{E}{\delta,\omega}{H(x,x)}=$TRUE
+\[\bigstar=\I{E}{\delta,\omega}{A(x)}=\ldots\]
+Wir sehen dass das Programm nicht hält. Dies ist ein Widerspruch.
+\item[FALSE], d.h. $\I{E}{\delta,\omega}{A(x)}$ hält nicht.
+Laut Definition der Interpretationsfunktion wird dann der \u{else}-Zweig ausgeführt.
+\begin{align*}
+&=\I{E}{\delta,\omega}{x} \\
+&=\omega(\tu{x})
+\end{align*}
+Wir sehen dass das Programm hält. Dies ist ebenfalls ein Widerspruch.
+\end{itemize}
+Die Fallunterscheidung deckt alle Fälle ab. Wir erhalten in jedem Fall einen Widerspruch.
+Somit haben wir den Satz bewiesen. \hfill $\Box$
+\end{beweis}
+
+\begin{defn}[Äquivalenzproblem]
+Gibt es ein Programm das entscheiden kann ob 2 Programme die selbe Funktion berechnen?
+\end{defn}
+
+\begin{satz}
+Das Äquivalenzproblem ist unentscheidbar.
+\end{satz}
+
+Der Beweis ist eine gute Übungsaufgabe.
 
 \section{Sprache der Prädikatenlogischen Ausdrücke PL ($\lng{P}$)}
 TODO
