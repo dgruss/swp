@@ -735,6 +735,30 @@ zutrifft.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+Die Sprache $\lng{E}$ ist von uns konstruiert und in der Praxis nicht relevant.
+Funktionale Sprachen (Lisp, Haskell, OCaml, etc.) im Allgemeinen sind allerdings durchaus relevant - und auch angenehmer zu verwenden als $\lng{E}$.
+Dadurch dass wir $\lng{E}$ genau verstehen wird es uns auch leicht fallen neue Sprachen zu erlernen.
+Hier ein Vergleich eines rekursiven Programms zum ermitteln der $n$-ten Fibonacci-Zahl in verschiedenen funktionalen Sprachen:
+\begin{itemize}
+\item EXP:
+\begin{verbatim}
+fib(n) = if eq?(n,0) then 1
+         else plus(fib(minus(n,1)),fib(minus(n,2)))
+\end{verbatim}
+\item Erlang:
+\begin{verbatim}
+fib(0) -> 1;
+fib(n) -> fib(n-1) + fib(n-2)
+\end{verbatim}
+\item Haskell:
+\begin{verbatim}
+fib 0 = 1
+fib n = fib(n-1) + fib(n-2)
+\end{verbatim}
+\end{itemize}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
 \section{Datentyp der Listen $\mathcal{L}$}
 Der Datentyp der Listen kommt in vielen Sprachen vor. Wir verwenden dazu die Darstellung mit eckigen Klammern und groß geschriebenen
 Wörtern ([ APE BEE CAT ]).
@@ -1180,8 +1204,8 @@ Sofern die Church-Turing These stimmt gilt ein Beweis für ein Problem in EXP au
 \begin{defn}[Entscheidungsproblem]
 Ein Prädikat $P$ ist entscheidbar, wenn es ein Programm $\Pi$ in $\lng{E}$ mit folgender Eigenschaft gibt:
 \begin{itemize}
-\item Wenn $P(x_1,\ldots,x_n)=T$: $\I{E}{\delta,\omega}{$\Pi$}=T$ mit $\omega(\tu{xi})=x_i$
-\item Wenn $P(x_1,\ldots,x_n)=F$: $\I{E}{\delta,\omega}{$\Pi$}=F$ mit $\omega(\tu{xi})=x_i$
+\item Wenn $P(x_1,\ldots,x_n)=T$: $\Iu{E}{\delta,\omega}{\Pi}=T$ mit $\omega(\tu{xi})=x_i$
+\item Wenn $P(x_1,\ldots,x_n)=F$: $\Iu{E}{\delta,\omega}{\Pi}=F$ mit $\omega(\tu{xi})=x_i$
 \end{itemize}
 D.h. in einer endlichen Anzahl von Rechenschritten wird eine Entscheidung getroffen.
 \end{defn}
@@ -1219,18 +1243,17 @@ Mit $\omega(\tu{x})=\pi(\delta\u{A})$ berechnen wir nun $\I{E}{\delta,\omega}{A(
 \[\I{E}{\delta,\omega}{A(x)} =\I{E}{\delta,\omega}{if eq?(H(x,x),TRUE) then A(x) else x}=\bigstar\]
 Fallunterscheidung nach $\I{E}{\delta,\omega}{H(x,x)}=$
 \begin{itemize}
-\item[TRUE] (d.h. $\I{E}{\delta,\omega}{A(x)}$ hält): Laut Definition der Interpretationsfunktion wird dann der \u{then}-Zweig ausgeführt.
+\item TRUE (d.h. $\I{E}{\delta,\omega}{A(x)}$ hält): Laut Definition der Interpretationsfunktion wird dann der \u{then}-Zweig ausgeführt.
 \[\bigstar=\I{E}{\delta,\omega}{A(x)}
 =\I{E}{\delta,\omega}{if eq?(H(x,x),TRUE) then A(x) else x}=\bigstar\]
 und da $\I{E}{\delta,\omega}{H(x,x)}=$TRUE
 \[\bigstar=\I{E}{\delta,\omega}{A(x)}=\ldots\]
 Wir sehen dass das Programm nicht hält. Dies ist ein Widerspruch.
-\item[FALSE], d.h. $\I{E}{\delta,\omega}{A(x)}$ hält nicht.
-Laut Definition der Interpretationsfunktion wird dann der \u{else}-Zweig ausgeführt.
-\begin{align*}
-&=\I{E}{\delta,\omega}{x} \\
-&=\omega(\tu{x})
-\end{align*}
+\item FALSE (d.h. $\I{E}{\delta,\omega}{A(x)}$ hält nicht): Laut Definition der Interpretationsfunktion wird dann der \u{else}-Zweig ausgeführt.
+\[\I{E}{\delta,\omega}{if eq?(H(x,x),TRUE) then A(x) else x}=
+=\I{E}{\delta,\omega}{x}
+=\omega(\tu{x})
+\]
 Wir sehen dass das Programm hält. Dies ist ebenfalls ein Widerspruch.
 \end{itemize}
 Die Fallunterscheidung deckt alle Fälle ab. Wir erhalten in jedem Fall einen Widerspruch.
