@@ -1271,7 +1271,54 @@ Das Äquivalenzproblem ist unentscheidbar.
 Der Beweis ist eine gute Übungsaufgabe.
 
 \section{Sprache der Prädikatenlogischen Ausdrücke PL ($\lng{P}$)}
-TODO
+In $\lng{E}$ hatten wir bereits Prädikate. Diese waren aber nur in Konditionalen (\u{if \textbf{predicate} then \ldots else \ldots}) an ganz bestimmten Stellen erlaubt.
+Wir wollen nun prädikatenlogische Ausdrücke definieren die auch die Verwendung von logischen Operatoren und Quantoren erlauben.
+Wir definieren nun die Sprache \textbf{PL} ($\lng{P}$). Wie schon bei \textbf{EXP} kürzen wir auch hier \textbf{PL} durch $\lng{P}$ ab - $\lng{P}$ gesprochen ``PL''.
+Genau wie $\lng{E}$ wird auch $\lng{P}$ über einen Datentyp definiert.
+
+\begin{defn}[Syntax von PL ($\lng{P}$)]
+\begin{enumerate}
+\item Wenn $p^{\Sigma}$ ein $n$-stelliges Prädikatensymbol (d.h. $\in P^{\Sigma}$) ist und $t_1,\ldots,t_n$ Terme
+(d.h. $\in \lng{T}$) dann ist $p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}$ ein prädikatenlogischer Ausdruck (d.h. $\in \lng{P}$).
+Wir nennen diesen Ausdruck Atomformel.
+\item Wenn $q \in \lng{P}$ ist, dann ist auch $\u{\neg}q \in \lng{P}$.
+\item Wenn $q,r \in \lng{P}$ sind, dann sind auch $q\u{\vee}r$,
+$q\u{\wedge}r$, $q\u{\to}r$ prädikatenlogische Ausdrücke (d.h. $\in \lng{P}$).
+\item Wenn $q \in \lng{P}$ und $v \in \text{IVS}$ ist, dann sind auch
+$\u{(\forall}v\u{)}q \in \lng{P}$ und $\u{(\exists}v\u{)}q \in \lng{P}$.
+In diesem Fall sagen wir, dass die Variable $v$ im prädikatenlogischen Ausdruck $q$ durch einen Quantor \textbf{gebunden} ist.
+\item Wenn $q \in \lng{P}$, dann ist auch $\tu{(}q\tu{)} \in \lng{P}$.
+\end{enumerate}
+\end{defn}
+
+Diese Definition basiert auf der Definition der Sprache der Terme $\lng{T}$.
+Konditional-Konstrukte (\u{if ... then ... else ...}) und Funktionsumgebungen
+bzw. Funktionsvariablensymbole (``benutzerdefinierte Funktionen'') können nicht in $\lng{P}$ verwendet werden.
+
+
+\begin{defn}[äquivalent modulo]
+$\omega,\omega' \in \text{ENV}$ sind genau dann äquivalent modulo $v \in \text{IVS}$,
+wenn für alle $w \in \text{IVS}$ mit $v \neq w$ gilt: $\omega(w)\neq\omega'(w)$.
+Formal schreiben wir dann: $\omega \sim_{v} \omega'$.
+\end{defn}
+
+\begin{defn}[Semantik von PL ($\lng{P}$)]
+Die Semantikfunktion definieren wir als $I: \text{ENV}\times\lng{P}\to\gbr{T,F}$.
+Seien $q,r \in \lng{P}$ und $\omega,\omega' \in \text{ENV}$.
+\ifthenelse{\boolean{long}}{\begin{enumerate}}{\begin{compactenum}}
+\item
+$\Iu{P}{\omega}{p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}} = p\rbr{\Iu{P}{\omega}{t_1},\ldots,\Iu{P}{\omega}{t_n}}$, wenn $t_1,\ldots,t_n \in \lng{T}$,
+mit einem Prädikatensymbol $p^{\Sigma} \in P^{\Sigma}$ und dem entsprechenden Prädikat $p \in P$.
+\item $\Iu{P}{\omega}{q\u{\vee}r} \lra \rbr{\Iu{P}{\omega}{q} \vee \Iu{P}{\omega}{r}}$ (Oder-Verknüpfung)
+\item $\Iu{P}{\omega}{q\u{\wedge}r} \lra \rbr{\Iu{P}{\omega}{q} \wedge \Iu{P}{\omega}{r}}$ (Und-Verknüpfung)
+\item $\Iu{P}{\omega}{q\u{\to}r} \lra \rbr{\Iu{P}{\omega}{q} \to \Iu{P}{\omega}{r}}$ (Implikation)
+\item $\Iu{P}{\omega}{\u{\neg}q} \lra \neg \Iu{P}{\omega}{q}$ (Negation)
+\item $\Iu{P}{\omega}{\u{(}q\u{)}} \lra \Iu{P}{\omega}{q}$ (Klammerung)
+\item $\Iu{P}{\omega}{\u{(\forall}v\u{)}q} \lra \forall \omega', \omega \sim_v \omega': \; \Iu{P}{\omega}{q}=T$ (All-Quantor)
+\item $\Iu{P}{\omega}{\u{(\exists}v\u{)}q} \lra \exists \omega', \omega \sim_v \omega': \; \Iu{P}{\omega}{q}=T$ (Existenz-Quantor)
+\ifthenelse{\boolean{long}}{\end{enumerate}}{\end{compactenum}}
+\end{defn}
+
 
 \section{Assignmentsprachen / Sprache AL ($\lng{A}$)}
 TODO
