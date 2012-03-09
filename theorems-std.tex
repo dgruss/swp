@@ -1,3 +1,13 @@
+\newtheoremstyle{noeffect}
+  {-12pt}%  space above
+  {5pt}%  space below
+  {}% body font
+  {}% indent amount
+  {}% thm head font
+  {}% punctuation after head
+  {0pt}% space after thm head
+  {\vspace{-20.4pt}\\{#1 #2#3}}%    
+
 \newtheoremstyle{plain}
   {6pt}%  space above
   {5pt}%  space below
@@ -39,6 +49,8 @@
   {0.5em} %{\newline}% space after thm head
   {}%    
   
+\theoremstyle{noeffect}
+\newtheorem*{noeffect}{}
 \theoremstyle{plain}
 \newtheorem{satz}{Satz}[chapter]
 \newtheorem{kor}[satz]{Korollar}
