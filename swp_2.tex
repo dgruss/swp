@@ -860,8 +860,8 @@ auf das letzte Element einer Liste zuzugreifen. Wir könnten dafür eine Funktio
 direkt durch eine Rekursion über die Liste iterieren bis zum letzten Element und
 in einem zweiten Parameter (``Akkumulator'') die Liste aufbauen.
 \begin{align*}
-\delta\tu{reverse}&=\tu{if atom?(x) then x reverse2(x,nil)} \\
-\delta\tu{reverse2(x,y)}&=\tu{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),nil))}
+\delta\tu{reverse(x)}&=\tu{if atom?(x) then x reverse2(x,nil)} \\
+\delta\tu{reverse2(x,y)}&=\tu{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),y))}
 \end{align*}
 Verhält sich dieses Programm wie beabsichtigt?
 \begin{align*}
@@ -871,31 +871,128 @@ Verhält sich dieses Programm wie beabsichtigt?
 &= \I{E}{\delta,\omega}{reverse2(x,nil)}
 \intertext{\textcolor{darkblue}{NE: $\omega'(\tu{x})=\I{E}{\delta,\omega}{x}=\omega(\tu{x})=\text{[ FIR SEC THI ]}$, $\omega'(\tu{y})=\I{E}{\delta,\omega}{nil}=\text{[]}$}}
 &= \I{E}{\delta,\omega'}{reverse2(x,y)} \\
-&= \I{E}{\delta,\omega'}{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),nil))}
+&= \I{E}{\delta,\omega'}{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),y))}
 \intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega'}{eq?(x,nil)}=\text{eq?}\rbr{\I{E}{\delta,\omega'}{x},\I{E}{\delta,\omega'}{nil}}=\text{eq?}\rbr{\omega'(\tu{x}),[]}$\newline$=\text{eq?}\rbr{\text{[ FIR SEC THI ]},[]}=F$}}
-&= \I{E}{\delta,\omega'}{reverse2(rest(x),build(first(x),nil))}
+&= \I{E}{\delta,\omega'}{reverse2(rest(x),build(first(x),y))}
 \intertext{\textcolor{darkblue}{NE: $\omega''(\tu{x})=\I{E}{\delta,\omega'}{rest(x)}=\text{rest}\rbr{\I{E}{\delta,\omega'}{x}}=\text{rest}\rbr{\omega'(\tu{x})}$\newline$=\text{rest}\rbr{\text{[ FIR SEC THI ]}}=\text{[ SEC THI ]}$, \newline
-               $\omega''(\tu{y})=\I{E}{\delta,\omega'}{build(first(x),nil)}=\text{build}\rbr{\I{E}{\delta,\omega'}{first(x)},\I{E}{\delta,\omega'}{nil}}$\newline$=\text{build}\rbr{\text{first}\rbr{\I{E}{\delta,\omega'}{x}},[]}=\text{build}\rbr{\text{first}\rbr{\omega'(\tu{x})},[]}$\newline$=\text{build}\rbr{\text{first}\rbr{\text{[ FIR SEC THI ]}},[]}=\text{build}\rbr{\text{FIR},[]}=\text{[ FIR ]}$}}
+               $\omega''(\tu{y})=\I{E}{\delta,\omega'}{build(first(x),y)}=\text{build}\rbr{\I{E}{\delta,\omega'}{first(x)},\I{E}{\delta,\omega'}{y}}$\newline$=\text{build}\rbr{\text{first}\rbr{\I{E}{\delta,\omega'}{x}},\I{E}{\delta,\omega'}{y}}=\text{build}\rbr{\text{first}\rbr{\omega'(\tu{x})},\omega'(\tu{x})}$\newline$=\text{build}\rbr{\text{first}\rbr{\text{[ FIR SEC THI ]}},[]}=\text{build}\rbr{\text{FIR},[]}=\text{[ FIR ]}$}}
 &= \I{E}{\delta,\omega''}{reverse2(x,y)} \\
-&= \I{E}{\delta,\omega''}{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),nil))}
+&= \I{E}{\delta,\omega''}{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),y))}
 \intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega''}{eq?(x,nil)}=\text{eq?}\rbr{\I{E}{\delta,\omega''}{x},\I{E}{\delta,\omega''}{nil}}$\newline$=\text{eq?}\rbr{\omega''(\tu{x}),[]}=\text{eq?}\rbr{\text{[ SEC THI ]},[]}=F$}}
-&= \I{E}{\delta,\omega''}{reverse2(rest(x),build(first(x),nil))}
+&= \I{E}{\delta,\omega''}{reverse2(rest(x),build(first(x),y))}
 \intertext{\textcolor{darkblue}{NE: $\omega'''(\tu{x})=\I{E}{\delta,\omega''}{rest(x)}=\text{rest}\rbr{\I{E}{\delta,\omega''}{x}}=\text{rest}\rbr{\omega''(\tu{x})}$\newline$=\text{rest}\rbr{\text{[ SEC THI ]}}=\text{[ THI ]}$, \newline
-               $\omega'''(\tu{y})=\I{E}{\delta,\omega''}{build(first(x),nil)}=\text{build}\rbr{\I{E}{\delta,\omega''}{first(x)},\I{E}{\delta,\omega''}{nil}}$\newline$=\text{build}\rbr{\text{first}\rbr{\I{E}{\delta,\omega''}{x}},[]}=\text{build}\rbr{\text{first}\rbr{\omega''(\tu{x})},[]}$\newline$=\text{build}\rbr{\text{first}\rbr{\text{[ SEC THI ]}},[]}=\text{build}\rbr{\text{SEC},\text{[ FIR ]}}=\text{[ SEC FIR ]}$}}
+               $\omega'''(\tu{y})=\I{E}{\delta,\omega''}{build(first(x),y)}=\text{build}\rbr{\I{E}{\delta,\omega''}{first(x)},\I{E}{\delta,\omega''}{y}}$\newline$=\text{build}\rbr{\text{first}\rbr{\I{E}{\delta,\omega''}{x}},\I{E}{\delta,\omega''}{y}}=\text{build}\rbr{\text{first}\rbr{\omega''(\tu{x})},\omega''(\tu{y})}$\newline$=\text{build}\rbr{\text{first}\rbr{\text{[ SEC THI ]}},\text{[ FIR ]}}=\text{build}\rbr{\text{SEC},\text{[ FIR ]}}=\text{[ SEC FIR ]}$}}
 &= \I{E}{\delta,\omega'''}{reverse2(x,y)} \\
-&= \I{E}{\delta,\omega'''}{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),nil))}
+&= \I{E}{\delta,\omega'''}{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),y))}
 \intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega'''}{eq?(x,nil)}=\text{eq?}\rbr{\I{E}{\delta,\omega'''}{x},\I{E}{\delta,\omega'''}{nil}}$\newline$=\text{eq?}\rbr{\omega'''(\tu{x}),[]}=\text{eq?}\rbr{\text{[ THI ]},[]}=F$}}
-&= \I{E}{\delta,\omega'''}{reverse2(rest(x),build(first(x),nil))}
+&= \I{E}{\delta,\omega'''}{reverse2(rest(x),build(first(x),y))}
 \intertext{\textcolor{darkblue}{NE: $\omega''''(\tu{x})=\I{E}{\delta,\omega'''}{rest(x)}=\text{rest}\rbr{\I{E}{\delta,\omega'''}{x}}=\text{rest}\rbr{\omega'''(\tu{x})}$\newline$=\text{rest}\rbr{\text{[ THI ]}}=\text{[ ]}$, \newline
-               $\omega''''(\tu{y})=\I{E}{\delta,\omega'''}{build(first(x),nil)}=\text{build}\rbr{\I{E}{\delta,\omega'''}{first(x)},\I{E}{\delta,\omega'''}{nil}}$\newline$=\text{build}\rbr{\text{first}\rbr{\I{E}{\delta,\omega'''}{x}},[]}=\text{build}\rbr{\text{first}\rbr{\omega'''(\tu{x})},[]}$\newline$=\text{build}\rbr{\text{first}\rbr{\text{[ THI ]}},[]}=\text{build}\rbr{\text{THI},\text{[ SEC FIR ]}}=\text{[ THI SEC FIR ]}$}}
+               $\omega''''(\tu{y})=\I{E}{\delta,\omega'''}{build(first(x),y)}=\text{build}\rbr{\I{E}{\delta,\omega'''}{first(x)},\I{E}{\delta,\omega'''}{y}}$\newline$=\text{build}\rbr{\text{first}\rbr{\I{E}{\delta,\omega'''}{x}},\I{E}{\delta,\omega'''}{y}}=\text{build}\rbr{\text{first}\rbr{\omega'''(\tu{x})},\omega'''(\tu{x})}$\newline$=\text{build}\rbr{\text{first}\rbr{\text{[ THI ]}},\text{[ SEC FIR ]}}=\text{build}\rbr{\text{THI},\text{[ SEC FIR ]}}=\text{[ THI SEC FIR ]}$}}
 &= \I{E}{\delta,\omega''''}{reverse2(x,y)} \\
-&= \I{E}{\delta,\omega''''}{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),nil))}
+&= \I{E}{\delta,\omega''''}{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),y))}
 \intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega''''}{eq?(x,nil)}=\text{eq?}\rbr{\I{E}{\delta,\omega'''}{x},\I{E}{\delta,\omega'''}{nil}}$\newline$=\text{eq?}\rbr{\omega'''(\tu{x}),[]}=\text{eq?}\rbr{[],[]}=T$}}
 &= \I{E}{\delta,\omega''''}{y} \\
 &= \omega''''(\tu{y}) \\
 &= \text{[ THI SEC FIR ]}
 \end{align*}
-Das Programm verhält sich für diesen Fall wie gewünscht. Um zu beweisen dass es sich immer korrekt verhält wäre ein Beweis nötig.
+Das Programm verhält sich für diesen Fall wie gewünscht. Um zu beweisen dass es sich immer korrekt verhält müssten wir einen Beweis führen.
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Zeigen oder widerlegen Sie: Es gibt ein Programm in EXP über den Datentyp der Listen,
+welches die maximale Verschachtelungs-Tiefe einer Liste berechnet.
+Greifen Sie dafür auf die in der Vorlesung besprochene Codierung der natürlichen 
+Zahlen zurück.
+Beispielsweise würde der Aufruf mit dem Input \verb|[]| als Resultat \verb|[]| berechnen,
+der Aufruf mit dem Input \verb|[ a [] [ [] b ] [] ]|
+würde als Resultat \verb|[[[]]]| berechnen.
+
+Wenn die Aussage wahr ist, ist eine Implementation anzugeben
+und die Korrektheit dieser zu zeigen.
+
+\textit{Lösung:} (Aus der Übung 2011) Wir haben im Tutorium das Programm zur Berechnung der maximalen Verschachtelungstiefe wie folgt implementiert:
+
+\begin{align*}
+\delta\u{\text{depth}}&=\u{\text{if atom?(first(x)) then depth(rest(x))}} \\ &\quad \u{\text{else if eq?(x,nil) then nil}} \\ &\quad \u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}} \\
+\delta\u{\text{max}}&=\u{\text{if eq?(x,nil) then y}} \\ &\quad \u{\text{else if eq?(y,nil) x}} \\ &\quad \u{\text{else build(max(rest(x),rest(y)),nil)}}
+\end{align*}
+
+Die Korrektheit von $\delta\u{\text{max}}$ wurde per Induktion gezeigt.
+
+$\delta\u{\text{depth}}$ wurde für $\text{atom?}(\text{first}(\omega(\u{x})))=T$ gezeigt unter der Voraussetzung der Korrektheit für $\delta\u{\text{depth}}$ mit $\text{atom?}(\text{first}(\omega(\u{x})))=F$.
+
+Wir haben $f_{d}(\omega(\u{x}))$ als ``Golden Device'' definiert, eine Funktion ($L \to \N$) die die gesuchte Funktion korrekt berechnet.
+
+Bei einer Induktion wollen wir im Allgemeinen von einem Fall auf den nächsten bzw. nachfolgenden schließen.
+In unserem Fall ist das gar nicht so leicht, denn die Listen sind beliebig verschachtelt.
+Wenn wir z.B. die Listenlänge $n$ verwenden, könnte im rekursiven Aufruf die Länge der Liste $\text{first}(\omega(\u{x}))$ größer als $n$ sein.
+Ein Umweg über die Listentiefe $t$ ist eher umständlich.
+In so einem Fall ist es recht hilfreich sich zu überlegen ob es ein anderes Kriterium gibt, mit welchem wir beide
+Rekursionsaufrufe auf die Hypothese zurückführen können.
+
+Daher erfolgt der Beweis für $\delta\u{\text{depth}}$ mit $\text{atom?}(\text{first}(\omega(\u{x})))=F$ per Induktion nach der Gesamtanzahl $\abs{\omega(\u{x})}$ der Elemente in $\omega(\u{x})$.
+Über diese Hilfsfunktion können wir relativ einfach nach dem Schema arbeiten welches in den anderen Beispielen bereits vorkam.
+
+Wir definieren:
+\[\abs{\omega(\u{x})} = \begin{cases}1 & eq?(\omega(\u{x}),nil) \\
+                                 \abs{\text{first}(\omega(\u{x}))}+\abs{\text{rest}(\omega(\u{x}))}  & \text{sonst}\end{cases}\]
+
+Die Idee mit der wir die Induktion durchführen könnte man schreiben als:
+Wenn $\delta\u{\text{depth}}$ korrekt ist für $\abs{\omega(\u{x})}=n$ ($n \in \N$),
+dann ist $\delta\u{\text{depth}}$ auch korrekt für $\abs{\omega(\u{x})}=n+1$.
+
+Induktionshypothese:
+\[\forall \omega(\u{x}) \in L, \quad \abs{\omega(\u{x})} \leq n : \quad I(\delta,\omega,\abs{\omega(\u{x})}) = f_{d}(\omega(\u{x}))\]
+
+Induktionsbasis:
+\[\omega(\u{x}) \in L, \abs{\omega(\u{x})} = 1\]
+\begin{align*}
+&&\quad I(\delta,\omega,&\u{\text{depth}}) \\
+&&=I(\delta,\omega,&\u{\text{if atom?(first(x)) then depth(rest(x))}} \\ &&&\u{\text{else if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
+\intertext{\textcolor{darkblue}{NR: $I(\delta,\omega,\u{\text{atom?(first(x))}})=\text{atom?}(I(\delta,\omega,\u{\text{first(x)}}))=\text{atom?(first}(I(\delta,\omega,\u{\text{x}})))=\text{atom?(first(nil))}=\text{atom?(nil)}=F$ (siehe Fallunterscheidung)}}
+&&=I(\delta,\omega,&\u{\text{if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
+\intertext{\textcolor{darkblue}{Da $\abs{\omega(\u{x})}=1$ ist muss $\omega(\u{x})=\text{nil}$ sein.}}
+&&=I(\delta,\omega,&\u{\text{nil}})=\text{nil}=f_{d}(\text{nil})=f_{d}(\omega(\u{x}))
+\end{align*}
+
+Induktionsschritt:
+\[\omega(\u{x}) \in L, \abs{\omega(\u{x})} = n+1, n \in \N\]
+\begin{align*}
+&&\quad I(\delta,\omega,&\u{\text{depth}}) \\
+&&=I(\delta,\omega,&\u{\text{if atom?(first(x)) then depth(rest(x))}} \\ &&&\u{\text{else if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
+\intertext{\textcolor{darkblue}{NR: $I(\delta,\omega,\u{\text{atom?(first(x))}})=\text{atom?}(I(\delta,\omega,\u{\text{first(x)}}))=\text{atom?(first}(I(\delta,\omega,\u{\text{x}})))=F$ (siehe Fallunterscheidung)}}
+&&=I(\delta,\omega,&\u{\text{if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
+\intertext{\textcolor{darkblue}{Da $\abs{\omega(\u{x})}>1$ ist, ist $\omega(\u{x})\neq\text{nil}$}}
+&&=I(\delta,\omega,&\u{\text{max(build(depth(first(x)),nil),depth(rest(x)))}})
+\intertext{\textcolor{darkblue}{Korrektheit von $\delta\u{\text{max}}$ wurde bereits gezeigt}}
+&&=&\text{max}(I(\delta,\omega,\u{\text{build(depth(first(x)),nil)}}),I(\delta,\omega,\u{\text{depth(rest(x))}})) \\
+&&=&\text{max}(\text{build}(I(\delta,\omega,\u{\text{depth(first(x))}}),\text{nil}),I(\delta,\omega,\u{\text{depth(rest(x))}}))
+\intertext{\textcolor{darkblue}{$\omega'(\u{x})=I(\delta,\omega,\u{\text{first(x)}})=\text{first}(I(\delta,\omega,\u{\text{x}}))=\text{first}(\omega(\u{x}))$. Die Gesamtanzahl der Elemente dieser Liste ist mindestens um $1$ geringer, da die Eltern-Liste nicht im rekursiven Aufruf enthalten ist.}}
+\intertext{\textcolor{darkblue}{$\omega''(\u{x})=I(\delta,\omega,\u{\text{rest(x)}})=\text{rest}(I(\delta,\omega,\u{\text{x}}))=\text{rest}(\omega(\u{x}))$. Die Gesamtanzahl der Elemente dieser Liste ist mindestens um $1$ geringer, da $\text{first}(x)$ aus der Liste entfernt wurde.}}
+&&=&\text{max}(\text{build}(I(\delta,\omega',\u{\text{depth(x)}}),\text{nil}),I(\delta,\omega'',\u{\text{depth(x)}}))
+\intertext{\textcolor{darkblue}{Damit haben wir für beide rekursiven Aufrufe jeweils ein Environment für dass die Induktionshypothese gilt. Wir wenden die Induktionshypothese daher an:}}
+&&=&\text{max}(\text{build}(f_{d}(\omega'(\u{x})),\text{nil}),f_{d}(\omega''(\u{x})))
+\end{align*}
+
+Die maximale Verschachtelungstiefe kann nur in $\text{first}(\u{x})$ oder $\text{rest}(\u{x})$ erreicht werden.
+Daher machen wir eine Fallunterscheidung die diese beiden Fälle unterscheidet (und damit alle Fälle abdeckt):
+\begin{itemize}
+\item Wird die maximale Verschachtelungstiefe $k$ (Anmerkung: $f_{d}(\omega(\u{x}))=\pi(k)$) in $\omega(\u{x})$ in $\text{first}(\u{x})$ erreicht
+so ist $f_{d}(\omega'(\u{x}))=\pi(k-1)$, da $\omega'(\u{x})$ eine Verschachtelungsebene weniger enthält (die der Eltern-Liste).
+Dann ist $\text{build}(f_{d}(\omega'(\u{x})),\text{nil})=\pi(k-1+1)=\pi(k)$.
+
+In diesem Fall gilt also $\text{max}(\text{build}(f_{d}(\omega'(\u{x})),\text{nil}),f_{d}(\omega''(\u{x}))) = f_{d}(\omega(\u{x})) = \pi(k)$.
+\item Andernfalls wird die maximale Verschachtelungstiefe $k$ in $\omega(\u{x})$ in $\text{rest}(\u{x})$ erreicht. \\
+Dann ist $f_{d}(\omega''(\u{x}))=\pi(k)$, da $\omega''(\u{x})$ der Eltern-Liste mit entferntem ersten Element entspricht.
+Dann ist $f_{d}(\omega''(\u{x}))=\pi(k)$.
+
+In diesem Fall gilt also ebenfalls $\text{max}(\text{build}(f_{d}(\omega'(\u{x})),\text{nil}),f_{d}(\omega''(\u{x}))) = f_{d}(\omega(\u{x})) = \pi(k)$.
+\end{itemize}
+Daraus folgt
+\[\text{max}(\text{build}(f_{d}(\omega'(\u{x})),\text{nil}),f_{d}(\omega''(\u{x})))=f_{d}(\omega(\u{x})).\]
+Damit wurde die Korrektheit von $\delta\u{\text{depth}}$ gezeigt.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
@@ -1314,7 +1411,7 @@ Die Semantikfunktion definieren wir als $I: \text{ENV}\times\lng{P}\to\gbr{T,F}$
 Seien $q,r \in \lng{P}$ und $\omega,\omega' \in \text{ENV}$.
 \begin{\whichenum}
 \item
-$\Iu{P}{\omega}{p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}} = p\rbr{\Iu{P}{\omega}{t_1},\ldots,\Iu{P}{\omega}{t_n}}$, wenn $t_1,\ldots,t_n \in \lng{T}$,
+$\Iu{P}{\omega}{p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}} = p\rbr{\Iu{T}{\omega}{t_1},\ldots,\Iu{T}{\omega}{t_n}}$, wenn $t_1,\ldots,t_n \in \lng{T}$,
 mit einem Prädikatensymbol $p^{\Sigma} \in P^{\Sigma}$ und dem entsprechenden Prädikat $p \in P$.
 \item $\Iu{P}{\omega}{q\u{\vee}r} \lra \rbr{\Iu{P}{\omega}{q} \vee \Iu{P}{\omega}{r}}$ (Oder-Verknüpfung)
 \item $\Iu{P}{\omega}{q\u{\wedge}r} \lra \rbr{\Iu{P}{\omega}{q} \wedge \Iu{P}{\omega}{r}}$ (Und-Verknüpfung)
@@ -1336,19 +1433,19 @@ Interpretieren Sie die folgenden prädikatenlogischen Ausdrucke in $\lng{P}$ mit
 \begin{align*}
 &\quad \I{P}{\omega}{((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)) \tto eq?(x,eins)} \\
 &\lra \I{P}{\omega}{((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins))} \tto \I{P}{\omega}{eq?(x,eins)} \\
-&\lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\I{P}{\omega}{x},\I{P}{\omega}{eins}) \\
+&\lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\I{T}{\omega}{x},\I{T}{\omega}{eins}) \\
 &\lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\omega(\u{x}),1) \\
 &\lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(0,1) \\
 &\lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee \I{P}{\omega}{lt?(x,eins)}} \tto F \\
-&\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee eq?(\I{P}{\omega}{x},\I{P}{\omega}{eins})} \tto F \\
+&\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee eq?(\I{T}{\omega}{x},\I{T}{\omega}{eins})} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee eq?(\omega(\u{x}),1)} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee eq?(0,1)} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee F} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)}} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins))} \twedge \I{P}{\omega}{eq?(x,null)}} \tto F \\
-&\lra \rbr{lt?(\I{P}{\omega}{x},\I{P}{\omega}{plus(eins,eins)}) \twedge eq?(\I{P}{\omega}{x},\I{P}{\omega}{null})} \tto F \\
-&\lra \rbr{lt?(\omega(\u{x}),plus(\I{P}{\omega}{eins},\I{P}{\omega}{eins})) \twedge eq?(\omega(\u{x}),0)} \tto F \\
+&\lra \rbr{lt?(\I{T}{\omega}{x},\I{T}{\omega}{plus(eins,eins)}) \twedge eq?(\I{T}{\omega}{x},\I{T}{\omega}{null})} \tto F \\
+&\lra \rbr{lt?(\omega(\u{x}),plus(\I{T}{\omega}{eins},\I{T}{\omega}{eins})) \twedge eq?(\omega(\u{x}),0)} \tto F \\
 &\lra \rbr{lt?(0,plus(1,1)) \twedge eq?(0,0)} \tto F \\
 &\lra \rbr{lt?(0,2) \twedge T} \tto F \\
 &\lra \rbr{T \twedge T} \tto F \\
@@ -1411,7 +1508,7 @@ Der Ausdruck ist \textbf{gültig}.
 &\quad \I{P}{\omega}{ist0?(x)\tto(ist1?(y)\tvee\text{istLeer?}(y))} \\
 &\lra \I{P}{\omega}{ist0?(x)}\to\rbr{\I{P}{\omega}{ist1?(y)\tvee\text{istLeer?}(y)}} \\
 &\lra \text{ist0?}(\I{P}{\omega}{x})\to\rbr{\I{P}{\omega}{ist1?(y)}\vee\I{P}{\omega}{\text{istLeer?}(y)}} \\
-&\lra \text{ist0?}(\omega(\u{x}))\to \rbr{\text{ist1?}(\I{P}{\omega}{y})\vee\text{istLeer?}(\I{P}{\omega}{y})} \\
+&\lra \text{ist0?}(\omega(\u{x}))\to \rbr{\text{ist1?}(\I{T}{\omega}{y})\vee\text{istLeer?}(\I{T}{\omega}{y})} \\
 &\lra \text{ist0?}(\omega(\u{x}))\to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))}
 \end{align*}
 Wir vermuten dass der semantische Status \textbf{erfüllbar} ist. Um dies zu beweisen müssen wir eine Variablenbelegung mit der der Ausdruck zu $T$ evaluiert und eine
@@ -1448,7 +1545,7 @@ Der Ausdruck ist \textbf{erfüllbar}.
 \begin{align*}
 &\quad \I{P}{\omega}{\text{istLeer?}(x)\twedge ist1?(x)} \\
 &\lra \I{P}{\omega}{\text{istLeer?}(x)}\wedge\I{P}{\omega}{ist1?(x)} \\
-&\lra \text{istLeer?}(\I{P}{\omega}{x})\wedge\text{ist1?}(\I{P}{\omega}{x}) \\
+&\lra \text{istLeer?}(\I{T}{\omega}{x})\wedge\text{ist1?}(\I{T}{\omega}{x}) \\
 &\lra \text{istLeer?}(\omega(\u{x}))\wedge\text{ist1?}(\omega(\u{x})) \\
 \intertext{$\text{istLeer?}(\omega(\u{x}))=T$ genau dann wenn $\omega(\u{x})=\varepsilon$, dann ist aber $\text{ist1?}(\omega(\u{x}))=F$. Die Und-Verknüfpung kann also nicht zu $T$ evaluieren.}
 &\lra F
@@ -1458,8 +1555,238 @@ Der Ausdruck ist \textbf{nicht erfüllbar}.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
-\section{Assignmentsprachen / Sprache AL ($\lng{A}$)}
-TODO
+Eine Erweiterung von $\lng{E}$ um prädikatenlogische Ausdrücke als Prädikate
+führen wir an dieser Stelle nicht durch. Diese ist zwar zumindest mit quantorfreien
+Ausdrücken einfach, wir werden allerdings in Abschnitt~\ref{sec:AL} eine Sprache
+definieren in der wir die Sprache $\lng{P}$ für Konditionale verwenden.
+
+\section{Assignmentsprachen / Sprache AL ($\lng{A}$)}\label{sec:AL}
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+Assignmentsprachen (imperative Sprachen) sind die häufigsten verwendeten Programmiersprachen (z.B. C, C++, Java)
+und vermutlich sind auch die meisten Programmiersprachen Assignmentsprachen.
+
+In Tabelle~\ref{unterschiede_funktional_imperativ}
+\begin{table}[h!t]
+ \centering
+
+\begin{tabular}{rp{0.25\hsize}p{0.25\hsize}}
+ & \textbf{funktional} & \textbf{imperativ} \\
+\textbf{Zuweisungen} & nicht möglich & möglich \\
+\textbf{Variablenwerte} & unveränderbar & veränderbar \\
+\textbf{mathematische Definition} & direkt umsetzbar & muss u.U. ganz anders formuliert werden \\
+\textbf{Iteration} & Rekursion & Schleifen \\
+\textbf{Berechnungsergebnis} & Wert & Environment
+\end{tabular}
+
+\caption{Unterschiede zwischen funktionalen Sprachen und Assignmentsprachen}
+ \label{unterschiede_funktional_imperativ}
+\end{table}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+Der Zustand eines Programms in einer Assignmentsprache ist durch die Variablenwerte definiert.
+Befehle stellen Zustandsübergänge dar.
+
+Wir definieren nun die Sprache \textbf{AL}.
+Wie schon bei \textbf{EXP} kürzen wir auch hier \textbf{AL} durch $\lng{A}$ ab - $\lng{A}$ gesprochen ``AL''.
+\begin{defn}[Syntax von AL $\lng{A}$]
+Gegeben die Sprachen $\text{T}$ und $\lng{P}_0$ über einem beliebigen Datentyp $D$
+definieren wir die Syntax von $\lng{A}$ wie folgt:
+\begin{\whichenum}
+\item Wenn $v \in \text{IVS}$ und $t \in \lng{T}$,
+dann ist $v \tu{:=} t \; \in \lng{A}$ (Assignments).
+\item Wenn $a_1,a_2 \in \lng{A}$ dann ist $\tu{begin} \; a_1 \; \tu{;} \; a_2 \; \tu{end} \; \in \lng{A}$ (Blöcke).
+\item Wenn $a_1,a_2 \in \lng{A}$ und $p \in \lng{P}_0$, dann ist $\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2 \; \in \lng{A}$ (Konditionale).
+\item Wenn $a \in \lng{A}$ und $p \in \lng{P}_0$, dann ist $\tu{while} \; p \; \tu{do} \; a \; \in \lng{A}$ (Schleifen).
+\end{\whichenum}
+\end{defn}
+
+Zwischen \u{begin} und \u{end} stehen \textbf{genau zwei Befehle} die von genau einem \u{;} getrennt werden. Dies ist keine Einschränkung, da durch Verschachtelung beliebig viele Befehle nacheinander
+ausgeführt werden können. Die Syntax von $\lng{A}$ erinnert an eine stark vereinfachte Version von ALGOL (oder einer verwandten Sprache - Pascal, als bekannteres Beispiel).
+Es fällt außerdem auf dass ein Term $t \in \lng{T}$ nur an ganz bestimmten Stellen in der Sprache vorkommen darf.
+
+\begin{defn}[Semantik von AL $\lng{A}$]
+Die Interpretationsfuntkion $I_{\lng{A}}: \text{ENV} \times \lng{A} \to \text{ENV}$ nimmt ein Environment und ein Programm und berechnet ein neues Environment.
+\begin{\whichenum}
+\item Assignments: $\Iu{A}{\omega}{v \; \tu{:=} \; t} = \omega'$ mit $\omega' \sim_{v} \omega$ und $\omega'(v)=\Iu{T}{\omega}{t}$.
+\item Blöcke: $\Iu{A}{\omega}{\tu{begin} \; a_1 \; \tu{;} \; a_2 \; \tu{end}} = \Iu{A}{\Iu{A}{\omega}{a_1}}{a_2}$.
+\item Konditionale:
+\begin{\whichenum}
+\item $\Iu{A}{\omega}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A}{\omega}{a_1}$ wenn $\Iu{P}{\omega}{p}=T$.
+\item $\Iu{A}{\omega}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A}{\omega}{a_2}$ wenn $\Iu{P}{\omega}{p}=F$.
+\end{\whichenum}
+\item Schleifen:
+\begin{\whichenum}
+\item $\Iu{A}{\omega}{\tu{while} \; p \; \tu{do} \; a} = \Iu{A}{\Iu{A}{\omega}{a}}{\tu{while} \; p \; \tu{do} \; a}$ wenn $\Iu{P}{\omega}{p}=T$.
+\item $\Iu{A}{\omega}{\tu{while} \; p \; \tu{do} \; a} = \omega$ wenn $\Iu{P}{\omega}{p}=F$.
+\end{\whichenum}
+\end{\whichenum}
+\end{defn}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Implementieren Sie die Multiplikation zweier Zahlen über dem Datentyp $\N_0$. Interpretieren Sie ihre Implementation für $\omega(\u{x})=3$, $\omega(\u{y})=2$.
+
+\textit{Lösung:} Wir initialisieren die Variable \u{z} für das Ergebnis auf $0$ und addieren
+\u{x} \tu{y}-mal dazu.
+\lstset{numbers=left, numbersep=5pt, xleftmargin=0.3\hsize}
+\begin{lstlisting}[mathescape]
+$\tu{begin}$
+  $\tu{z := null ;}$
+  $\tu{while \tneg eq?(y,null) do}$
+    $\tu{begin}$
+      $\tu{z := plus(z,x) ;}$
+      $\tu{y := minus(y,eins)}$
+    $\tu{end}$
+$\tu{end}$
+\end{lstlisting}
+
+In der Interpretation werden wir nicht relevante Zeilen jeweils durch Platzhalter
+$Z_k$ ersetzen um so mehr Übersicht zu schaffen.
+\begin{align*}
+&\quad \Iu{A}{\omega}{\tu{begin z := null ; while \tneg eq?(y,null) do} \; Z_{4,5,6,7} \; \tu{end}} \\
+&= \Iu{A}{\I{A}{\omega}{z := null}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NE: $\omega^{1} \sim_{\tu{z}} \omega$ und berechnen $\omega^{1}(\tu{z})=\I{T}{\omega}{null}=0$}}
+&= \Iu{A}{\omega^{1}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{1}}{\tneg eq?(y,null)}
+=\tneg \I{P}{\omega^{1}}{eq?(y,null)}
+=\tneg \text{eq?}\rbr{\I{T}{\omega^{1}}{y},\I{T}{\omega^{1}}{null}}
+=\tneg \text{eq?}\rbr{\omega^{1}(\tu{y}),0}
+=\tneg \text{eq?}\rbr{2,0}
+=\tneg F
+=T$}}
+&= \Iu{A}{\I{A}{\omega^{1}}{begin z := plus(z,x) ; y := minus(y,eins) end}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+&= \Iu{A}{\I{A}{\I{A}{\omega^{1}}{z := plus(z,x)}}{y := minus(y,eins)}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NE: $\omega^{2} \sim_{\tu{z}} \omega^{1}$ und berechnen
+$\omega^{2}(\tu{z})
+=\I{T}{\omega^{1}}{plus(z,x)}
+=\text{plus}(\I{T}{\omega^{1}}{z},\I{T}{\omega^{1}}{x})
+=\text{plus}(\omega^{1}(\u{z}),\omega^{1}(\u{x}))
+=\text{plus}(0,3)
+=3$}}
+&= \Iu{A}{\I{A}{\omega^{2}}{y := minus(y,eins)}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NE: $\omega^{3} \sim_{\tu{y}} \omega^{2}$ und berechnen
+$\omega^{3}(\tu{y})
+=\I{T}{\omega^{2}}{minus(y,eins)}
+=\text{minus}(\I{T}{\omega^{2}}{y},\I{T}{\omega^{2}}{eins})
+=\text{minus}(\omega^{2}(\u{y}),1)
+=\text{minus}(2,1)
+=1$}}
+&= \Iu{A}{\omega^{3}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{3}}{\tneg eq?(y,null)}
+=\tneg \I{P}{\omega^{3}}{eq?(y,null)}
+=\tneg \text{eq?}\rbr{\I{T}{\omega^{3}}{y},\I{T}{\omega^{1}}{null}}
+=\tneg \text{eq?}\rbr{\omega^{3}(\tu{y}),0}
+=\tneg \text{eq?}\rbr{1,0}
+=\tneg F
+=T$}}
+&= \Iu{A}{\I{A}{\omega^{3}}{begin z := plus(z,x) ; y := minus(y,eins) end}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+&= \Iu{A}{\I{A}{\I{A}{\omega^{3}}{z := plus(z,x)}}{y := minus(y,eins)}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NE: $\omega^{4} \sim_{\tu{z}} \omega^{3}$ und berechnen
+$\omega^{4}(\tu{z})
+=\I{T}{\omega^{3}}{plus(z,x)}
+=\text{plus}(\I{T}{\omega^{3}}{z},\I{T}{\omega^{3}}{x})
+=\text{plus}(\omega^{3}(\u{z}),\omega^{3}(\u{x}))
+=\text{plus}(3,3)
+=6$}}
+&= \Iu{A}{\I{A}{\omega^{4}}{y := minus(y,eins)}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NE: $\omega^{5} \sim_{\tu{y}} \omega^{4}$ und berechnen
+$\omega^{5}(\tu{y})
+=\I{T}{\omega^{4}}{minus(y,eins)}
+=\text{minus}(\I{T}{\omega^{4}}{y},\I{T}{\omega^{4}}{eins})
+=\text{minus}(\omega^{4}(\u{y}),1)
+=\text{minus}(1,1)
+=0$}}
+&= \Iu{A}{\omega^{5}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{5}}{\tneg eq?(y,null)}
+=\tneg \I{P}{\omega^{5}}{eq?(y,null)}
+=\tneg \text{eq?}\rbr{\I{T}{\omega^{5}}{y},\I{T}{\omega^{5}}{null}}
+=\tneg \text{eq?}\rbr{\omega^{5}(\tu{y}),0}
+=\tneg \text{eq?}\rbr{0,0}
+=\tneg T
+=F$}}
+&= \omega^{(5)}
+\end{align*}
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+Korrektheitsbeweise von $\lng{A}$-Programmen unterscheiden sich wesentlich von
+jenen für $\lng{E}$-Programmen. In $\lng{E}$ konnten wir nicht-rekursive Funktionen
+einfach direkt beweisen (durch Interpretation, evtl. Fallunterscheidung). Rekursive
+Funktionen konnten durch vollständige Induktion bewiesen werden. Anstatt der Rekursion
+haben wir nun Schleifen. Über diese können wir auch vollständige Induktionen durchführen.
+In $\lng{A}$ ist dies aufgrund des geringen Umfangs wesentlich einfacher als
+in Sprachen die in der Praxis verwendet werden.
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Beweisen Sie die Korrektheit ihrer Implementation der Multiplikation über dem Datentyp $\N_0$.
+
+\textit{Lösung:} Unser Programm ist korrekt wenn $\omega(\tu{x}) \cdot \omega(\tu{y}) = \omega^k(\tu{z})$,
+wobei $\omega$ das initiale Environment ist und $\omega^k$ das Ergebnis des Programms.
+Wir verwenden den Platzhalter $Z_k$ aus dem vorherigen Beispiel.
+
+\[\text{Zu zeigen:} \quad \forall \omega \in \text{ENV}: \; \Iu{A}{\omega}{Z_{1,\ldots,8}}=\omega^k \; \wedge \; \omega(\tu{x}) \cdot \omega(\tu{y}) = \omega^k(\tu{z})\]
+\begin{align*}
+&\quad \Iu{A}{\omega}{\tu{begin z := null ; while \tneg eq?(y,null) do} \; Z_{4,5,6,7} \; \tu{end}} \\
+&= \Iu{A}{\I{A}{\omega}{z := null}}{Z_{3,\ldots,7}} \\
+\end{align*}
+\textcolor{darkblue}{NE: $\omega^{1} \sim_{\tu{z}} \omega$ und berechnen $\omega^{1}(\tu{z})=\I{T}{\omega}{null}=0$}
+Über das Teilprogramm $Z_{3,4,5,6,7}$ führen wir nun eine vollständige Induktion durch.
+\begin{\whichitem}
+\item Induktionshypothese: $\omega(\tu{x})=m$ beliebig, $\omega(\tu{y})=n$, $\omega(\tu{z})=p$ beliebig, mit $\omega^k$ dem Ergebnis der Berechnung (finales Environment).
+\[\forall \omega \in \text{ENV}, \omega(\tu{y}) \leq n: \; \Iu{A}{\omega}{Z_{3,\ldots,7}}=\omega^k \; \wedge \; \omega(\tu{x}) \cdot \omega(\tu{y}) + \omega(\tu{z}) = \omega^k(\tu{z})\]
+\item Induktionsbasis: $\omega(\tu{x})=m$ beliebig, $\omega(\tu{y})=0$, $\omega(\tu{z})=p$
+\begin{align*}
+&\quad \Iu{A}{\omega^1}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{1}}{\tneg eq?(y,null)}
+=\tneg \I{P}{\omega^{1}}{eq?(y,null)}
+=\tneg \text{eq?}\rbr{\I{T}{\omega^{1}}{y},\I{T}{\omega^{1}}{null}}
+=\tneg \text{eq?}\rbr{\omega^{1}(\tu{y}),0}
+=\tneg \text{eq?}\rbr{0,0}
+=\tneg T
+=F$}}
+&= \omega^1
+\end{align*}
+Wir erhalten $\omega^1(\tu{z})=p$. Der Basisfall ist also bewiesen.
+\item Induktionsschritt: $\omega(\tu{x})=m$ beliebig, $\omega(\tu{y})=n+1$, $\omega(\tu{z})=p$ beliebig
+\begin{align*}
+&\quad \Iu{A}{\omega^\ell}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+\intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{\ell}}{\tneg eq?(y,null)}
+=\tneg \I{P}{\omega^{\ell}}{eq?(y,null)}
+=\tneg \text{eq?}\rbr{\I{T}{\omega^{1}}{y},\I{T}{\omega^{\ell}}{null}}
+=\tneg \text{eq?}\rbr{\omega^{\ell}(\tu{y}),0}
+=\tneg \text{eq?}\rbr{n+1,0}
+=\tneg F
+=T$}}
+&= \Iu{A}{\I{A}{\omega^{\ell}}{begin z := plus(z,x) ; y := minus(y,eins) end}}{Z_{3,\ldots,7}} \\
+&= \Iu{A}{\I{A}{\I{A}{\omega^{\ell}}{z := plus(z,x)}}{y := minus(y,eins)}}{Z_{3,\ldots,7}} \\
+\intertext{\textcolor{darkblue}{NE: $\omega^{\ell+1} \sim_{\tu{z}} \omega^{\ell}$ und berechnen
+$\omega^{\ell+1}(\tu{z})
+=\I{T}{\omega^{\ell}}{plus(z,x)}
+=\text{plus}(\I{T}{\omega^{\ell}}{z},\I{T}{\omega^{1}}{x})
+=\text{plus}(\omega^{\ell}(\u{z}),\omega^{1}(\u{x}))
+=\text{plus}(p,m)
+=p+m$}}
+&= \Iu{A}{\I{A}{\omega^{\ell+1}}{y := minus(y,eins)}}{Z_{3,\ldots,7}} \\
+\intertext{\textcolor{darkblue}{NE: $\omega^{\ell+2} \sim_{\tu{y}} \omega^{\ell+1}$ und berechnen
+$\omega^{\ell+2}(\tu{y})
+=\I{T}{\omega^{\ell+1}}{minus(y,eins)}
+=\text{minus}(\I{T}{\omega^{\ell+1}}{y},\I{T}{\omega^{\ell+1}}{eins})
+=\text{minus}(\omega^{\ell+1}(\u{y}),1)
+=\text{minus}(n+1,1)
+=n$}}
+&= \Iu{A}{\omega^{\ell+2}}{Z_{3,\ldots,7}} \\
+\intertext{Wir sehen dass für $\omega^{\ell+2}$ die Induktionshypothese gilt und verwenden diese:}
+&= \omega^k \\
+\omega^k(\tu{z}) &= \omega^{\ell+2}(\tu{x}) \cdot \omega^{\ell+2}(\tu{y}) + \omega^{\ell+2}(\tu{z}) \\
+&= m \cdot n + (p+m) \\
+&= (m+1) \cdot n + p
+\end{align*}
+Und damit ist auch die Schleife bewiesen. Das Programm ist also korrekt.\hfill$\Box$
+\end{\whichitem}
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
 
 \section{Die Sprache LP ($\lng{L}$)}
 TODO
