@@ -1413,13 +1413,13 @@ Seien $q,r \in \lng{P}$ und $\omega,\omega' \in \text{ENV}$.
 \item
 $\Iu{P}{\omega}{p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}} = p\rbr{\Iu{T}{\omega}{t_1},\ldots,\Iu{T}{\omega}{t_n}}$, wenn $t_1,\ldots,t_n \in \lng{T}$,
 mit einem Prädikatensymbol $p^{\Sigma} \in P^{\Sigma}$ und dem entsprechenden Prädikat $p \in P$.
-\item $\Iu{P}{\omega}{q\u{\vee}r} \lra \rbr{\Iu{P}{\omega}{q} \vee \Iu{P}{\omega}{r}}$ (Oder-Verknüpfung)
-\item $\Iu{P}{\omega}{q\u{\wedge}r} \lra \rbr{\Iu{P}{\omega}{q} \wedge \Iu{P}{\omega}{r}}$ (Und-Verknüpfung)
-\item $\Iu{P}{\omega}{q\u{\to}r} \lra \rbr{\Iu{P}{\omega}{q} \to \Iu{P}{\omega}{r}}$ (Implikation)
-\item $\Iu{P}{\omega}{\u{\tneg}q} \lra \tneg \Iu{P}{\omega}{q}$ (Negation)
-\item $\Iu{P}{\omega}{\u{(}q\u{)}} \lra \Iu{P}{\omega}{q}$ (Klammerung)
-\item $\Iu{P}{\omega}{\u{(\tforall}v\u{)}q} \lra \tforall \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (All-Quantor)
-\item $\Iu{P}{\omega}{\u{(\texists}v\u{)}q} \lra \texists \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (Existenz-Quantor)
+\item $\Iu{P}{\omega}{q\;\u{\vee}\;r} \lra \rbr{\Iu{P}{\omega}{q} \vee \Iu{P}{\omega}{r}}$ (Oder-Verknüpfung)
+\item $\Iu{P}{\omega}{q\;\u{\wedge}\;r} \lra \rbr{\Iu{P}{\omega}{q} \wedge \Iu{P}{\omega}{r}}$ (Und-Verknüpfung)
+\item $\Iu{P}{\omega}{q\;\u{\to}\;r} \lra \rbr{\Iu{P}{\omega}{q} \to \Iu{P}{\omega}{r}}$ (Implikation)
+\item $\Iu{P}{\omega}{\u{\tneg}\;q} \lra \tneg \Iu{P}{\omega}{q}$ (Negation)
+\item $\Iu{P}{\omega}{\u{(}\;q\;\u{)}} \lra \Iu{P}{\omega}{q}$ (Klammerung)
+\item $\Iu{P}{\omega}{\u{(\tforall}\;v\;\u{)}\;q} \lra \tforall \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (All-Quantor)
+\item $\Iu{P}{\omega}{\u{(\texists}\;v\;\u{)}\;q} \lra \texists \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (Existenz-Quantor)
 \end{\whichenum}
 \end{defn}
 
@@ -1787,6 +1787,75 @@ Und damit ist auch die Schleife bewiesen. Das Programm ist also korrekt.\hfill$\
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
+Eine einfache aber mächtige Erweiterung ist das Konzept ``Pointer'' (``Zeiger'').
+Variablen werden nun nur noch Adressen enthalten, die Werte stehen in einem neuen
+Environment an der entsprechenden Stelle.
+
+\begin{defn}[$\omega$- und $\sigma$-Environments in $\lng{A^P}$]
+Wir definieren $\omega: \text{IVS} \to \text{LOC}$. Die Menge aller $\omega$ heißt
+nach wie vor $\text{ENV}$.
+
+Wir definieren $\sigma: \text{LOC} \to A$. $\text{LOC} \subseteq \N_0$.
+\end{defn}
+
+\begin{defn}[Syntax von $\lng{A^P}$]
+\begin{\whichenum}
+\item $\lng{A} \subset \lng{A^P}$, d.h. jedes $\lng{A}$-Programm ist syntaktisch betrachtet
+auch ein $\lng{A^P}$-Programm.
+\item Wenn $v,w \in \text{IVS}$, dann ist $\tu{ref} \; v \; \tu{:= ref} \; w \; \in \lng{A^P}$ (Pointer setzen).
+\end{\whichenum}
+\end{defn}
+
+Die Behandlung von Variablen wurde bereits in $\lng{T}$ definiert.
+\begin{defn}[Semantik von $\lng{T^P}$]
+Die Semantik von $\lng{T^P}$ definieren wir durch die Interpretationsfunktion $I_{\lng{T^P}}: \text{ENV} \times \text{STATE} \times \lng{T^P} \to A$.
+\begin{\whichenum}
+\item $I_{\lng{T^P}}(\omega,\sigma,c^{\Sigma}_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c^{\Sigma}_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
+\item $I_{\lng{T^P}}(\omega,\sigma,v)=\sigma(\omega(v))$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
+\item $I_{\lng{T^P}}(\omega,\sigma,f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\lng{T^P}}(\omega,\sigma,t_1),\ldots,I_{\lng{T^P}}(\omega,\sigma,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f^{\Sigma}_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
+\end{\whichenum}
+\end{defn}
+
+Für die Behandlung von Konditionalen müssen wir auch $\lng{P^P}$ als Erweiterung
+von $\lng{P}$ definieren. Wir modifizieren daher auch die Semantik von $\lng{P^P}$.
+
+\begin{defn}[Semantik von $\lng{P^P}$]
+Die Semantikfunktion definieren wir als $I: \text{ENV}\times\text{STATE}\times\lng{P^P}\to\gbr{T,F}$.
+Seien $q,r \in \lng{P^P}$ und $\omega,\omega' \in \text{ENV}$, $\sigma \in \text{STATE}$.
+\begin{\whichenum}
+\item
+$\Iu{P^P}{\omega,\sigma}{p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}} = p\rbr{\Iu{T^P}{\omega,\sigma}{t_1},\ldots,\Iu{T^P}{\omega,\sigma}{t_n}}$, wenn $t_1,\ldots,t_n \in \lng{T^P}$,
+mit einem Prädikatensymbol $p^{\Sigma} \in P^{\Sigma}$ und dem entsprechenden Prädikat $p \in P$.
+\item $\Iu{P^P}{\omega,\sigma}{q\;\u{\vee}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \vee \Iu{P^P}{\omega,\sigma}{r}}$ (Oder-Verknüpfung)
+\item $\Iu{P^P}{\omega,\sigma}{q\;\u{\wedge}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \wedge \Iu{P^P}{\omega,\sigma}{r}}$ (Und-Verknüpfung)
+\item $\Iu{P^P}{\omega,\sigma}{q\;\u{\to}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \to \Iu{P^P}{\omega,\sigma}{r}}$ (Implikation)
+\item $\Iu{P^P}{\omega,\sigma}{\u{\tneg}\;q} \lra \tneg \Iu{P^P}{\omega,\sigma}{q}$ (Negation)
+\item $\Iu{P^P}{\omega,\sigma}{\u{(}\;q\;\u{)}} \lra \Iu{P^P}{\omega,\sigma}{q}$ (Klammerung)
+\item $\Iu{P^P}{\omega,\sigma}{\u{(\tforall}\;v\;\u{)}\;q} \lra \tforall \omega',\sigma', \omega \sim_v \omega', \sigma \sim_{\omega'(v)} \sigma': \; \Iu{P^P}{\omega',\sigma'}{q}$ (All-Quantor)
+\item $\Iu{P^P}{\omega,\sigma}{\u{(\texists}\;v\;\u{)}\;q} \lra \texists \omega',\sigma', \omega \sim_v \omega', \sigma \sim_{\omega'(v)} \sigma': \; \Iu{P^P}{\omega',\sigma'}{q}$ (Existenz-Quantor)
+\end{\whichenum}
+\end{defn}
+
+\begin{defn}[Semantik von $\lng{A^P}$]
+Die Interpretationsfuntkion $I_{\lng{A^P}}: \text{ENV} \times \text{STATE} \times \lng{A^P} \to \text{ENV} \times \text{STATE}$ nimmt nun zusätzlich den \text{STATE} entgegen und liefert diesen oder einen neuen wieder zurück.
+\begin{\whichenum}
+\item Assignments: $\Iu{A^P}{\omega,\sigma}{v \; \tu{:=} \; t} = (\omega,\sigma')$ mit $\sigma' \sim_{\omega(v)} \sigma$ und $\sigma'(\omega(v))=\Iu{T^P}{\omega,\sigma}{t}$.
+\item Blöcke: $\Iu{A^P}{\omega,\sigma}{\tu{begin} \; a_1 \; \tu{;} \; a_2 \; \tu{end}}
+= \Iu{A^P}{\omega',\sigma'}{a_2}$ mit $(\omega',\sigma')=\Iu{A^P}{\omega,\sigma}{a_1}$.
+\item Konditionale:
+\begin{\whichenum}
+\item $\Iu{A^P}{\omega,\sigma}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A^P}{\omega,\sigma}{a_1}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=T$.
+\item $\Iu{A^P}{\omega,\sigma}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A^P}{\omega,\sigma}{a_2}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=F$.
+\end{\whichenum}
+\item Schleifen:
+\begin{\whichenum}
+\item $\Iu{A^P}{\omega}{\tu{while} \; p \; \tu{do} \; a} = \Iu{A^P}{\Iu{A^P}{\omega,\sigma}{a}}{\tu{while} \; p \; \tu{do} \; a}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=T$.
+\item $\Iu{A^P}{\omega}{\tu{while} \; p \; \tu{do} \; a} = \omega$ wenn $\Iu{P^P}{\omega,\sigma}{p}=F$.
+\end{\whichenum}
+\item Pointer Assignments:
+$\Iu{A^P}{\omega}{\tu{ref} \; v \; \tu{:= ref} \; w} = (\omega',\sigma)$ mit $\omega \sim_v \omega'$ und $\omega'(v)=\omega(w)$.
+\end{\whichenum}
+\end{defn}
 
 \section{Die Sprache LP ($\lng{L}$)}
 TODO
