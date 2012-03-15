@@ -87,7 +87,7 @@ entsprechende Repräsentation in $\N_0$.
 \end{defn}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
-Das Programm $\u{((10)+(9))+(3)}$ (vgl. Vorlesungsskriptum Seite 45) können wir wie folgt interpretieren:
+Das Programm $\u{((10)+(9))+(3)}$ (vgl. Vorlesungsskriptum S.45) können wir wie folgt interpretieren:
 \begin{align*}
 I_{\lng{A}}(\u{((10)+(9))+(3)}) &= I_{\lng{A}}(\u{(10)+(9)}) + I_{\lng{A}}(\u{3}) \tag{entsprechend 2. Fall der Definition} \\
                       &= I_{\lng{A}}(\u{10}) + I_{\lng{A}}(\u{9}) + 3 \tag{beim $\u{3}$ nun der 1. Fall der Definition} \\
@@ -396,7 +396,7 @@ Führen Sie das Programm \u{plus(plus(x,y),plus(eins,z))} mit dem Environment $\
 
 \textit{Lösung:}
 \begin{align*}
-\I{T}{\omega}{plus(plus(x,y),plus(eins,z))}
+&\quad \I{T}{\omega}{plus(plus(x,y),plus(eins,z))}\\
 &= +\rbr{\I{T}{\omega}{plus(x,y)},\I{T}{\omega}{plus(eins,z)}} \\
 &= +\rbr{+\rbr{\I{T}{\omega}{x},\I{T}{\omega}{y}},+\rbr{\I{T}{\omega}{eins},\I{T}{\omega}{z}}} \\
 &= +\rbr{+\rbr{\omega(\u{x}),\omega(\u{y})},+\rbr{1,\omega(\u{z})}} \\
@@ -532,7 +532,7 @@ Die Semantikfunktion $I_{\lng{C}}$ definieren wir durch:
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
-Interpretieren Sie das Programm \u{if ist0?(sub(x)) then add0(x) else sub(x)} über dem Datentyp der binären Stacks mit dem Environment $\omega(\u{x})=101$.
+Interpretieren Sie \u{if ist0?(sub(x)) then add0(x) else sub(x)} in $\lng{C}$ über dem Datentyp der binären Stacks mit dem Environment $\omega(\u{x})=101$.
 
 Wir beginnen wie auch schon in der Sprache der Terme.
 \begin{align*}
@@ -951,7 +951,7 @@ Induktionsbasis:
 \begin{align*}
 &&\quad I(\delta,\omega,&\u{\text{depth}}) \\
 &&=I(\delta,\omega,&\u{\text{if atom?(first(x)) then depth(rest(x))}} \\ &&&\u{\text{else if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
-\intertext{\textcolor{darkblue}{NR: $I(\delta,\omega,\u{\text{atom?(first(x))}})=\text{atom?}(I(\delta,\omega,\u{\text{first(x)}}))=\text{atom?(first}(I(\delta,\omega,\u{\text{x}})))=\text{atom?(first(nil))}=\text{atom?(nil)}=F$ (siehe Fallunterscheidung)}}
+\intertext{\textcolor{darkblue}{NR: $I(\delta,\omega,\u{\text{atom?(first(x))}})=\text{atom?}(I(\delta,\omega,\u{\text{first(x)}}))=\text{atom?(first}(I(\delta,\omega,\u{\text{x}})))$\newline$=\text{atom?(first(nil))}=\text{atom?(nil)}=F$ (siehe Fallunterscheidung)}}
 &&=I(\delta,\omega,&\u{\text{if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
 \intertext{\textcolor{darkblue}{Da $\abs{\omega(\u{x})}=1$ ist muss $\omega(\u{x})=\text{nil}$ sein.}}
 &&=I(\delta,\omega,&\u{\text{nil}})=\text{nil}=f_{d}(\text{nil})=f_{d}(\omega(\u{x}))
@@ -1039,8 +1039,10 @@ er kann aber auch kleiner sein.
 Wir müssen daher in unserem Beweis eine \textbf{Fallunterscheidung} durchführen.
 \begin{\whichitem}
 \item Induktionshypothese:
-\[\tforall \omega(\tu{y}) \leq n \leq \abs{\omega(\tu{x})}: \quad \I{E}{\delta,\omega}{nth(x,y)}=\ell_{\omega(\tu{y})}
-  \wedge \tforall \abs{\omega(\tu{x})} < \omega(\tu{y}) \leq n: \quad \I{E}{\delta,\omega}{nth(x,y)}=\ebr{}\]
+\begin{align*}
+&\quad&\tforall \omega(\tu{y}) \leq n \leq \abs{\omega(\tu{x})}: \quad \I{E}{\delta,\omega}{nth(x,y)}&=\ell_{\omega(\tu{y})} \\
+&\wedge& \tforall \abs{\omega(\tu{x})} < \omega(\tu{y}) \leq n: \quad \I{E}{\delta,\omega}{nth(x,y)}&=\ebr{}
+\end{align*}
 Die Fallunterscheidung ist hier durch die \twedge-Verknüpfung vorhanden.
 Wir haben damit alle Fälle abgedeckt denn $\abs{\omega(\tu{x})} < \omega(\tu{y})$ ist genau dann wahr, wenn
 $\omega(\tu{y}) \leq \abs{\omega(\tu{x})}$ nicht wahr ist.
@@ -1050,7 +1052,7 @@ einmal mit $0 = \abs{\omega(\tu{x})} < \omega(\tu{y}) \leq n = 1$ und einmal mit
 &\qquad \abs{\omega(\tu{x})} = 0 \qquad \omega(\tu{y}) = 1 \\
 &\quad \I{E}{\delta,\omega}{nth(x,y)} \\
 &=\I{E}{\delta,\omega}{if eq?(y,eins) then first(x) else nth(rest(x),minus(y,eins))} \\
-\intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{eq?(y)}=\text{eq?}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{eq?}\rbr{\omega(\tu{y}),1}=\text{eq?}\rbr{1,1}=T$}}
+\intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{eq?(y)}=\text{eq?}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{eq?}\rbr{\omega(\tu{y}),1}$\newline$=\text{eq?}\rbr{1,1}=T$}}
 &=\I{E}{\delta,\omega}{first(x)} \\
 &=\text{first}\rbr{\I{E}{\delta,\omega}{x}} \\
 &=\text{first}\rbr{\omega(\tu{x})} \\
@@ -1060,7 +1062,7 @@ einmal mit $0 = \abs{\omega(\tu{x})} < \omega(\tu{y}) \leq n = 1$ und einmal mit
 &\qquad \abs{\omega(\tu{x})} = 1 \qquad \omega(\tu{y}) = 1 \\
 &\quad \I{E}{\delta,\omega}{nth(x,y)} \\
 &=\I{E}{\delta,\omega}{if eq?(y,eins) then first(x) else nth(rest(x),minus(y,eins))} \\
-\intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{eq?(y)}=\text{eq?}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{eq?}\rbr{\omega(\tu{y}),1}=\text{eq?}\rbr{1,1}=T$}}
+\intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{eq?(y)}=\text{eq?}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{eq?}\rbr{\omega(\tu{y}),1}$\newline$=\text{eq?}\rbr{1,1}=T$}}
 &=\I{E}{\delta,\omega}{first(x)} \\
 &=\text{first}\rbr{\I{E}{\delta,\omega}{x}} \\
 &=\text{first}\rbr{\omega(\tu{x})} \\
@@ -1074,12 +1076,12 @@ Die Basisfälle haben wir damit bewiesen.
 &\qquad \omega(\tu{y}) = n+1 \\
 &\quad \I{E}{\delta,\omega}{nth(x,y)} \\
 &=\I{E}{\delta,\omega}{if eq?(y,eins) then first(x) else nth(rest(x),minus(y,eins))}
-\intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{eq?(y)}=\text{eq?}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{eq?}\rbr{\omega(\tu{y}),1}=\text{eq?}\rbr{n+1,1}=F$}}
+\intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{eq?(y)}=\text{eq?}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{eq?}\rbr{\omega(\tu{y}),1}$\newline$=\text{eq?}\rbr{n+1,1}=F$}}
 &=\I{E}{\delta,\omega}{nth(rest(x),minus(y,eins))}
-\intertext{\textcolor{darkblue}{NE: $\omega'(\tu{x})=\I{E}{\delta,\omega}{rest(x)}=\text{rest}\rbr{\I{E}{\delta,\omega}{x}}=\text{rest}\rbr{\omega(\tu{x})}=\text{rest}\rbr{\ebr{\ell_1 \ell_2 \ldots}}=\ebr{\ell_2 \ldots}=\ebr{\ell'_1 \ldots}$\newline
+\intertext{\textcolor{darkblue}{NE: $\omega'(\tu{x})=\I{E}{\delta,\omega}{rest(x)}=\text{rest}\rbr{\I{E}{\delta,\omega}{x}}=\text{rest}\rbr{\omega(\tu{x})}=\text{rest}\rbr{\ebr{\ell_1 \ell_2 \ldots}}$\newline$=\ebr{\ell_2 \ldots}=\ebr{\ell'_1 \ldots}$\newline
                                     Wir definieren hier $\tforall i: \ell'_{i} = \ell_{i+1}$.
                                     \newline
-                                    $\omega'(\tu{y})=\I{E}{\delta,\omega}{minus(y,eins)}=\text{minus}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}=\text{minus}\rbr{\omega(\tu{y}),1}=\text{minus}\rbr{n+1,1}=n$}}
+                                    $\omega'(\tu{y})=\I{E}{\delta,\omega}{minus(y,eins)}=\text{minus}\rbr{\I{E}{\delta,\omega}{y},\I{E}{\delta,\omega}{eins}}$\newline$=\text{minus}\rbr{\omega(\tu{y}),1}=\text{minus}\rbr{n+1,1}=n$}}
 &=\I{E}{\delta,\omega'}{nth(x,y)}
 \intertext{Beobachtung: Über diesen Programmaufruf mit $\omega'(\tu{y})=n$ trifft die Induktionshypothese eine Aussage.}
 \end{align*}
@@ -1113,11 +1115,11 @@ Gegeben ein Datentyp $D=(A,F,P,C)$ und ein Datentyp $E$ mit der Grundmenge $B$.
 
 \begin{defn}[Kodierungseigenschaften] \quad
 \begin{\whichitem}
-\item $\tforall x \in A, f_i \in F: \pi\ebr{f_i}\rbr{\pi\rbr{x}} = \pi\rbr{f_i\rbr{x}}$, d.h.
-für alle Werte $x$ in $A$ und alle Funktionen in $F$ darf es keinen Einfluss auf das Ergebnis haben,
-ob der Wert $x$ zuerst kodiert und dann die kodierte Funktion mit diesem berechnet wird
-oder zuerst der die Funktion mit dem Wert $x$ berechnet und das Ergebnis kodiert wird.
-\item $\tforall x \in A, p_i \in P: \pi\ebr{p_i}\rbr{\pi\rbr{x}} \lra \pi\rbr{p_i\rbr{x}}$, gleich wie bei den Funktionen
+\item $\tforall x_1,\ldots,x_n \in A, f_i \in F: \pi\ebr{f_i}\rbr{\pi\rbr{x_1},\ldots,\pi\rbr{x_n}} = \pi\rbr{f_i\rbr{x_1,\ldots,x_n}}$, d.h.
+für alle Werte $x_1,\ldots,x_n$ in $A$ (die Funktionsargumente) und alle Funktionen in $F$ darf es keinen Einfluss auf das Ergebnis haben,
+ob für jedes Funktionsargument der Wert $x_k$ (mit $1 \leq k \leq n$) zuerst kodiert und dann die kodierte Funktion mit diesen berechnet wird
+oder zuerst der die Funktion mit den Werten $x_1,\ldots,x_n$ für die Funktionsargumente berechnet und das Ergebnis kodiert wird.
+\item $\tforall x \in A, p_i \in P: \pi\ebr{p_i}\rbr{\pi\rbr{x_1},\ldots,\pi\rbr{x_n}} \lra \pi\rbr{p_i\rbr{x_1,\ldots,x_n}}$, gleich wie bei den Funktionen
 \end{\whichitem}
 \end{defn}
 
@@ -1189,10 +1191,14 @@ Zu zeigen ist $\tforall x,y \in \N_0: \pi\ebr{+}\rbr{\pi(x),\pi(y)} = \pi\rbr{x 
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
-\begin{defn}[Dekodierungs-Funktion $\rho$]
-$\rho$ ist die Umkehrfunktion zur Mapping-Funktion $\pi$.
-Es gilt $\rho(\pi(x))=x$.
+\begin{defn}[Dekodierungsfunktion $\rho$]
+Wenn $\rho$ existiert, ist $\rho$ ist die Umkehrfunktion zur Mapping-Funktion $\pi$.
+Dann gilt $\rho(\pi(x))=x$.
 \end{defn}
+$\pi$ ist \textbf{injektiv} wenn $\not \exists x \neq y, \pi(x)=\pi(y)$, d.h.
+es gibt keine 2 unterschiedlichen Werte für die $\pi$ das gleiche Ergebnis hat.
+$\rho$ existiert genau dann wenn $\pi$ injektiv ist.
+$\rho$ gilt nur für die Menge von Werten die $\pi$ annehmen kann (``Bild von $\pi$'').
 
 \section{Kodierung von $\lng{E}$ in den Datentyp der Listen}\label{sec:codingE}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -1208,7 +1214,7 @@ Dekodierungsfunktionen: $\pi_{\text{FENV}}$, $\pi_{\text{ENV}}$, $\pi_{\lng{E}}$
 Repräsentation im Datentyp der Listen zuweisen.
 
 Für den Interpreter sollen die Kodierungseigenschaften gelten:
-\[\I{E}{\delta,\omega}{IX(delta,omega,exp)}=\pi_{A}\rbr{\I{E}{\rho_{\text{FENV}}(\omega(\tu{delta})),\rho_{ENV}(\omega(\tu{delta}))}{$\rho_{\lng{E}}(\omega(\tu{exp}))$}}\]
+\[\I{E}{\delta,\omega}{\small IX(delta,omega,exp)}=\pi_{A}\rbr{\Iu{E}{\rho_{\text{\tiny FENV}}(\omega(\tu{delta})),\rho_{\text{\tiny ENV}}(\omega(\tu{omega}))}{\rho_{\lng{E}}(\omega(\tu{exp}))}}\]
 Der Einfachheit halber behandeln wir nur den Fall $A=L$, dann ist in unserem Fall $\pi_{A}(x)=x$.
 Die Kodierung von $\omega$ kann beispielsweise durch eine Liste von 2-elementigen Listen geschehen wobei das 1. Element jeweils der Variablenname
 und das 2. Element jeweils der Variablenwert ist. Das heißt der Sachverhalt $\omega(\tu{x1})=\ell_1, \omega(\tu{x2})=\ell_2$ wird dargestellt durch
@@ -1389,7 +1395,7 @@ In diesem Fall sagen wir, dass die Variable $v$ im prädikatenlogischen Ausdruck
 \end{\whichenum}
 \end{defn}
 
-Diese Definition basiert auf der Definition der Sprache der Terme $\lng{T}$.
+Die Definition von $\lng{P}$ basiert auf der Definition der Sprache der Terme $\lng{T}$.
 Konditional-Konstrukte (\u{if ... then ... else ...}) und Funktionsumgebungen
 bzw. Funktionsvariablensymbole (``benutzerdefinierte Funktionen'') können nicht in $\lng{P}$ verwendet werden.
 
@@ -1431,12 +1437,12 @@ Interpretieren Sie die folgenden prädikatenlogischen Ausdrucke in $\lng{P}$ mit
 
 \textit{Lösung:}
 \begin{align*}
-&\quad \I{P}{\omega}{((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)) \tto eq?(x,eins)} \\
-&\lra \I{P}{\omega}{((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins))} \tto \I{P}{\omega}{eq?(x,eins)} \\
-&\lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\I{T}{\omega}{x},\I{T}{\omega}{eins}) \\
-&\lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\omega(\u{x}),1) \\
-&\lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(0,1) \\
-&\lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto F \\
+&\quad \I{P}{\omega}{\small ((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)) \tto eq?(x,eins)} \\
+&\lra \I{P}{\omega}{\small ((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins))} \tto \I{P}{\omega}{eq?(x,eins)} \\
+&\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\I{T}{\omega}{x},\I{T}{\omega}{eins}) \\
+&\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\omega(\u{x}),1) \\
+&\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(0,1) \\
+&\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee \I{P}{\omega}{lt?(x,eins)}} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee eq?(\I{T}{\omega}{x},\I{T}{\omega}{eins})} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee eq?(\omega(\u{x}),1)} \tto F \\
@@ -1593,7 +1599,7 @@ Gegeben die Sprachen $\text{T}$ und $\lng{P}_0$ über einem beliebigen Datentyp 
 definieren wir die Syntax von $\lng{A}$ wie folgt:
 \begin{\whichenum}
 \item Wenn $v \in \text{IVS}$ und $t \in \lng{T}$,
-dann ist $v \tu{:=} t \; \in \lng{A}$ (Assignments).
+dann ist $v \tu{:-} t \; \in \lng{A}$ (Assignments).
 \item Wenn $a_1,a_2 \in \lng{A}$ dann ist $\tu{begin} \; a_1 \; \tu{;} \; a_2 \; \tu{end} \; \in \lng{A}$ (Blöcke).
 \item Wenn $a_1,a_2 \in \lng{A}$ und $p \in \lng{P}_0$, dann ist $\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2 \; \in \lng{A}$ (Konditionale).
 \item Wenn $a \in \lng{A}$ und $p \in \lng{P}_0$, dann ist $\tu{while} \; p \; \tu{do} \; a \; \in \lng{A}$ (Schleifen).
@@ -1649,24 +1655,24 @@ $Z_k$ ersetzen um so mehr Übersicht zu schaffen.
 &= \Iu{A}{\omega^{1}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
 \intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{1}}{\tneg eq?(y,null)}
 =\tneg \I{P}{\omega^{1}}{eq?(y,null)}
-=\tneg \text{eq?}\rbr{\I{T}{\omega^{1}}{y},\I{T}{\omega^{1}}{null}}
+=\tneg \text{eq?}\rbr{\I{T}{\omega^{1}}{y},\I{T}{\omega^{1}}{null}}$\newline$
 =\tneg \text{eq?}\rbr{\omega^{1}(\tu{y}),0}
 =\tneg \text{eq?}\rbr{2,0}
 =\tneg F
 =T$}}
-&= \Iu{A}{\I{A}{\omega^{1}}{begin z := plus(z,x) ; y := minus(y,eins) end}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
-&= \Iu{A}{\I{A}{\I{A}{\omega^{1}}{z := plus(z,x)}}{y := minus(y,eins)}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+&= \Iu{A}{\I{A}{\omega^{1}}{\small begin z := plus(z,x) ; y := minus(y,eins) end}}{\tu{\footnotesize while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+&= \Iu{A}{\I{A}{\I{A}{\omega^{1}}{z := plus(z,x)}}{y := minus(y,eins)}}{\tu{\footnotesize while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
 \intertext{\textcolor{darkblue}{NE: $\omega^{2} \sim_{\tu{z}} \omega^{1}$ und berechnen
 $\omega^{2}(\tu{z})
 =\I{T}{\omega^{1}}{plus(z,x)}
-=\text{plus}(\I{T}{\omega^{1}}{z},\I{T}{\omega^{1}}{x})
+=\text{plus}(\I{T}{\omega^{1}}{z},\I{T}{\omega^{1}}{x})$\newline$
 =\text{plus}(\omega^{1}(\u{z}),\omega^{1}(\u{x}))
 =\text{plus}(0,3)
 =3$}}
 &= \Iu{A}{\I{A}{\omega^{2}}{y := minus(y,eins)}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
 \intertext{\textcolor{darkblue}{NE: $\omega^{3} \sim_{\tu{y}} \omega^{2}$ und berechnen
 $\omega^{3}(\tu{y})
-=\I{T}{\omega^{2}}{minus(y,eins)}
+=\I{T}{\omega^{2}}{minus(y,eins)}$\newline$
 =\text{minus}(\I{T}{\omega^{2}}{y},\I{T}{\omega^{2}}{eins})
 =\text{minus}(\omega^{2}(\u{y}),1)
 =\text{minus}(2,1)
@@ -1674,24 +1680,24 @@ $\omega^{3}(\tu{y})
 &= \Iu{A}{\omega^{3}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
 \intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{3}}{\tneg eq?(y,null)}
 =\tneg \I{P}{\omega^{3}}{eq?(y,null)}
-=\tneg \text{eq?}\rbr{\I{T}{\omega^{3}}{y},\I{T}{\omega^{1}}{null}}
+=\tneg \text{eq?}\rbr{\I{T}{\omega^{3}}{y},\I{T}{\omega^{1}}{null}}$\newline$
 =\tneg \text{eq?}\rbr{\omega^{3}(\tu{y}),0}
 =\tneg \text{eq?}\rbr{1,0}
 =\tneg F
 =T$}}
-&= \Iu{A}{\I{A}{\omega^{3}}{begin z := plus(z,x) ; y := minus(y,eins) end}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
-&= \Iu{A}{\I{A}{\I{A}{\omega^{3}}{z := plus(z,x)}}{y := minus(y,eins)}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+&= \Iu{A}{\I{A}{\omega^{3}}{\small begin z := plus(z,x) ; y := minus(y,eins) end}}{\tu{\footnotesize while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
+&= \Iu{A}{\I{A}{\I{A}{\omega^{3}}{z := plus(z,x)}}{y := minus(y,eins)}}{\tu{\footnotesize while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
 \intertext{\textcolor{darkblue}{NE: $\omega^{4} \sim_{\tu{z}} \omega^{3}$ und berechnen
 $\omega^{4}(\tu{z})
 =\I{T}{\omega^{3}}{plus(z,x)}
-=\text{plus}(\I{T}{\omega^{3}}{z},\I{T}{\omega^{3}}{x})
+=\text{plus}(\I{T}{\omega^{3}}{z},\I{T}{\omega^{3}}{x})$\newline$
 =\text{plus}(\omega^{3}(\u{z}),\omega^{3}(\u{x}))
 =\text{plus}(3,3)
 =6$}}
 &= \Iu{A}{\I{A}{\omega^{4}}{y := minus(y,eins)}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
 \intertext{\textcolor{darkblue}{NE: $\omega^{5} \sim_{\tu{y}} \omega^{4}$ und berechnen
 $\omega^{5}(\tu{y})
-=\I{T}{\omega^{4}}{minus(y,eins)}
+=\I{T}{\omega^{4}}{minus(y,eins)}$\newline$
 =\text{minus}(\I{T}{\omega^{4}}{y},\I{T}{\omega^{4}}{eins})
 =\text{minus}(\omega^{4}(\u{y}),1)
 =\text{minus}(1,1)
@@ -1699,7 +1705,7 @@ $\omega^{5}(\tu{y})
 &= \Iu{A}{\omega^{5}}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
 \intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{5}}{\tneg eq?(y,null)}
 =\tneg \I{P}{\omega^{5}}{eq?(y,null)}
-=\tneg \text{eq?}\rbr{\I{T}{\omega^{5}}{y},\I{T}{\omega^{5}}{null}}
+=\tneg \text{eq?}\rbr{\I{T}{\omega^{5}}{y},\I{T}{\omega^{5}}{null}}$\newline$
 =\tneg \text{eq?}\rbr{\omega^{5}(\tu{y}),0}
 =\tneg \text{eq?}\rbr{0,0}
 =\tneg T
@@ -1713,8 +1719,8 @@ Korrektheitsbeweise von $\lng{A}$-Programmen unterscheiden sich wesentlich von
 jenen für $\lng{E}$-Programmen. In $\lng{E}$ konnten wir nicht-rekursive Funktionen
 einfach direkt beweisen (durch Interpretation, evtl. Fallunterscheidung). Rekursive
 Funktionen konnten durch vollständige Induktion bewiesen werden. Anstatt der Rekursion
-haben wir nun Schleifen. Über diese können wir auch vollständige Induktionen durchführen.
-In $\lng{A}$ ist dies aufgrund des geringen Umfangs wesentlich einfacher als
+haben wir nun Schleifen. Über diese können wir auch vollständige Induktionen führen.
+In $\lng{A}$ ist dies aufgrund des geringen Sprachumfangs einfacher als
 in Sprachen die in der Praxis verwendet werden.
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -1739,7 +1745,7 @@ Wir verwenden den Platzhalter $Z_k$ aus dem vorherigen Beispiel.
 \begin{align*}
 &\quad \Iu{A}{\omega^1}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
 \intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{1}}{\tneg eq?(y,null)}
-=\tneg \I{P}{\omega^{1}}{eq?(y,null)}
+=\tneg \I{P}{\omega^{1}}{eq?(y,null)}$\newline$
 =\tneg \text{eq?}\rbr{\I{T}{\omega^{1}}{y},\I{T}{\omega^{1}}{null}}
 =\tneg \text{eq?}\rbr{\omega^{1}(\tu{y}),0}
 =\tneg \text{eq?}\rbr{0,0}
@@ -1752,7 +1758,7 @@ Wir erhalten $\omega^1(\tu{z})=p$. Der Basisfall ist also bewiesen.
 \begin{align*}
 &\quad \Iu{A}{\omega^\ell}{\tu{while \tneg eq?(y,null) do} \; Z_{4,5,6,7}} \\
 \intertext{\textcolor{darkblue}{NR: $\I{P}{\omega^{\ell}}{\tneg eq?(y,null)}
-=\tneg \I{P}{\omega^{\ell}}{eq?(y,null)}
+=\tneg \I{P}{\omega^{\ell}}{eq?(y,null)}$\newline$
 =\tneg \text{eq?}\rbr{\I{T}{\omega^{1}}{y},\I{T}{\omega^{\ell}}{null}}
 =\tneg \text{eq?}\rbr{\omega^{\ell}(\tu{y}),0}
 =\tneg \text{eq?}\rbr{n+1,0}
@@ -1762,7 +1768,7 @@ Wir erhalten $\omega^1(\tu{z})=p$. Der Basisfall ist also bewiesen.
 &= \Iu{A}{\I{A}{\I{A}{\omega^{\ell}}{z := plus(z,x)}}{y := minus(y,eins)}}{Z_{3,\ldots,7}} \\
 \intertext{\textcolor{darkblue}{NE: $\omega^{\ell+1} \sim_{\tu{z}} \omega^{\ell}$ und berechnen
 $\omega^{\ell+1}(\tu{z})
-=\I{T}{\omega^{\ell}}{plus(z,x)}
+=\I{T}{\omega^{\ell}}{plus(z,x)}$\newline$
 =\text{plus}(\I{T}{\omega^{\ell}}{z},\I{T}{\omega^{1}}{x})
 =\text{plus}(\omega^{\ell}(\u{z}),\omega^{1}(\u{x}))
 =\text{plus}(p,m)
@@ -1770,7 +1776,7 @@ $\omega^{\ell+1}(\tu{z})
 &= \Iu{A}{\I{A}{\omega^{\ell+1}}{y := minus(y,eins)}}{Z_{3,\ldots,7}} \\
 \intertext{\textcolor{darkblue}{NE: $\omega^{\ell+2} \sim_{\tu{y}} \omega^{\ell+1}$ und berechnen
 $\omega^{\ell+2}(\tu{y})
-=\I{T}{\omega^{\ell+1}}{minus(y,eins)}
+=\I{T}{\omega^{\ell+1}}{minus(y,eins)}$\newline$
 =\text{minus}(\I{T}{\omega^{\ell+1}}{y},\I{T}{\omega^{\ell+1}}{eins})
 =\text{minus}(\omega^{\ell+1}(\u{y}),1)
 =\text{minus}(n+1,1)
@@ -1787,79 +1793,418 @@ Und damit ist auch die Schleife bewiesen. Das Programm ist also korrekt.\hfill$\
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
-Eine einfache aber mächtige Erweiterung ist das Konzept ``Pointer'' (``Zeiger'').
-Variablen werden nun nur noch Adressen enthalten, die Werte stehen in einem neuen
-Environment an der entsprechenden Stelle.
+Im Vorlesungsskriptum findet sich ab Seite 87 die Definition der Sprache $\lng{A^P}$ skizziert.
+Diese ist eine Erweiterung von $\lng{A}$ um das Konzept ``Pointer'' (``Zeiger'').
+Variablen werden dabei nur noch Adressen (aus $\N_0$) enthalten, die Werte stehen in einem neuen
+Environment an der entsprechenden Adresse.
+Für diese Erweiterung ist es nötig $\lng{T}$, $\lng{P}$ und $\lng{A}$ neu zu definieren um ein
+neues Environment ($\sigma$) einzuführen.
+Anhand dieser Erweiterung wird deutlich dass das Konzept Pointer im Wesentlichen nur ein zusätzliches Mapping ist,
+die Mächtigkeit der Sprache aber nicht ändert - jedoch ``Komfort'' für den Programmierer bringen kann.
 
-\begin{defn}[$\omega$- und $\sigma$-Environments in $\lng{A^P}$]
-Wir definieren $\omega: \text{IVS} \to \text{LOC}$. Die Menge aller $\omega$ heißt
-nach wie vor $\text{ENV}$.
+% \begin{defn}[$\omega$- und $\sigma$-Environments in $\lng{A^P}$]
+% Wir definieren $\omega: \text{IVS} \to \text{LOC}$. Die Menge aller $\omega$ heißt
+% nach wie vor $\text{ENV}$.
 
-Wir definieren $\sigma: \text{LOC} \to A$. $\text{LOC} \subseteq \N_0$.
-\end{defn}
+% Wir definieren $\sigma: \text{LOC} \to A$. $\text{LOC} \subseteq \N_0$.
+% \end{defn}
 
-\begin{defn}[Syntax von $\lng{A^P}$]
-\begin{\whichenum}
-\item $\lng{A} \subset \lng{A^P}$, d.h. jedes $\lng{A}$-Programm ist syntaktisch betrachtet
-auch ein $\lng{A^P}$-Programm.
-\item Wenn $v,w \in \text{IVS}$, dann ist $\tu{ref} \; v \; \tu{:= ref} \; w \; \in \lng{A^P}$ (Pointer setzen).
-\end{\whichenum}
-\end{defn}
+% \begin{defn}[Syntax von $\lng{A^P}$]
+% \begin{\whichenum}
+% \item $\lng{A} \subset \lng{A^P}$, d.h. jedes $\lng{A}$-Programm ist syntaktisch betrachtet
+% auch ein $\lng{A^P}$-Programm.
+% \item Wenn $v,w \in \text{IVS}$, dann ist $\tu{ref} \; v \; \tu{:= ref} \; w \; \in \lng{A^P}$ (Pointer setzen).
+% \end{\whichenum}
+% \end{defn}
 
-Die Behandlung von Variablen wurde bereits in $\lng{T}$ definiert.
-\begin{defn}[Semantik von $\lng{T^P}$]
-Die Semantik von $\lng{T^P}$ definieren wir durch die Interpretationsfunktion $I_{\lng{T^P}}: \text{ENV} \times \text{STATE} \times \lng{T^P} \to A$.
-\begin{\whichenum}
-\item $I_{\lng{T^P}}(\omega,\sigma,c^{\Sigma}_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c^{\Sigma}_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
-\item $I_{\lng{T^P}}(\omega,\sigma,v)=\sigma(\omega(v))$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
-\item $I_{\lng{T^P}}(\omega,\sigma,f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\lng{T^P}}(\omega,\sigma,t_1),\ldots,I_{\lng{T^P}}(\omega,\sigma,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f^{\Sigma}_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
-\end{\whichenum}
-\end{defn}
+% Die Behandlung von Variablen wurde bereits in $\lng{T}$ definiert.
+% \begin{defn}[Semantik von $\lng{T^P}$]
+% Die Semantik von $\lng{T^P}$ definieren wir durch die Interpretationsfunktion $I_{\lng{T^P}}: \text{ENV} \times \text{STATE} \times \lng{T^P} \to A$.
+% \begin{\whichenum}
+% \item $I_{\lng{T^P}}(\omega,\sigma,c^{\Sigma}_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c^{\Sigma}_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
+% \item $I_{\lng{T^P}}(\omega,\sigma,v)=\sigma(\omega(v))$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
+% \item $I_{\lng{T^P}}(\omega,\sigma,f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\lng{T^P}}(\omega,\sigma,t_1),\ldots,I_{\lng{T^P}}(\omega,\sigma,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f^{\Sigma}_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
+% \end{\whichenum}
+% \end{defn}
 
-Für die Behandlung von Konditionalen müssen wir auch $\lng{P^P}$ als Erweiterung
-von $\lng{P}$ definieren. Wir modifizieren daher auch die Semantik von $\lng{P^P}$.
+% Für die Behandlung von Konditionalen müssen wir auch $\lng{P^P}$ als Erweiterung
+% von $\lng{P}$ definieren. Wir modifizieren daher auch die Semantik von $\lng{P^P}$.
 
-\begin{defn}[Semantik von $\lng{P^P}$]
-Die Semantikfunktion definieren wir als $I: \text{ENV}\times\text{STATE}\times\lng{P^P}\to\gbr{T,F}$.
-Seien $q,r \in \lng{P^P}$ und $\omega,\omega' \in \text{ENV}$, $\sigma \in \text{STATE}$.
-\begin{\whichenum}
-\item
-$\Iu{P^P}{\omega,\sigma}{p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}} = p\rbr{\Iu{T^P}{\omega,\sigma}{t_1},\ldots,\Iu{T^P}{\omega,\sigma}{t_n}}$, wenn $t_1,\ldots,t_n \in \lng{T^P}$,
-mit einem Prädikatensymbol $p^{\Sigma} \in P^{\Sigma}$ und dem entsprechenden Prädikat $p \in P$.
-\item $\Iu{P^P}{\omega,\sigma}{q\;\u{\vee}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \vee \Iu{P^P}{\omega,\sigma}{r}}$ (Oder-Verknüpfung)
-\item $\Iu{P^P}{\omega,\sigma}{q\;\u{\wedge}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \wedge \Iu{P^P}{\omega,\sigma}{r}}$ (Und-Verknüpfung)
-\item $\Iu{P^P}{\omega,\sigma}{q\;\u{\to}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \to \Iu{P^P}{\omega,\sigma}{r}}$ (Implikation)
-\item $\Iu{P^P}{\omega,\sigma}{\u{\tneg}\;q} \lra \tneg \Iu{P^P}{\omega,\sigma}{q}$ (Negation)
-\item $\Iu{P^P}{\omega,\sigma}{\u{(}\;q\;\u{)}} \lra \Iu{P^P}{\omega,\sigma}{q}$ (Klammerung)
-\item $\Iu{P^P}{\omega,\sigma}{\u{(\tforall}\;v\;\u{)}\;q} \lra \tforall \omega',\sigma', \omega \sim_v \omega', \sigma \sim_{\omega'(v)} \sigma': \; \Iu{P^P}{\omega',\sigma'}{q}$ (All-Quantor)
-\item $\Iu{P^P}{\omega,\sigma}{\u{(\texists}\;v\;\u{)}\;q} \lra \texists \omega',\sigma', \omega \sim_v \omega', \sigma \sim_{\omega'(v)} \sigma': \; \Iu{P^P}{\omega',\sigma'}{q}$ (Existenz-Quantor)
-\end{\whichenum}
-\end{defn}
+% \begin{defn}[Semantik von $\lng{P^P}$]
+% Die Semantikfunktion definieren wir als $I: \text{ENV}\times\text{STATE}\times\lng{P^P}\to\gbr{T,F}$.
+% Seien $q,r \in \lng{P^P}$ und $\omega,\omega' \in \text{ENV}$, $\sigma \in \text{STATE}$.
+% \begin{\whichenum}
+% \item
+% $\Iu{P^P}{\omega,\sigma}{p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}} = p\rbr{\Iu{T^P}{\omega,\sigma}{t_1},\ldots,\Iu{T^P}{\omega,\sigma}{t_n}}$, wenn $t_1,\ldots,t_n \in \lng{T^P}$,
+% mit einem Prädikatensymbol $p^{\Sigma} \in P^{\Sigma}$ und dem entsprechenden Prädikat $p \in P$.
+% \item $\Iu{P^P}{\omega,\sigma}{q\;\u{\vee}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \vee \Iu{P^P}{\omega,\sigma}{r}}$ (Oder-Verknüpfung)
+% \item $\Iu{P^P}{\omega,\sigma}{q\;\u{\wedge}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \wedge \Iu{P^P}{\omega,\sigma}{r}}$ (Und-Verknüpfung)
+% \item $\Iu{P^P}{\omega,\sigma}{q\;\u{\to}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \to \Iu{P^P}{\omega,\sigma}{r}}$ (Implikation)
+% \item $\Iu{P^P}{\omega,\sigma}{\u{\tneg}\;q} \lra \tneg \Iu{P^P}{\omega,\sigma}{q}$ (Negation)
+% \item $\Iu{P^P}{\omega,\sigma}{\u{(}\;q\;\u{)}} \lra \Iu{P^P}{\omega,\sigma}{q}$ (Klammerung)
+% \item $\Iu{P^P}{\omega,\sigma}{\u{(\tforall}\;v\;\u{)}\;q} \lra \tforall \omega',\sigma', \omega \sim_v \omega', \sigma \sim_{\omega'(v)} \sigma': \; \Iu{P^P}{\omega',\sigma'}{q}$ (All-Quantor)
+% \item $\Iu{P^P}{\omega,\sigma}{\u{(\texists}\;v\;\u{)}\;q} \lra \texists \omega',\sigma', \omega \sim_v \omega', \sigma \sim_{\omega'(v)} \sigma': \; \Iu{P^P}{\omega',\sigma'}{q}$ (Existenz-Quantor)
+% \end{\whichenum}
+% \end{defn}
 
-\begin{defn}[Semantik von $\lng{A^P}$]
-Die Interpretationsfuntkion $I_{\lng{A^P}}: \text{ENV} \times \text{STATE} \times \lng{A^P} \to \text{ENV} \times \text{STATE}$ nimmt nun zusätzlich den \text{STATE} entgegen und liefert diesen oder einen neuen wieder zurück.
-\begin{\whichenum}
-\item Assignments: $\Iu{A^P}{\omega,\sigma}{v \; \tu{:=} \; t} = (\omega,\sigma')$ mit $\sigma' \sim_{\omega(v)} \sigma$ und $\sigma'(\omega(v))=\Iu{T^P}{\omega,\sigma}{t}$.
-\item Blöcke: $\Iu{A^P}{\omega,\sigma}{\tu{begin} \; a_1 \; \tu{;} \; a_2 \; \tu{end}}
-= \Iu{A^P}{\omega',\sigma'}{a_2}$ mit $(\omega',\sigma')=\Iu{A^P}{\omega,\sigma}{a_1}$.
-\item Konditionale:
-\begin{\whichenum}
-\item $\Iu{A^P}{\omega,\sigma}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A^P}{\omega,\sigma}{a_1}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=T$.
-\item $\Iu{A^P}{\omega,\sigma}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A^P}{\omega,\sigma}{a_2}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=F$.
-\end{\whichenum}
-\item Schleifen:
-\begin{\whichenum}
-\item $\Iu{A^P}{\omega}{\tu{while} \; p \; \tu{do} \; a} = \Iu{A^P}{\Iu{A^P}{\omega,\sigma}{a}}{\tu{while} \; p \; \tu{do} \; a}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=T$.
-\item $\Iu{A^P}{\omega}{\tu{while} \; p \; \tu{do} \; a} = \omega$ wenn $\Iu{P^P}{\omega,\sigma}{p}=F$.
-\end{\whichenum}
-\item Pointer Assignments:
-$\Iu{A^P}{\omega}{\tu{ref} \; v \; \tu{:= ref} \; w} = (\omega',\sigma)$ mit $\omega \sim_v \omega'$ und $\omega'(v)=\omega(w)$.
-\end{\whichenum}
-\end{defn}
+% \begin{defn}[Semantik von $\lng{A^P}$]
+% Die Interpretationsfuntkion $I_{\lng{A^P}}: \text{ENV} \times \text{STATE} \times \lng{A^P} \to \text{ENV} \times \text{STATE}$ nimmt nun zusätzlich den \text{STATE} entgegen und liefert diesen oder einen neuen wieder zurück.
+% \begin{\whichenum}
+% \item Assignments: $\Iu{A^P}{\omega,\sigma}{v \; \tu{:=} \; t} = (\omega,\sigma')$ mit $\sigma' \sim_{\omega(v)} \sigma$ und $\sigma'(\omega(v))=\Iu{T^P}{\omega,\sigma}{t}$.
+% \item Blöcke: $\Iu{A^P}{\omega,\sigma}{\tu{begin} \; a_1 \; \tu{;} \; a_2 \; \tu{end}}
+% = \Iu{A^P}{\omega',\sigma'}{a_2}$ mit $(\omega',\sigma')=\Iu{A^P}{\omega,\sigma}{a_1}$.
+% \item Konditionale:
+% \begin{\whichenum}
+% \item $\Iu{A^P}{\omega,\sigma}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A^P}{\omega,\sigma}{a_1}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=T$.
+% \item $\Iu{A^P}{\omega,\sigma}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A^P}{\omega,\sigma}{a_2}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=F$.
+% \end{\whichenum}
+% \item Schleifen:
+% \begin{\whichenum}
+% \item $\Iu{A^P}{\omega,\sigma}{\tu{while} \; p \; \tu{do} \; a} = \Iu{A^P}{\omega',\sigma'}{\tu{while} \; p \; \tu{do} \; a}$ mit $(\omega',\sigma')=\Iu{A^P}{\omega,\sigma}{a}$, wenn $\Iu{P^P}{\omega,\sigma}{p}=T$.
+% \item $\Iu{A^P}{\omega,\sigma}{\tu{while} \; p \; \tu{do} \; a} = (\omega,\sigma)$ wenn $\Iu{P^P}{\omega,\sigma}{p}=F$.
+% \end{\whichenum}
+% \item Pointer Assignments:
+% $\Iu{A^P}{\omega,\sigma}{\tu{ref} \; v \; \tu{:= ref} \; w} = (\omega',\sigma)$ mit $\omega \sim_v \omega'$ und $\omega'(v)=\omega(w)$.
+% \end{\whichenum}
+% \end{defn}
+
+% Wir sehen das Pointer einfach als Mapping zwischen Variablenname und Adresse (einer Zahl in $\N_0$)
+% verstanden werden können. In unserem Fall können wir explizit den Pointer
+% referenzieren und die Adresse verändern.
+
+% \ifthenelse{\boolean{long}}{}{\begin{comment}}
+% \begin{bsp}
+% Gegeben Sei folgendes Programm in $\lng{A^P}$:
+% \lstset{numbers=left, numbersep=5pt, xleftmargin=0.3\hsize}
+% \begin{lstlisting}[mathescape]
+% $\tu{begin}$
+  % $\tu{i := 3}$
+% $\tu{;}$
+  % $\tu{begin}$
+    % $\tu{j := 5}$
+  % $\tu{;}$
+    % $\tu{begin}$
+      % $\tu{while lt?(i,j) do}$
+        % $\tu{begin}$
+            % $\tu{ref k := ref i}$
+          % $\tu{;}$
+            % $\tu{begin}$
+                % $\tu{ref j := ref k}$
+              % $\tu{;}$
+                % $\tu{i := plus(i,eins)}$
+            % $\tu{end}$
+        % $\tu{end}$
+    % $\tu{;}$
+      % $\tu{i := plus(i,j)}$
+    % $\tu{end}$
+  % $\tu{end}$
+% $\tu{end}$
+% \end{lstlisting}
+% Und folgendes Environment:
+% \[\begin{array}{|r|r|r|r|}
+% \hline
+% v & \omega(v) & \ell & \sigma(\ell) \\ \hline
+% \tu{i} & 0 & 0 & 0 \\ \hline
+% \tu{j} & 1 & 1 & 1 \\ \hline
+% \tu{k} & 2 & 2 & 2 \\ \hline
+% \end{array}\]
+% Interpretieren Sie das Programm.
+
+% \textit{Lösung:}
+% TODO
+
+% Nach der Ausführung haben wir also folgendes Environment:
+% \[\begin{array}{|r|r|r|r|}
+% \hline
+% v & \omega(v) & \ell & \sigma(\ell) \\ \hline
+% \tu{i} & 0 & 0 & 6 \\ \hline
+% \tu{j} & 0 & 1 & 5 \\ \hline
+% \tu{k} & 0 & 2 & 3 \\ \hline
+% \end{array}
+% \textit{Lösung:}
+% \]
+
+% \end{bsp}
+% \ifthenelse{\boolean{long}}{}{\end{comment}}
 
 \section{Die Sprache LP ($\lng{L}$)}
-TODO
+Das dritte Sprachparadigma welches wir untersuchen wollen ist die ``Logische Programmierung''.
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+In logischen Programmen werden Zusammenhänge in Form von logischen Formeln festgehalten.
+Die Vorgehensweise (d.h. der Lösungsweg) muss vom Programmierer nicht explizit angegeben werden.
+Wir werden die Sprache $\lng{L}$ (gesprochen ``LP'') entwerfen, die durchaus an einfaches Prolog erinnert.
 
-\section{Beweise in LP ($\lng{L}$)}
-TODO
+An dieser Stelle ist noch ein Hinweis auf das Vorlesungsskriptum angebracht welches eine weitere Sprache
+definiert (``P'' die Sprache der Aussagenlogik) und außerdem Grundlagen der Aussagenlogik wiederholt. Wir
+gehen an dieser Stelle davon aus dass der Leser diese Grundkenntnisse ($a \to b \Lra \neg a \vee b$, ``Wie können Aussagen in menschlicher Sprache in Aussagenlogik ausgedrückt werden?'', etc.) bereits erworben hat
+und werden daher gleich die Sprache $\lng{L}$ definieren.
 
+Programme bestehen in $\lng{L}$ aus Fakten und Regeln für Schlussfolgerungen mit einfachen prädikatenlogischen Ausdrücken.
+Bei der Semantik von $\lng{L}$ lassen wir die Semantikfunktion bewusst weg und definieren stattdessen Äquivalenzen zu logischen Ausdrücken.
+Unterstreichungen lassen wir ebenfalls weg, da wir nicht mehr zwischen Syntax- und Semantik-Ebene trennen müssen.
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+\begin{defn}[Syntax von LP ($\lng{L}$)] \quad
+\begin{\whichenum}
+\item $x$ ist eine Konstante wenn $X$ nur aus Kleinbuchstaben besteht. Eine Konstante in $\lng{L}$ ist ein logischer Term.
+\item $x$ ist eine Variable wenn $X$ nur aus Buchstaben besteht und der erste Buchstabe groß geschrieben ist. Eine Variable in $\lng{L}$ ist ein logischer Term.
+\item Wenn $t_1,\ldots,t_n$ logische Terme sind und $f$ eine $n$-stellige Funktion, dann ist auch $f(t_1,\ldots,t_n)$ ein logischer Term.
+\item Wenn $p$ ein $n$-stelliges Prädikat ist und $t_1,\ldots,t_n$ sind logische Terme,
+dann ist $p\texttt{(}t_1\texttt{,}\ldots\texttt{,}t_n\texttt{)}$ eine Atomformel.
+\item Wenn $A \in \lng{P}$ eine Atomformel ist, dann ist $A \texttt{.}$ ein ``Fakt''.
+\item Wenn $A_1,\ldots,A_k,A$ Atomformeln sind, dann ist der Ausdruck $A  \texttt{:-}  A_1  \texttt{,}  \ldots  \texttt{,}  A_k  \texttt{.}$ eine ``Regel''.
+\item Ein Programm in $\lng{L}$ besteht aus einer oder mehreren Atomformeln.
+\end{\whichenum}
+\end{defn}
+
+Wir sehen dass $\lng{L}$ völlig unabhängig von unseren bisherigen Sprachen (insbesondere der Sprache der Terme $\mathcal{T}$) ist.
+
+\begin{defn}[Semantik von LP ($\lng{L}$)] \quad 
+\begin{\whichenum}
+\item Der Ausdruck $A\texttt{.}$
+ist äquivalent zur Implikation $T \to A$, äquivalent zu $A$.
+\item Der Ausdruck $A  \texttt{:-}  A_1  \texttt{,}  \ldots  \texttt{,}  A_k  \texttt{.}$
+ist äquivalent zur Implikation $A_1 \wedge \ldots \wedge A_k \to A$.
+\item Ein Programm in $\lng{L}$ besteht aus Fakten $f_1,\ldots,f_n$ und Regeln $r_1,\ldots,r_n$. Wir nennen ein Programm auch ``Wissensbasis''.
+Das Programm ist äquivalent zu einer logischen Formel $f_1 \wedge \ldots \wedge f_n \wedge r_1 \wedge \ldots \wedge r_n$.
+\end{\whichenum}
+\end{defn}
+
+\begin{defn}[Literal]
+Wir nennen Atomformeln auch (positive) Literale.
+Negierte Atomformeln nennen wir auch (negative) Literale.
+\end{defn}
+
+\begin{defn}[Hornklausel]
+Eine Klausel der Form $b_1 \vee \ldots \vee b_k$ heißt Hornklausel wenn die Anzahl der positiven (d.h. nicht-negierten)
+Literale $b_i$ maximal $1$ ist.
+\end{defn}
+
+$\lng{L}$-Programme sind Und-verknüpfte Hornklauseln.
+
+\begin{defn}[Anfragen in LP ($\lng{L}$)]
+Eine Anfrage in $\lng{L}$ hat die Form $\texttt{:-}  A_1  \texttt{,}  \ldots  \texttt{,}  A_k  \texttt{.}$,
+was äquivalent zur Implikation:
+\[A_1 \wedge \ldots \wedge A_k \to F \; \Lra \; \neg \rbr{A_1 \wedge \ldots \wedge A_k} \vee F \; \Lra \; \neg A_1 \vee \ldots \vee \neg A_k \vee F\]
+Um eine Anfrage zu beantworten wird versucht sie auf einen Widerspruch zurückzuführen.
+\end{defn}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Schreiben Sie ein Programm in $\lng{L}$ welches die Variation der folgenden Peano-Axiome repräsentiert:
+\begin{\whichenum}
+\item $0$ ist eine natürliche Zahl.
+\item Jede natürliche Zahl $x$ hat eine natürliche Zahl $x'$ als Nachfolger.
+\item $0$ ist kein Nachfolger einer natürlichen Zahl.
+\item Natürliche Zahlen mit gleichem Vorgänger sind gleich.
+\end{\whichenum}
+
+\textit{Lösung:} Wir definieren ein Prädikat \verb|nat(X)| welches wahr ist wenn $X$ eine natürliche Zahl ist.
+Dazu verwenden wir eine Funktion \verb|s(X)| welche den Nachfolger einer Zahl $X$ bezeichnet.
+Das Prädikat \verb|eq(X,Y)| soll wahr sein wenn \verb|X| und \verb|Y| den gleichen Vorgänger haben.
+\begin{verbatim}
+nat(0).
+nat(s(X)) :- nat(X).
+eq(0,0).
+eq(s(X),s(Y)) :- eq(X,Y).
+\end{verbatim}
+Fall 3 ist in unserer Definition implizit erfüllt.
+
+In Sprache können wir unser Programm so darstellen:
+\begin{\whichenum}
+\item \verb|0| ist eine natürliche Zahl.
+\item Wenn \verb|X| eine natürliche Zahl ist, dann ist auch \verb|s(X)| eine natürliche Zahl ($\to$ Implikation).
+\item \verb|0| ist gleich \verb|0|.
+\item Wenn \verb|X| und \verb|Y| gleich sind, dann sind auch \verb|s(X)| und \verb|s(Y)| gleich ($\to$ Implikation).
+\end{\whichenum}
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+Um Anfragen zu beantworten müssen wir einen Algorithmus definieren der ggf.
+vom $\lng{L}$-Interpreter ausgeführt würde. Dazu benötigen wir Substitution und
+Unifikation.
+\begin{defn}[Variablensubstitution]
+Eine Substitution $\Theta = \gbr{x_1 | t_1, \ldots, x_n | t_n}$ ist eine Menge von Paaren der Form
+$x_i | t_i$, wobei $x_i$ eine Variable ist und $t_i$ ein logischer Term.
+In $t_i$ darf $x_i$ nicht vorkommen. Substitutionen sind transitiv.
+\end{defn}
+
+\begin{defn}[Substitutionsanwendung]
+Sei $\Theta$ eine Substitution und $t$ ein logischer Term. Einen Term
+$t_{\Theta}$ erhält man, indem man für alle Paar $x_i | t_i$ in $\Theta$,
+alle Vorkommnisse von $x_i$ und $t_i$ im logischen Term $t$ ersetzt.
+Der Term $t_{\Theta}$ wird auch Instanz von $t$ genannt.
+\end{defn}
+
+Substitutionsanwendungen kann man sich leicht als ``Suchen und Ersetzen'' behalten.
+Eine Substitution ist eine Menge von ``Suchen/Ersetzen'' Tupeln.
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Gegeben $t=$\verb|male(X)| und $\Theta=\gbr{\texttt{X | terach}}$,
+ erhält man durch Anwendung der Substitution die Instanz $t_{\Theta}=$\verb|male(terach)|.
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+Für die Beantwortung unserer Anfragen werden wir 2 Atomformeln durch geeignete Substitution
+vereinheitlichen (``unify''). Wollen wir beispielsweise \verb|p(X)| und \verb|p(Y)|
+vereinheitlichen, so könnten wir dies mit $\Theta_1=\gbr{\texttt{X|Y}}$, $\Theta_2=\gbr{\texttt{Y|X}}$,
+$\Theta_3=\gbr{\texttt{X|a}, \texttt{Y|a}}$, etc.
+
+Wir sehen dass bei $\Theta_3$ nach der Substitution weniger Variablen in den
+beiden Atomformeln vorkommen. Dies bedeutet eine zusätzliche Einschränkung.
+Wir sind suchen meist die allgemeinsten Substitutionen die die beiden Ausdrücke vereinheitlichen.
+Eine solche Substitution nennen wir MGU (Most General Unifier).
+
+\begin{defn}[MGU] Eine Substitution ist ein MGU (Most General Unifier), wenn es keine
+Substitution gibt die allgemeiner ist.
+\ifthenelse{\boolean{long}}{
+
+}{}
+Eine Substitution $\Theta_1$ ist allgemeiner als eine Substitution $\Theta_2$,
+wenn es eine Substitution $\Delta$ gibt, so dass $\Theta_{1,\Delta}=\Theta_2$.
+\ifthenelse{\boolean{long}}{
+
+}{}
+Ein MGU ist nicht unbedingt eindeutig.
+\end{defn}
+
+\begin{algo}[Berechnung von MGU] \quad
+\begin{\whichitem}
+\item Input: Atomformeln $p$ und $p'$
+\item Output: ``Nicht unifizierbar'' oder den MGU $\Theta$.
+\item Algorithmus:
+\begin{\whichenum}
+\item Sei $\Theta = \gbr{}$.
+\item Suche den ersten Unterschied zwischen $p$ und $p'$ und ermittle die korrespondierenden
+logischen Terme $t$ und $t'$. Gibt es keinen Unterschied returniere $\Theta$ als MGU.
+\begin{\whichenum}
+\item Sind weder $t$ noch $t'$ Variablen, dann Abbruch: ``Nicht unifizierbar''.
+\item Ist $t$ eine Variable $X$ und $t'$ enthält $X$ (oder umgekehrt), dann Abbruch: ``Nicht unifizierbar''.
+\item Sonst gehe zu Schritt 3.
+\end{\whichenum}
+\item Definiere neues $p$, $p'$ und $\Theta$ durch:
+\begin{\whichitem}
+\item $p := p_{\gbr{\texttt{X|t}}}$, $p' := p'_{\gbr{\texttt{X|t}}}$,
+\item $\Theta := \Theta \cup \gbr{\texttt{X|t}}$.
+\end{\whichitem}
+\item Gehe zu Schritt 2.
+\end{\whichenum}
+\end{\whichitem}
+\end{algo}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Berechnen Sie den MGU für \verb|p(X,f(X,g(Z)),i)| und \verb|p(Y,f(V,W),V)|.
+
+\textit{Lösung:} Entsprechend dem Algorithmus berechnen wir den MGU $\Theta$:
+\begin{\whichenum}
+\item $\Theta=\gbr{}$, $t=$\texttt{p({\color{red} X},f(X,g(Z)),i)} und $t'=$\texttt{p({\color{red} Y},f(V,W),V)}
+\item $\Theta=\gbr{\texttt{Y|X}}$, $t=$\texttt{p(X,f({\color{red} X},g(Z)),i)} und $t'=$\texttt{p(X,f({\color{red} V},W),V)}
+\item $\Theta=\gbr{\texttt{Y|X},\texttt{V|X}}$, $t=$\texttt{p(X,f(X,{\color{red} g(Z)}),i)} und $t'=$\texttt{p(X,f(X,{\color{red} W}),X)}
+\item $\Theta=\gbr{\texttt{Y|X},\texttt{V|X},\texttt{W|g(Z)}}$, $t=$\texttt{p(X,f(X,g(Z)),{\color{red} i})} und $t'=$\texttt{p(X,f(X,g(Z)),{\color{red} X})}
+\item $\Theta=\gbr{\texttt{Y|X},\texttt{V|X},\texttt{W|g(Z)},\texttt{V|i}}$, $t=$\texttt{p(X,f(X,g(Z)),i)} und $t'=$\texttt{p(X,f(X,g(Z)),X)}
+\end{\whichenum}
+\[\Theta=\gbr{\texttt{Y|X},\texttt{V|X},\texttt{W|g(Z)},\texttt{V|i}}=\gbr{\texttt{Y|i},\texttt{V|i},\texttt{W|g(Z)},\texttt{X|i}}\]
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+\begin{algo}[Beantwortung einer Anfrage in LP ($\lng{L}$)] \quad
+\begin{\whichitem}
+\item Input: Anfrage der Form $:- P_1, \ldots, P_n .$
+\item Output: $T$ wenn die Anfrage gezeigt werden kann, sonst $F$.
+\item Algorithmus:
+\begin{\whichenum}
+\item Bringe die Regeln in eine Reihenfolge $r_1,\ldots,r_n$.
+\item Ist $:- \quad .$ die Anfrage (d.h. eine leere Anfrage), wird $T$ returniert.
+\item Wähle die nächste Teilanfrage (zu Beginn $P_1$)
+\item Für alle Regeln $r_i$:
+\begin{\whichenum}
+\item Wenn die Regel $r_i$ die Form $R :- Q_1, \ldots, Q_n .$ hat und es gibt eine Substitution $\Theta$ so dass
+$P_{1,\Theta}=R_{\Theta}$ (wir sagen in diesem Fall ``Die Regel \textbf{matcht} (die Anfrage)''),
+dann sei $:- Q_1, \ldots, Q_m, P_2, \ldots P_n .$ die neue Anfrage.
+Wir nennen diesen Schritt \textbf{Resolution}.
+
+Bearbeite diese rekursiv:
+\begin{\whichenum}
+\item Ergibt die Anfrage $T$, fahre mit nächster Teilanfrage fort (Schritt 3).
+\item Andernfalls probiere die nächste Regel.
+\end{\whichenum}
+\item Wenn die Regel nicht matcht, dann probiere die nächste Regel.
+\item Wenn es keine Regeln mehr gibt returniere $F$.
+\end{\whichenum}
+\end{\whichenum}
+\end{\whichitem}
+\end{algo}
+Der Algorithmus returniert $T$ wenn ein Widerspruch in $P_1 \wedge \ldots \wedge P_n \to F$ abgeleitet werden kann.
+Dann müssen alle Teilanfragen $P_i$ wahr sein. Der Algorithmus terminiert je nach Wissensbasis und Anfrage nicht (Erfüllbarkeitsproblem von Hornklauseln).
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+In diesem Skriptum wird die Reihenfolge der Regeln immer der im Programm entsprechen (Prolog-Variante).
+Im Vorlesungsskriptum wird hingegen von einer zufälligen Reihenfolge ausgegangen.
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Gegeben ist folgendes Programm:
+\begin{verbatim}
+nat(0).
+nat(s(X)) :- nat(X).
+\end{verbatim}
+Beweisen Sie die Anfrage \verb|:- nat(s(s(0))).| (``Ist 2 eine natürliche Zahl?'').
+
+\textit{Lösung:}
+\begin{\whichitem}
+\item[$\blacktriangleright$] Anfrage: \verb|:- nat(s(s(0))).|
+\item Resolution: 2. Regel matcht: \verb|nat(s(X')) :- nat(X').|
+
+Wenn eine Regel matcht kennzeichnen wir jede Variable so dass sie eindeutig ist (auch wenn die Regel mehrfach matcht im Laufe des Beweises).
+\item Unification: $\Theta=\gbr{\texttt{X'|s(0)}}$. \\ In die 2. Regel eingesetzt: \verb|nat(s(s(0))) :- nat(s(0)).|
+\item[$\blacktriangleright$] Neue Anfrage: \verb|:- nat(s(0)).|
+\item Resolution: 2. Regel matcht: \verb|nat(s(X'')) :- nat(X'').|
+\item Unification: $\Theta=\gbr{\texttt{X''|0}}$. \\ In die 2. Regel eingesetzt: \verb|nat(s(0)) :- nat(0).|
+\item[$\blacktriangleright$] Neue Anfrage: \verb|:- nat(0).|
+\item Resolution: 1. Regel matcht: \verb|nat(0).|.
+
+Ab hier wird der Beweis normalerweise nicht mehr aufgeschrieben, da erkennbar ist
+dass nun alle Teilanfragen erfüllt sind.
+\item Unification: bereits unifiziert.
+\item[$\blacktriangleright$] Neue Anfrage: \verb|:- .|
+\end{\whichitem}
+Der Beweis ist damit erbracht, 2 ist eine natürliche Zahl.
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\begin{bsp}
+Gegeben ist folgendes Programm:
+\begin{verbatim}
+nat(0).
+nat(s(X)) :- nat(X).
+\end{verbatim}
+Ermitteln Sie für welche Werte die Anfrage \verb|:- nat(X).| wahr ist.
+
+\textit{Lösung:} Wir schreiben $\Theta_{i,j}$ für $\Theta_{i,\Theta_{j}}$.
+\begin{\whichitem}
+\item[$\blacktriangleright$] Anfrage: \verb|:- nat(X).|
+\item Resolution: 1. Regel matcht: \verb|nat(0).|
+\item Unification: $\Theta_1=\gbr{\texttt{X|0}}$. \verb|0|, d.h. $0$ ist ein gültiger Wert.
+
+Wir fahren jetzt so fort als hätte die 1. Regel nicht gematcht um weitere Ergebnisse zu finden.
+\item Weitere Resolution: 2. Regel matcht: \verb|nat(s(X')) :- nat(X').|
+\item Unification: $\Theta_2=\gbr{\texttt{X|s(X')}}$.
+\item[$\blacktriangleright$] Neue Anfrage: \verb|:- nat(X').|
+\item Resolution: 1. Regel matcht: \verb|nat(0).|
+\item Unification: $\Theta_3=\gbr{\texttt{X'|0}}$. $\Theta_{2,3}=\gbr{\texttt{X|s(0)}}$. \verb|s(0)|, d.h. $1$ ist ein gültiger Wert.
+\item Weitere Resolution: 2. Regel matcht: \verb|nat(s(X'')) :- nat(X'').|
+\item Unification: $\Theta_4=\gbr{\texttt{X'|s(X'')}}$.
+\item[$\blacktriangleright$] Neue Anfrage: \verb|:- nat(X'').|
+\item Resolution: 1. Regel matcht: \verb|nat(0).|
+\item Unification: $\Theta_5=\gbr{\texttt{X''|0}}$. $\Theta_{2,3,4,5}=\gbr{\texttt{X|s(s(0))}}$. \verb|s(s(0))|, d.h. $2$ ist ein gültiger Wert.
+\end{\whichitem}
+\verb|X| nimmt alle Werte $\in \N_{0}$ (dargestellt mittels der Successor-Funktion) an.
+\end{bsp}
+
+Im Vorlesungsskriptum findet sich eine alternative (graphisch unterstützte) Notation für die Beantwortung von Anfragen
+in $\lng{L}$.
+\ifthenelse{\boolean{long}}{}{\end{comment}}
