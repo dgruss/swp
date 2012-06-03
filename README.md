@@ -1,0 +1,4 @@
+swp
+===
+
+Softwareparadigmen Übungsskriptum
