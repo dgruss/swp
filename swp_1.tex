@@ -12,14 +12,12 @@ Ein Webbrowser prüft beispielsweise HTML-Dokumente auf Fehler und übersetzt di
 sofern möglich in eine praktische visuelle Darstellung.
 
 Dieses Problem wollen wir auch lösen können. Dazu brauchen wir zunächst einige grundlegende Definitionen.
-\ifthenelse{\boolean{long}}{}{\end{comment}}
-\ifthenelse{\boolean{long}}{}{\vspace{-0.5cm}}
 Die Definitionen in diesem Skriptum unterscheiden sich teilweise von denen im Vorlesungsskriptum.
 Das Übungsskriptum versucht an vielen Stellen exaktere Formulierungen zu bieten
 oder solche die man weniger leicht durcheinander bringt.
 Für Übung und Prüfung sind beide Varianten zulässig. Es sollte jedoch vermieden
 werden Definitionen aus Übungsskriptum und Vorlesungsskriptum zu vermischen.
-\ifthenelse{\boolean{long}}{}{\vspace{-0.1cm}}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
 
 \section{Grundlegende Definitionen}
 \begin{defn}[Alphabet]
@@ -41,7 +39,7 @@ Eine Sprache $\mathcal{L}$ ist eine Teilmenge ($\subseteq$) von $\Sigma^*$.
 \end{defn}
 
 Sei $\Sigma=\gbr{0,1}$. Definieren wir die Sprache der Binärzahlen $\mathcal{B}$,
-müssen wir zu jedem Wort aus $\Sigma^*$ entscheiden ob dieses Wort in $B$ enthalten ist.
+müssen wir zu jedem Wort aus $\Sigma^*$ entscheiden ob dieses Wort in $\mathcal{B}$ enthalten ist.
 Im Fall der Binärzahlen könnten wir z.B. $\varepsilon$ herausnehmen, dann ist die Sprache
 $\mathcal{B}=\Sigma^* \setminus \gbr{\varepsilon}$.
 
@@ -52,15 +50,17 @@ ein gesamtes (gültiges) $\mathcal{C}$-Programm ein Wort der Sprache, also ein E
 Seien $\mathcal{A}$ und $\mathcal{B}$ Programmiersprachen. Ein Compiler ist ein Programm, welches Programme von $\mathcal{A}$ nach $\mathcal{B}$ übersetzt.
 \end{defn}
 
-Ein einfacher Compiler würde beispielseweise Binärzahlen zu Dezimalzahlen übersetzen.
-
+Ein einfacher Compiler würde beispielsweise Binärzahlen zu Dezimalzahlen übersetzen.
+\ifthenelse{\boolean{long}}{\begin{comment}}{}
+\newpage
+\ifthenelse{\boolean{long}}{\end{comment}}{}
 \section{Grammatiken und Sprachen}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 Oft möchte man nur prüfen ob ein Wort in einer Sprache enthalten ist.
 Es ist umständlich die Menge aller Wörter einer Sprache aufzuschreiben und darin zu suchen.
-Daher wollen wir eine kürzere und Methode finden um Sprachen zu beschreiben und diese Überprüfung durchzuführen.
+Daher wollen wir eine kürzere Beschreibung für Sprachen finden um diese Überprüfung durchzuführen.
 
-\begin{floatingfigure}[r]{6.25cm}
+\begin{floatingfigure}[r]{4.5cm}
 \vspace{-0.3cm}
 \begin{center}
 \begin{tikzpicture}[node distance=1.8cm, auto]
@@ -72,14 +72,14 @@ Daher wollen wir eine kürzere und Methode finden um Sprachen zu beschreiben und
 \path [draw, ->] (1) edge [loop above] node {0} ();
 \end{tikzpicture}
 \end{center}
- \caption{Binärzahlen FSM}
+ \caption{Binärzahl FSM}
  \label{fsm1}
 \end{floatingfigure}
 
 Über Automaten (FSM) ist dies möglich. Für Binärzahlen könnte man dies wie in Abbildung \ref{fsm1} machen.
 
-Wir haben eine Eingabe (mglw. Wort der Sprache) und beginnen im Zustand $S$. Die einzigen gültigen Übergänge sind die zu Zustand $A$. Es muss also entweder eine $0$ oder
-eine $1$ gelesen werden (wir schreiben auch gematcht bzw. geparst). Andernfalls gibt es keinen gültigen Übergang und da $S$ kein Endzustand ist wäre die Eingabe nicht gültig.
+Wir haben eine Eingabe (mglw. Wort der Sprache) und beginnen im Zustand $S$. Beide Übergänge von Zustand $S$ führen zu Zustand $A$. Es muss also entweder eine $0$ oder
+eine $1$ gelesen werden (auch ``gematcht'' bzw. ``geparst''). Andernfalls gibt es keinen gültigen Übergang und da $S$ kein Endzustand ist wäre die Eingabe nicht gültig.
 Im Zustand $A$ wurde bereits eine $0$ oder $1$ gelesen, also ist $w \in \mathcal{B}$. Die Übergänge von $A$ zu $A$ erlauben
 weitere Zeichen zu lesen und so längere Wörter zu erhalten, die in der Sprache enthalten sind.
 
@@ -107,14 +107,15 @@ Bei den Zustandsübergängen des Automaten hatten wir beispielsweise ein Wort $w
 Mit dem Zustandsübergang würden wir nun das $A$ weglassen und hätten für das verbleibende zu lesende Wort $w'=B$.
 Wir ersetzen also $AB$ durch $B$. Bei den Produktionsregeln der Grammatik halten wir ganz konkret fest was wir ersetzen.
 
-\begin{floatingfigure}[r]{6.5cm}
+\begin{floatingfigure}[r]{5.25cm}
+\vspace{-0.5cm}
 \begin{align*}
 S &\to 0 \\
 S &\to 1 \\
 S &\to 0S \\
 S &\to 1S
 \end{align*}
- \caption{Binärzahlen Grammatik}
+ \caption{Binärzahl Grammatik}
  \label{grambin}
 \end{floatingfigure}
 
@@ -151,11 +152,16 @@ Sei $\rbr{V_N,V_T,S,\Phi}$ eine Grammatik $G$. $G$ akzeptiert die Sprache $L(G)=
 vielen Schritten aus dem Startsymbol $S$ ableitbar sind und in der Menge aller beliebigen Konkatenationen von Terminalsymbolen $V_T$ enthalten sind.
 \end{defn}
 
-Die Äquivalenz von zwei Sprachen zu zeigen ist im Allgemeinen nicht trivial. Wenn wir versuchen eine Sprache $\mathcal{L}$ durch eine Grammatik $G$ zu beschreiben
-ist es im Allgemeinen nicht trivial zu zeigen dass $L(G)=\mathcal{L}$.
+\begin{defn}
+Zwei Grammatiken $G$ und $H$ sind \textbf{äquivalent} wenn die von den Grammatiken akzeptierten Sprachen gleich sind, d.h. $L(G)=L(H)$.
+\end{defn}
+
+Die Äquivalenz von zwei Sprachen (bzw. zwei Grammatiken) zu zeigen ist im Allgemeinen nicht trivial. Wenn wir also versuchen eine Sprache $\mathcal{L}$ durch eine Grammatik $G$ zu beschreiben
+ist es im Allgemeinen nicht trivial zu zeigen, dass $L(G)=\mathcal{L}$.
 
 An dieser Stelle möchten wir festzuhalten: Um die Gleichheit zweier Mengen (Sprachen) $M,N$ zu zeigen muss gezeigt werden, dass jedes Element (Wort) aus $M$ in $N$ enthalten ist
-und jedes Element (Wort) aus $N$ in $M$ enthalten ist. Ungleichheit ist daher viel leichter zu zeigen, da es genügt ein Element (Wort) zu finden welches nicht in beiden Mengen (Sprachen) enthalten ist. Der geneigte Leser kann probieren die Gleichheit oder Ungleichheit der Sprache unserer oben definierten Grammatik und der Sprache der Binärzahlen zu zeigen.
+und jedes Element (Wort) aus $N$ in $M$ enthalten ist.
+Ungleichheit ist viel leichter zu zeigen, da es genügt ein Element (Wort) zu finden welches in genau einer Menge (Sprache) also nicht in beiden Mengen (Sprachen) enthalten ist. Der geneigte Leser kann probieren die Gleichheit oder Ungleichheit der Sprache unserer oben definierten Grammatik und der Sprache der Binärzahlen zu zeigen.
 
 \begin{defn}
 Ein Programm $P_{\mathcal{L}}$ welches für ein Wort $w$ entscheidet ob es in der Sprache $\mathcal{L}$ enthalten ist (d.h. \verb|true| dann und nur dann zurückliefert wenn es enthalten ist), nennen wir \textbf{Parser}.
@@ -194,7 +200,7 @@ Wie Kontext-frei; außerdem ist $\beta=aA$ wobei $a$ ein Terminal oder $\varepsi
 Es gilt $\mathbb{L}_{\text{regular}} \subset \mathbb{L}_{\text{context free}} \subset \mathbb{L}_{\text{context sensitive}} \subset \mathbb{L}_{\text{unrestricted}}$ ($\mathbb{L}_{\text{x}}$ Menge aller Sprachen der Stufe $x$).
 \end{defn}
 
-Nicht alle Grammatiken können in eine äquivalente Grammatik einer stärker eingeschränkten Stufe umgewandelt werden. Um zu zeigen dass es sich um echte Teilmengen ($A \subset B$) handelt müssen wir zeigen dass alle Elemente aus $A$ in $B$ enthalten sind und mindestens ein Element aus $B$ nicht in $A$ enthalten ist.
+Nicht alle Grammatiken können in eine äquivalente Grammatik einer stärker eingeschränkten Stufe umgewandelt werden. Um zu zeigen, dass es sich um echte Teilmengen ($A \subset B$) handelt müssen wir zeigen, dass alle Elemente aus $A$ in $B$ enthalten sind und mindestens ein Element aus $B$ nicht in $A$ enthalten ist.
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 Eine Beweisskizze dazu findet sich im Vorlesungsskriptum auf Seite 12. Dort wird unter anderem gezeigt, dass es für $L=\gbr{a^n b a^n|n \in \N_0}$ keine äquivalente reguläre Grammatik $G$ gibt, d.h. $\not \exists G \in \mathbb{L}_{\text{regular}} : L(G) = L$.
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -208,7 +214,7 @@ einen Recursive Descent Parser (RDP).
 Bei einem RDP werden alle Nonterminale in Funktionen übersetzt und diese Funktionen behandeln die verschiedenen Produktionsregeln.
 Die Eingabe wird in die Terminale unterteilt (auch Tokens genannt).
 Wir verwenden im Pseudo-Code die Variable \verb|token|, die immer das aktuelle Token enthält, sowie die Funktion \verb|nextToken()|, die \verb|token| auf das nächste Token setzt.
-Der Parser ruft die Startfunktion auf und gibt \verb|true| zurück wenn \verb|token| leer ist (d.h. das Ende der Eingabe erreicht wurde). \verb|ERROR| führt dazu dass der Parser die Eingabe (das Wort) nicht akzeptiert.
+Der Parser ruft die Startfunktion auf und gibt \verb|true| zurück wenn \verb|token| leer ist (d.h. das Ende der Eingabe erreicht wurde). \verb|ERROR| führt dazu, dass der Parser die Eingabe (das Wort) nicht akzeptiert.
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
@@ -269,6 +275,7 @@ FUNC T()
     ERROR  
 \end{verbatim}
 \end{tabular}
+\vspace{-0.3cm}
 
 Wir erhalten hier im Parser eine Endlos-Rekursion, da in $T \to T0, T \to T1$ ein Nonterminal ganz links steht. Wir nennen dies ``Linksrekursion''.
 \end{bsp}
@@ -276,9 +283,9 @@ Wir erhalten hier im Parser eine Endlos-Rekursion, da in $T \to T0, T \to T1$ ei
 
 \begin{defn}[Mehrdeutig, Eindeutig]
 Sei $G=(V_N,V_T,S,\Phi)$ eine Grammatik. Wenn es für ein Wort $w \in L(G)$ mehrere
-unterschiedliche Ableitungssequenzen $\omega,\psi$, d.h. $S \to \omega_1, \omega_1 \to \ldots, \ldots \to \omega_n, \omega_n \to w$,
-                                                         $S \to \psi_1, \psi_1 \to \ldots, \ldots \to \psi_k, \omega_k \to w$
-wobei $\exists \psi_i : \psi_i \neq \omega_i$, ist es mehrdeutig. Wenn eine Grammatik ist genau dann eindeutig, wenn sie nicht mehrdeutig ist.
+unterschiedliche Ableitungssequenzen $\omega,\psi$ gibt, d.h. $S \to \omega_1, \omega_1 \to \ldots, \ldots \to \omega_n, \omega_n \to w$,
+                                                         $S \to \psi_1, \psi_1 \to \ldots, \ldots \to \psi_k, \omega_k \to w$,
+wobei $\exists \psi_i : \psi_i \neq \omega_i$, ist es mehrdeutig. Eine Grammatik ist genau dann eindeutig, wenn sie nicht mehrdeutig ist.
 \end{defn}
 
 \begin{defn}[Linksrekursiv]
@@ -292,9 +299,9 @@ Nun können wir mit Sprachen und Grammatiken umgehen und diese nach ihrer Komple
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \section{Compilerbau}
 Wir wollen uns nun damit beschäftigen wie wir Compiler für Programmiersprachen bauen können.
-Wir hatten definiert dass ein Compiler eine Wort $w$ einer Sprache $\mathcal{L}$ entgegennimmt und
+Wir hatten definiert, dass ein Compiler ein Wort $w$ einer Sprache $\mathcal{L}$ entgegennimmt und
 die Übersetzung des Wortes $w'$ in einer Sprache $\mathcal{L}'$ zurückgibt.
-Konkreter erhält unser Compiler einen beispielsweise einen ASCII-String, wobei unser Alphabet $\Sigma_\mathcal{L}$ meist
+Konkreter erhält unser Compiler beispielsweise einen ASCII-String, wobei unser Alphabet $\Sigma_\mathcal{L}$ meist
 nicht dem ASCII-Alphabet entspricht. Betrachten wir beispielsweise die Programmiersprache $\mathcal{C}$ so können wir
 auch Schlüsselwörter wie \verb|int| in $\Sigma_\mathcal{C}$ haben.
 Außerdem gibt es eventuell Whitespaces (Leerzeichen, Tabulatoren, Zeilenumbrüche, etc.; je nach dem positionsabhängig), die keinen Einfluss darauf haben ob das
@@ -308,7 +315,7 @@ Wenn wir dies berücksichtigen, verkürzen wir die Grammatik und vereinfachen so
 Wir haben bereits in Abschnitt \ref{subsec:parser} von Tokens geredet. Von Tokens spricht man insbesondere bei einer Sprache die durch Whitespaces getrennt werden. Ein Token ist hierbei die kleinste Sequenz von Zeichen die für die Grammatik eine Bedeutung hat.
 Der erste Schritt der Kompiliervorgangs ist es die Eingabe in eine Sequenz von Tokens umzuwandeln (dies kann natürlich wie bei unserem rekursiven Parser während dem Parsen passieren).
 
-Wir wollen z.B. den $\mathcal{C}$-Code \verb|int main() { printf("helloworld"); return 123; }| in die Sequenz von Tokens \verb|INT ID ( ) { ID ( STRING ) ; RETURN NUM ; }| umwandeln. Wir nennen dies ``Lexikalische Analyse''. Es fällt auf dass in der Token-Sequenz keine Namen oder Zahlen mehr vorkommen außerdem sind nun die Tokens
+Wir wollen z.B. den $\mathcal{C}$-Code \verb|int main() { printf("helloworld"); return 123; }| in die Sequenz von Tokens \verb|INT ID ( ) { ID ( STRING ) ; RETURN NUM ; }| umwandeln. Wir nennen dies ``Lexikalische Analyse''. Es fällt auf, dass in der Token-Sequenz keine Namen oder Zahlen mehr vorkommen außerdem sind nun die Tokens
 voneinander getrennt.
 Es ist üblich zur lexikalischen Analyse nur reguläre Grammatiken zu verwenden. Diese sind mächtig genug um beispielsweise nur gewisse Variablennamen zu erlauben
 und können andererseits sehr schnell berechnet werden.
@@ -357,11 +364,11 @@ Mit erweiterten regulären Ausdrücken können wir nun einfach den Eingabestring
 \item Terminale werden zu \verb|if|-Abfragen,
 \item \verb|Q*| wird zu einem Schleifenkonstrukt,
 \item \verb#Q|R# wird zu einer \verb|if, else if, else|-Abfrage wobei der \verb|else| Fall zu einem Ablehnen der Eingabe führt,
-\item \verb|QR| bedeutet dass zuerst \verb|Q| überprüft wird, danach \verb|R|.
+\item \verb|QR| bedeutet, dass zuerst \verb|Q| überprüft wird, danach \verb|R|.
 \end{\whichitem}
 \section{Grammatikalische Analyse}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
-Der letzte Schritt der Syntaxanalyse ist die grammatikalische Analyse. In diesem Schritt wollen wir anhand der Token-Sequenz prüfen ob das Eingabewort in der Sprache der Grammatik enthalten ist. Den Verarbeitung einschließlich diesen Schrittes nennen wir ``Parsing''. Als Nebenprodukt wird oft ein Parse-Baum aufgebaut, der zusätzlich zur Reihenfolge der Tokens auch die Kapselung im Programm ausdrückt.
+Der letzte Schritt der Syntaxanalyse ist die grammatikalische Analyse. In diesem Schritt wollen wir anhand der Token-Sequenz prüfen ob das Eingabewort in der Sprache der Grammatik enthalten ist. Die Verarbeitung einschließlich diesen Schrittes nennen wir ``Parsing''. Als Nebenprodukt wird oft ein Parse-Baum aufgebaut, der zusätzlich zur Reihenfolge der Tokens auch die Kapselung im Programm ausdrückt.
 Hierzu verwenden wir das Beispiel aus dem Vorlesungsskriptum und werden uns auch weitgehend an diesem orientieren.
 Wir entwerfen eine Grammatik für einfache arithmetische Ausdrücke, bestehend aus Zahlen, Operatoren (Addition und Multiplikation) und Klammern. Die Bindungsstärke von Operatoren
 behandeln wir auf Syntax-Ebene nicht.
@@ -384,19 +391,19 @@ Wir definieren nun die Sprache der einfachen arithmetischen Ausdrücke durch:
 \item $E \to \u{\text{num}}$
 \end{\whichenum}
 
-Wir sehen dass diese Grammatik eine kontext-freie Grammatik ist. Außerdem sehen wir anhand von Regel 1 und 2, dass die Grammatik linksrekursiv ist.
+Wir sehen, dass diese Grammatik eine kontext-freie Grammatik ist. Außerdem sehen wir anhand von Regel 1 und 2, dass die Grammatik linksrekursiv ist.
 Weiters können wir für den Satz \u{num + num * num} zwei mögliche Ableitungen finden. Wir verwenden dazu eine verkürzte Form der Darstellung aus Abschnitt \ref{subsec:parser}.
 Die Vorgehensweise dabei nennt man auch Top-Down-Parsing.
 \begin{\whichenum}
 \item $E \to E \u{*} E \to E \u{*} E \u{+} E\to\u{\text{num+}}E\u{*}E\to\u{\text{num + num *}}E \to \u{\text{num + num * num}}$
 \item $E \to E \u{+} E \to E \u{+} E \u{*} E\to\u{\text{num+}}E\u{*}E\to\u{\text{num + num *}}E \to \u{\text{num + num * num}}$
 \end{\whichenum}
-Dies zeigt dass die Grammatik mehrdeutig ist.
+Dies zeigt, dass die Grammatik mehrdeutig ist.
 
 Eine weitere Möglichkeit dies anschaulich darzustellen sind Parse-Trees. Ein Parse-Tree stellt einen konkreten Parse-Vorgang dar. Der Wurzel-Knoten das Startsymbol. Die Kinder jedes Knotens sind die einzelnen Terminale und Nonterminale die dieser Knoten produziert (von links nach rechts entsprechend der Grammatik). Die obigen Parse-Sequenzen lassen sich so darstellen:
 
 \begin{tabular}{p{0.47\hsize}p{0.47\hsize}}
-\begin{tikzpicture}[node distance=1.9cm, auto]
+\begin{tikzpicture}[node distance=1.8cm, auto]
 \node [state] (0) {E};
 
 \node [state, below of=0, accepting] (1) {\u{+}};
@@ -425,7 +432,7 @@ Eine weitere Möglichkeit dies anschaulich darzustellen sind Parse-Trees. Ein Pa
 \path [->] (6) edge (9);
 \end{tikzpicture}
 &
-\begin{tikzpicture}[node distance=1.9cm, auto]
+\begin{tikzpicture}[node distance=1.8cm, auto]
 \node [state] (0) {E};
 
 \node [state, below of=0, accepting] (1) {\u{*}};
@@ -457,15 +464,15 @@ Eine weitere Möglichkeit dies anschaulich darzustellen sind Parse-Trees. Ein Pa
 
 Das geparste Wort kann in den Blättern des Baumes von links nach rechts abgelesen werden. Hier ist die Mehrdeutigkeit ebenfalls sehr gut erkennbar.
 
-Eine weitere Beobachtung ist, dass es ungünstig ist wenn es für unseren Parser nicht genügt dass aktuelle Token zu kennen sondern für das Parsing auch weitere nachfolgende Tokens ermittelt werden müssen.
+Eine weitere Beobachtung ist, dass es ungünstig ist wenn es für unseren Parser nicht genügt, dass aktuelle Token zu kennen sondern für das Parsing auch weitere nachfolgende Tokens ermittelt werden müssen.
 Ist das Eingabewort \verb|num|, so haben wir 3 Regeln die alle zutreffen könnten (ohne Kenntnis der nachfolgenden Tokens).
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 \section{LL(1)-Grammatiken}
 \begin{defn}[LL(1)-Grammatik]
 Eine kontextfreie Grammatik $G$ ist eine LL(1)-Grammatik (ist in LL(1)-Form) wenn sie
 \begin{\whichitem}
-\item keine Linksrekursionen enthält
-\item keine Produktionen mit gleichen Prefixen für die selbe linke Seite enthält
+\item keine Linksrekursionen enthält (z.B. $L \to L \u{a}$)
+\item keine Produktionen mit gleichen Präfixen für die selbe linke Seite enthält (z.B. $A \to \u{a} B$ und $A \to \u{a} C$)
 \item ermöglicht immer in einem Schritt (d.h. nur mit Kenntnis des nächsten Tokens) zu entscheiden,
 welche Produktionsregel zur Ableitung verwendet werden muss.
 \end{\whichitem}
@@ -478,16 +485,17 @@ Wir definieren einfache Regeln zwecks Auflösung von:
 \item \textbf{Indirekten Linksrekursionen}
 
 Gibt es Produktionen der Form $A \to \alpha B \beta$ sowie $B \to \gamma$, dann kann man die Produktion
-$A \to \alpha \gamma \beta$ einfügen. Wenn $\alpha=\varepsilon$ ist können so indirekte Linksrekursionen gefunden werden.
+$A \to \alpha \gamma \beta$ einfügen. Wenn $\alpha=\varepsilon$ ist können so indirekte Linksrekursionen \textbf{gefunden}, d.h. in direkte Linksrekursionen umgeformt werden.
+Diese Umformung kann auch in anderen Fällen die Produktionen vereinfachen.
 \item \textbf{Direkten Linksrekursionen}
 
 Gibt es Produktionen der Form $A \to A \alpha$ und $A \to \beta$, dann kann man diese in Produktionen der Form $A \to \beta R$ sowie 
 $R \to \alpha R | \varepsilon$ umwandeln.
 \item \textbf{Linksfaktorisierungen}
 
-Gibt es Produktionen der Form $A \to \alpha B$ sowie $A \to \alpha C$, wobei $\alpha$ der größte gemeinsame Prefix von $\alpha B$ und $\alpha C$ ist,
-so können wir diese Produktion durch $A \to \alpha R$ und $R \to B | C$ ersetzen. Der größte gemeinsame Prefix einer Sequenz von Terminalen und Nonterminalen ist die größte
-gemeinsame Zeichenkette dieser Sequenzen. Der größte gemeinsame Prefix von \u{if E then E else E} und \u{if E then E} ist \u{if E then E}.
+Gibt es Produktionen der Form $A \to \alpha B$ sowie $A \to \alpha C$, wobei $\alpha$ der größte gemeinsame Präfix von $\alpha B$ und $\alpha C$ ist,
+so können wir diese Produktion durch $A \to \alpha R$ und $R \to B | C$ ersetzen. Der größte gemeinsame Präfix einer Sequenz von Terminalen und Nonterminalen ist die größte
+gemeinsame Zeichenkette dieser Sequenzen. Der größte gemeinsame Präfix von \u{if E then E else E} und \u{if E then E} ist \u{if E then E}.
 
 \end{\whichitem}
 
@@ -505,7 +513,7 @@ Wir werden anhand dieses Beispiels eine Herleitung der Regel für die direkte Li
 \item \textcolor{red}{$A \to A \u{a}$}
 \end{\whichenum}
 \end{tabular}\\\begin{tabular}{p{0.75\hsize}p{0.19\hsize}}
-Wir erkennen auf den ersten Blick dass jedes Wort der Sprache dieser Grammatik wohl mit $\u{b}$ beginnen muss.
+Wir erkennen auf den ersten Blick, dass jedes Wort der Sprache dieser Grammatik wohl mit $\u{b}$ beginnen muss.
 Dann folgen eine beliebige Anzahl von $\u{a}$. Als regulären Ausdruck könnte man schreiben \verb|ba*|
 Versuchen wir nun die Sprache intuitiv umzubauen. Dazu ändern wir zunächst wie folgt die 2. Regel um:&
 \begin{\whichenum}
@@ -534,7 +542,7 @@ und erhalten die richtig umgeformte Grammatik:&
 \end{\whichenum}
 \end{tabular}
 
-Es ist auffällig dass unsere Umformung der Form entspricht die in den Regeln beschrieben wurde.
+Es ist auffällig, dass unsere Umformung der Form entspricht die in den Regeln beschrieben wurde.
 \end{bsp}
 
 \begin{bsp} \qquad \\
@@ -553,14 +561,14 @@ Gegeben Sei die folgende Grammatik die arithmetische Ausdrücken einer bestimmte
 \end{\whichenum}
 \end{tabular}\\
 \begin{tabular}{p{\hsize}}
-Versuchen wir nun zu Bestimmen: Gibt es Linksrekursionen oder gemeinsame Prefixe? Gibt es weitere Probleme bei dieser Grammatik?
+Versuchen wir nun zu Bestimmen: Gibt es Linksrekursionen oder gemeinsame Präfixe? Gibt es weitere Probleme bei dieser Grammatik?
 
-In der Grammatik sind keine direkten Linksrekursionen. Regeln 2, 5 und 6 haben einen gemeinsamen Prefix ($\u{(}$).
-Man sieht auch recht schnell dass durch die Produktionen $E \to G \to E \u{*} E$ eine indirekte Linksrekursion entsteht.
+In der Grammatik sind keine direkten Linksrekursionen. Regeln 2, 5 und 6 haben einen gemeinsamen Präfix ($\u{(}$).
+Man sieht auch recht schnell, dass durch die Produktionen $E \to G \to E \u{*} E$ eine indirekte Linksrekursion entsteht.
 \end{tabular}\\
 \vfill
 \begin{tabular}{p{0.7\hsize}p{0.24\hsize}}
-Wenn wir uns überlegen wie man die gemeinsamen Prefixe entfernen kann wird man intuitiv auf die gleiche Idee kommen
+Wenn wir uns überlegen wie man die gemeinsamen Präfixe entfernen kann wird man intuitiv auf die gleiche Idee kommen
 die oben in den Regeln festgehalten wurde: Wir führen ein neues Non-Terminal ein welches die Produktion von ($\u{(}$) übernimmt
 und anschließend einen der Reste produziert.
 Wir erhalten dann die nebenstehende Grammatik.&
@@ -590,8 +598,8 @@ Dazu können wir die Regel $G$ einfach ``einsetzen'' - d.h. aus Regel 1 werden 2
 \end{\whichenum}
 \end{tabular}
 
-Lösen wir zunächst wieder die gemeinsamen Prefixe (Regeln 6-9).
-Dadurch entstehen wieder neue gemeinsame Prefixe die dann gelöst werden müssen (Regeln 7-10): \\
+Lösen wir zunächst wieder die gemeinsamen Präfixe (Regeln 6-9).
+Dadurch entstehen wieder neue gemeinsame Präfixe die dann gelöst werden müssen (Regeln 7-10): \\
 \begin{tabular}{p{0.3\hsize}p{0.3\hsize}p{0.29\hsize}}
 \begin{\whichenum}
 \item $E \to E \u{+} E$
@@ -635,8 +643,8 @@ Dadurch entstehen wieder neue gemeinsame Prefixe die dann gelöst werden müssen
 \end{tabular}\\\begin{tabular}{p{0.65\hsize}p{0.29\hsize}}
 Nun haben wir nur noch die direkte Linksrekursionen (Regeln 1 und 2).
 Wir wissen aus dem vorherigen Beispiel bereits wie wir diese auflösen und erhalten die nebenstehende Grammatik.
-Wir sehen dass die Regeln genau unser intuitives Vorgehen festhalten und verallgemeinern.
-Außerdem garantieren korrekte Anwendungen der Regeln dass die Grammatik nach der
+Wir sehen, dass die Regeln genau unser intuitives Vorgehen festhalten und verallgemeinern.
+Außerdem garantieren korrekte Anwendungen der Regeln, dass die Grammatik nach der
 Umformung noch die gleiche Sprache beschreiben.&
 \begin{\whichenum}
 \item \textcolor{red}{$E \to \u{(} B R$}
@@ -656,9 +664,9 @@ Umformung noch die gleiche Sprache beschreiben.&
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 \section{LL(1)-Tabellen}
-LL(1)-Tabellen (auch: LL(1)-Parser-Tabellen) ermöglichen es einen generischen LL(1)-Parser zu schreiben, der mit
-einer beliebigen Tabelle (und damit Sprache) arbeiten kann. Wir werden uns nun erarbeiten wie eine solche Tabelle berechnet werden kann.
-Für die Definition der FIRST- und Follow-Mengen stellen wir uns Nonterminale wieder
+LL(1)-Tabellen ermöglichen es einen generischen LL(1)-Parser zu schreiben, der mit
+einer beliebigen LL(1)-Tabelle (und damit Sprache) arbeiten kann. Wir werden uns nun erarbeiten wie eine solche LL(1)-Tabelle berechnet werden kann.
+Für die Definition der FIRST- und FOLLOW-Mengen stellen wir uns Nonterminale wieder
 als Zustände in einem Graph oder eine Maschine vor.
 \begin{defn}[FIRST-Menge]
 Die FIRST-Menge eines Nonterminals $X$ ist die Menge aller Terminalsymbole die im Zustand $X$ \textbf{als erstes} geparst werden können.
@@ -667,7 +675,7 @@ Die FIRST-Menge eines Terminals $x$ ist immer das Terminalsymbol selbst.
 Formal bedeutet dies:
 \begin{\whichenum}
 \item Wenn $x$ ein Terminal ist: $\text{FIRST}(x)=\gbr{x}$
-\item Wenn die Grammatik Produktionsregeln enthält so dass $X \to \ldots \to \varepsilon$, dann ist: $\varepsilon \in \text{FIRST}(X)$
+\item Wenn die Grammatik Produktionsregeln enthält, so dass $X \to \ldots \to \varepsilon$, dann ist: $\varepsilon \in \text{FIRST}(X)$
 \item Für jede Produktionsregel der Form $X \to Y_1 Y_2 \ldots Y_n$ ist $x \in \text{FIRST}(X)$, wenn $x \in \text{FIRST}(Y_i)$ und für alle
 $Y_j$ mit $j < i$ gilt, dass $\varepsilon \in \text{FIRST}(Y_j)$.
 \end{\whichenum}
@@ -689,18 +697,12 @@ Wir definieren die FIRST*-Menge als FIRST-Menge ohne $\varepsilon$ (zwecks Über
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
 Betrachten wir folgendes Beispiel:
-\vspace{-0.8cm}
-\begin{floatingfigure}[l]{2.5cm}
 \begin{align*}
-A &\to \u{b} \\
-A &\to A \u{a} \\
-A &\to A B C \\
-A &\to \varepsilon \\
-B &\to \u{b} | \u{q} \\
-C &\to A \u{c} \\
+A &\to \u{b} &\qquad&& A &\to \varepsilon \\
+A &\to A \u{a} &\qquad&& B &\to \u{b} | \u{q} \\
+A &\to A B C &\qquad&& C &\to A \u{c}
 \end{align*}
-%\vspace{-4cm}
-\end{floatingfigure}
+Für diese Grammatik berechnen wir nun die FIRST- und FOLLOW-Mengen.
 \begin{align*}
 \text{FIRST}(\u{b}) &=& \gbr{\u{b}} & \tag{wird meist nicht aufgeschrieben da trivial} \\
 \text{FIRST}(A) &=& &\gbr{\u{b}} \tag{durch die 1. Produktion} \\
@@ -710,7 +712,7 @@ C &\to A \u{c} \\
                 &\quad& \cup \quad &\text{FIRST*}(B) \tag{3. Produktion, wenn $A$ wegfällt} \\
                 &\quad& \cup \quad &\gbr{\varepsilon} \tag{durch die 3. Produktion}
 \end{align*}
-Wir wissen aus der Mengenlehre dass $M \cup M' = M$ mit $M' \subseteq M$ und können daher $\text{FIRST*}(A)$ weglassen:
+Wir wissen aus der Mengenlehre, dass $M \cup M' = M$ mit $M' \subseteq M$ und können daher $\text{FIRST*}(A)$ weglassen:
 \begin{align*}
                 &=\gbr{\u{b}} \cup \gbr{\u{a}} \cup \text{FIRST*}(B) \cup \gbr{\varepsilon} \\
                 &=\gbr{\u{b},\u{a},\varepsilon} \cup \text{FIRST*}(B)
@@ -733,34 +735,28 @@ Um $\text{FIRST*}(B)$ zu erhalten müssen wir also zuerst $\text{FIRST}(B)$ ausr
 \begin{defn}
 Jede Eingabe des Parsers endet mit dem ``End of Input'' Symbol $\$$.
 \end{defn}
-\begin{defn}[Follow-Menge]
-Die Follow-Menge eines Nonterminals $X$ ist die Menge aller Terminalsymbole die direkt auf Zustand $X$ \textbf{folgen} können.
+\begin{defn}[FOLLOW-Menge]
+Die FOLLOW-Menge eines Nonterminals $X$ ist die Menge aller Terminalsymbole die direkt auf Zustand $X$ \textbf{folgen} können.
 Das heißt, alle Terminalsymbole die nach Abarbeitung des Zustands $X$ als erstes geparst werden können.
 
 Formal bedeutet dies:
 \begin{\whichenum}
 \item Wenn $X$ das Startsymbol ist, dann ist $\$ \in \text{FOLLOW}(X)$
-\item Für alle Regeln der Form $A \to \alpha B \beta$ ist $\text{FIRST*}(\beta) \subseteq \text{FOLLOW}(X)$
+\item Für alle Regeln der Form $A \to \alpha B \beta$ ist $\text{FIRST*}(\beta) \subseteq \text{FOLLOW}(B)$
 \item Für alle Regeln der Form $A \to \alpha B$ bzw. $A \to \alpha B \beta$ mit $\varepsilon \in \text{FIRST}(\beta)$
 ist $\text{FOLLOW}(A) \subseteq \text{FOLLOW}(B)$
 \end{\whichenum}
 \end{defn}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
+An dieser Stelle ist anzumerken, dass $\varepsilon$ nie in einer FOLLOW-Menge enthalten sein kann.
+\newpage
 \begin{bsp}
 Betrachten wir das gleiche Beispiel wie zuvor:
-\begin{floatingfigure}[l]{2.5cm}
-\vspace{-0.5cm}
 \begin{align*}
-A &\to \u{b} \\
-A &\to A \u{a} \\
-A &\to A B C \\
-A &\to \varepsilon \\
-B &\to \u{b} | \u{q} \\
-C &\to A \u{c} \\
+A &\to \u{b} &\qquad&& A &\to \varepsilon \\
+A &\to A \u{a} &\qquad&& B &\to \u{b} | \u{q} \\
+A &\to A B C &\qquad&& C &\to A \u{c}
 \end{align*}
-\vspace{-4cm}
-\end{floatingfigure}
-
 \begin{align*}
 \text{FOLLOW}(A) &=& &\gbr{\$} \tag{da $A$ das Startsymbol ist} \\
                  &\quad& \cup \quad &\gbr{\u{a}} \tag{durch die 2. Produktion} \\
@@ -794,24 +790,18 @@ Der Parse-Table Algorithmus berechnet aus einer Grammatik eine Parse-Table (auch
 \end{\whichenum}
 \end{\whichenum}
 \end{\whichenum}
-Leere Einträge in der Tabelle sind Fehlerfälle. Diese können auch explizit mit ERROR beschriftet werden.
+Leere Einträge in der LL(1)-Tabelle sind Fehlerfälle. Diese können auch explizit mit ERROR beschriftet werden.
 \end{algo}
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
+\newpage
 \begin{bsp}
 Betrachten wir das gleiche Beispiel wie zuvor:
-\begin{floatingfigure}[l]{2.5cm}
-\vspace{-0.5cm}
 \begin{align*}
-A &\to \u{b} \\
-A &\to A \u{a} \\
-A &\to A B C \\
-A &\to \varepsilon \\
-B &\to \u{b} | \u{q} \\
-C &\to A \u{c} \\
+A &\to \u{b} &\qquad&& A &\to \varepsilon \\
+A &\to A \u{a} &\qquad&& B &\to \u{b} | \u{q} \\
+A &\to A B C &\qquad&& C &\to A \u{c}
 \end{align*}
-
-\end{floatingfigure}
 Wir haben bereits die FIRST- und FOLLOW-Mengen berechnet, wir können also gleich den Algorithmus ausführen.
 \[\begin{array}{|c|c|c|}
 \hline
@@ -820,7 +810,7 @@ A & \gbr{\u{b},\u{a},\varepsilon,\u{q}}       & \gbr{\$, \u{a},\u{b},\u{q},\u{c}
 B & \gbr{\u{b},\u{q}}                         & \gbr{\u{b},\u{a},\u{q},\u{c}} \\\hline
 C & \gbr{\u{b},\u{a},\u{q},\u{c}} & \gbr{\$, \u{a},\u{b},\u{q},\u{c}} \\ \hline
 \end{array}\]
-Wir beginnen mit der leeren Parse-Tabelle. Wir haben eine Zeile pro Non-Terminal und
+Wir beginnen mit der leeren LL(1)-Tabelle. Wir haben eine Zeile pro Non-Terminal und
 eine Spalte je Terminal sowie eine Spalte für ``End of Input''. 
 Ausführung für $A \to \u{b}$:
 \[\begin{array}{|l|l|l|l|l|l|}
@@ -880,15 +870,15 @@ C & \color{red}{C \to A \u{c}}     & \color{red}{C \to A \u{c}}     & \color{red
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
 \begin{defn}
-Eine Grammatik ist eine LL(1)-Grammatik, wenn die berechnete Parse-Tabelle keine Mehrfacheinträge hat.
+Eine Grammatik ist eine LL(1)-Grammatik, wenn die berechnete LL(1)-Tabelle keine Mehrfacheinträge hat.
 \end{defn}
 
 \begin{defn}
-Eine LL(1)-Parsing Tabelle (oder auch Parsing-Tabelle) stellt einen vollständigen Parse-Vorgang dar.
+Eine Parsing-Tabelle stellt einen vollständigen Parse-Vorgang dar.
 Jede Zeile entspricht einem Bearbeitungsschritt im Parse-Vorgang.
 In Spalten werden Stack, Eingabe und die angewandte Produktionsregel aufgetragen.
 
-\begin{algo}[LL(1)-Parsing mit Tabelle]
+\begin{algo}[Parsing mit Parsing-Tabelle und LL(1)-Tabelle]
 Sei $X$ das oberste Stack-Element, $t$ das aktuelle Token der Eingabe $w$ und $\mathcal{L}$ die von der Grammatik akzeptierte Sprache.
 \begin{\whichenum}
 \item Wenn $X$ ein Non-Terminal ist:
@@ -899,7 +889,7 @@ Sei $X$ das oberste Stack-Element, $t$ das aktuelle Token der Eingabe $w$ und $\
 \end{\whichenum}
 \item Andernfalls ($X$ ist ein Terminal):
 \begin{\whichenum}
-\item Wenn $X=t=\$$: Parsing erfolgreich ($w \not \in \mathcal{L}$).
+\item Wenn $X=t=\$$: Parsing erfolgreich ($w \in \mathcal{L}$).
 \item Sonst, wenn $X=t\neq\$$, dann nimm $X$ vom Stack und gehe zum nächsten Token im Input.
 \item Sonst: Abbruch ($w \not \in \mathcal{L}$).
 \end{\whichenum}
@@ -910,18 +900,18 @@ Sei $X$ das oberste Stack-Element, $t$ das aktuelle Token der Eingabe $w$ und $\
 Diese Definition kann für andere Parser leicht angepasst werden.
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
+\newpage
 \begin{bsp}
 Gegeben Sei die folgende Grammatik (ähnlich der Grammatik aus dem vorherigen Beispiel):
-\[\begin{array}{l}
-A \to A \u{a} \\
-A \to A B C \\
-A \to \varepsilon \\
-B \to \u{b} | \u{q} \\
-C \to A \u{c}\end{array}\]
-Zeigen oder widerlegen Sie dass das Wort $\u{abbqa}$ von der Grammatik akzeptiert wird.
-Zeigen oder widerlegen Sie dass das Wort $\u{abc}$ von der Grammatik akzeptiert wird.
+\begin{align*}
+A &\to A \u{a} &\qquad&& B &\to \u{b} | \u{q} \\
+A &\to A B C &\qquad&& C &\to A \u{c} \\
+A &\to \varepsilon &\qquad&& & \\
+\end{align*}
+Zeigen oder widerlegen Sie, dass das Wort $\u{abbqa}$ von der Grammatik akzeptiert wird.
+Zeigen oder widerlegen Sie, dass das Wort $\u{abc}$ von der Grammatik akzeptiert wird.
 
-\textit{Lösung:} Wir formen die Grammatik zu einer LL(1)-Grammatik um, berechnen dann die LL(1)-Tabelle und beweisen mittels einer Parsing-Tabelle dass
+\textit{Lösung:} Wir formen die Grammatik zu einer LL(1)-Grammatik um, berechnen dann die LL(1)-Tabelle und beweisen mittels einer Parsing-Tabelle, dass
 das gegebene Wort von der Grammatik akzeptiert wird.
 \[
 \begin{array}{l}
@@ -946,7 +936,7 @@ C \to A \u{c}\end{array}
 B \to \u{b} | \u{q} \\
 C \to A \u{c}\end{array}
 \]
-Anhand der FIRST- und FOLLOW-Mengen ist bereits erkennbar dass die Mehrdeutigkeiten behoben sind.
+Anhand der FIRST- und FOLLOW-Mengen ist bereits erkennbar, dass die Mehrdeutigkeiten behoben sind.
 \begin{align*}
 \text{FIRST}(B) &=& &\gbr{\u{b},\u{q}} \\
 \text{FIRST}(A) &=& &\gbr{\u{a}} \cup \text{FIRST*}(B) \cup \gbr{\varepsilon} &=& \gbr{\u{a},\u{b},\u{q},\varepsilon} \\
@@ -990,44 +980,195 @@ C & C \to A \u{c} & C \to A \u{c} & C \to A \u{c}     & C \to A \u{c} &         
 Diesmal haben wir keine Mehrfach-Einträge. Diese Grammatik ist also eine LL(1)-Grammatik. Die Parsing-Tabelle für $\u{abbqa}$ sieht dann wie folgt aus:
 \[\begin{array}{|l|r|l|}
 \hline
-\textbf{Stack}        & \textbf{Input} & \textbf{Produktion} \\ \hline
-\$ A                  & \u{abbqa}\$     & A \to \u{a} A \\
-\$ A A \u{a}          & \u{abbqa}\$     &  \\
-\$ A A                &  \u{bbqa}\$     & A \to BCA \\
-\$ A A A C B          &  \u{bbqa}\$     & B \to \u{b} \\
-\$ A A A C \u{b}      & \u{bbqa}\$     &  \\
-\$ A A A C            & \u{bqa}\$     & C \to A \u{c} \\
-\$ A A A \u{c} A      & \u{bqa}\$     & A \to BCA \\
-\$ A A A \u{c} ACB    & \u{bqa}\$     & B \to \u{b} \\
-\$ A A A \u{c} AC\u{b}& \u{bqa}\$     &  \\
-\$ A A A \u{c} AC     & \u{qa}\$     & C \to A \u{c} \\
-\$ A A A \u{c} A\u{c}A     & \u{qa}\$     & A \to BCA \\
-\$ A A A \u{c} A\u{c}ACB     & \u{qa}\$     & B \to \u{q} \\
-\$ A A A \u{c} A\u{c}AC\u{q}     & \u{qa}\$     &  \\
-\$ A A A \u{c} A\u{c}AC     & \u{a}\$     & C \to A \u{c} \\
-\$ A A A \u{c} A\u{c}A\u{c}A     & \u{a}\$     & A \to \u{a}A \\
-\$ A A A \u{c} A\u{c}A\u{c}A\u{a}     & \u{a}\$     &  \\
-\$ A A A \u{c} A\u{c}A\u{c}A     & \$     & A \to \varepsilon \\
-\$ A A A \u{c} A\u{c}A\u{c}     & \$     & \text{FAIL} \\ \hline
+\textbf{Stack}                    & \textbf{Input}  & \textbf{Produktion} \\ \hline
+\$ A                              & \u{abbqa}\$     & A \to \u{a} A \\
+\$ A \u{a}                        & \u{abbqa}\$     &  \\
+\$ A                              &  \u{bbqa}\$     & A \to BCA \\
+\$ A C B                          &  \u{bbqa}\$     & B \to \u{b} \\
+\$ A C \u{b}                      & \u{bbqa}\$      &  \\
+\$ A C                            & \u{bqa}\$       & C \to A \u{c} \\
+\$ A \u{c} A                      & \u{bqa}\$       & A \to BCA \\
+\$ A \u{c} ACB                    & \u{bqa}\$       & B \to \u{b} \\
+\$ A \u{c} AC\u{b}                & \u{bqa}\$       &  \\
+\$ A \u{c} AC                     & \u{qa}\$        & C \to A \u{c} \\
+\$ A \u{c} A\u{c}A                & \u{qa}\$        & A \to BCA \\
+\$ A \u{c} A\u{c}ACB              & \u{qa}\$        & B \to \u{q} \\
+\$ A \u{c} A\u{c}AC\u{q}          & \u{qa}\$        &  \\
+\$ A \u{c} A\u{c}AC               & \u{a}\$         & C \to A \u{c} \\
+\$ A \u{c} A\u{c}A\u{c}A          & \u{a}\$         & A \to \u{a}A \\
+\$ A \u{c} A\u{c}A\u{c}A\u{a}     & \u{a}\$         &  \\
+\$ A \u{c} A\u{c}A\u{c}A          & \$              & A \to \varepsilon \\
+\$ A \u{c} A\u{c}A\u{c}           & \$              & \text{FAIL} \\ \hline
 \end{array}\]
-Wir haben somit \textbf{widerlegt} dass die gegebene Grammatik das Wort $\u{abc}$ akzeptiert.
+Wir haben somit \textbf{widerlegt}, dass die gegebene Grammatik das Wort $\u{abc}$ akzeptiert.
 \[\begin{array}{|l|r|l|}
 \hline
 \textbf{Stack}        & \textbf{Input} & \textbf{Produktion} \\ \hline
-\$ A                  & \u{abc}\$     & A \to \u{a} A \\
-\$ A A \u{a}          & \u{abc}\$     &  \\
-\$ A A                &  \u{bc}\$     & A \to BCA \\
-\$ A A A C B          &  \u{bc}\$     & B \to \u{b} \\
-\$ A A A C \u{b}      & \u{bc}\$     &  \\
-\$ A A A C            & \u{c}\$     & C \to A \u{c} \\
-\$ A A A \u{c} A      & \u{c}\$     & A \to \varepsilon \\
-\$ A A A \u{c}        & \u{c}\$     & \\
-\$ A A A              & \$          & A \to \varepsilon \\
-\$ A A                & \$          & A \to \varepsilon \\
-\$ A                  & \$          & A \to \varepsilon \\
-\$                    & \$          & \text{ACCEPT} \\ \hline
+\$ A                  & \u{abc}\$      & A \to \u{a} A \\
+\$ A \u{a}            & \u{abc}\$      &  \\
+\$ A                  &  \u{bc}\$      & A \to BCA \\
+\$ A C B              &  \u{bc}\$      & B \to \u{b} \\
+\$ A C \u{b}          & \u{bc}\$       &  \\
+\$ A C                & \u{c}\$        & C \to A \u{c} \\
+\$ A \u{c} A          & \u{c}\$        & A \to \varepsilon \\
+\$ A \u{c}            & \u{c}\$        & \\
+\$ A                  & \$             & A \to \varepsilon \\
+\$                    & \$             & \text{ACCEPT} \\ \hline
 \end{array}\]
 \vspace{-0.2cm}
-Mit dieser Parsing-Tabelle wurde \textbf{gezeigt} dass die Grammatik das Wort $\u{abc}$ akzeptiert.
+Mit dieser Parsing-Tabelle wurde \textbf{gezeigt}, dass die Grammatik das Wort $\u{abc}$ akzeptiert.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
+
+\ifthenelse{\boolean{long}}{}{\begin{comment}}
+\newpage
+Das folgende Beispiel ist ein Prüfungsbeispiel aus dem Jahr 2011.
+\begin{bsp}
+Erstellen Sie FIRST- und FOLLOW-Mengen aller Non-Terminale der folgenden Grammatik:
+\begin{align*}
+S &\to A \\
+A &\to AB \\
+A &\to \u{a} \\
+B &\to CA \\
+B &\to \u{b} \\
+C &\to \u{c} D \\
+C &\to \u{c} \\
+C &\to \varepsilon \\
+D &\to \u{c} \\
+D &\to \u{b}
+\end{align*}
+\begin{align*}
+\text{FIRST}(S) &= \text{FIRST*}(A)=\gbr{\u{a}} \\
+\text{FIRST}(A) &= \gbr{\u{a}} \\
+\text{FIRST}(B) &= \text{FIRST*}(C) \cup \text{FIRST*}(A)=\gbr{\u{a},\u{c}} \\
+\text{FIRST}(C) &= \gbr{\u{c},\varepsilon} \\
+\text{FIRST}(D) &= \gbr{\u{c},\u{b}}
+\end{align*}
+\begin{align*}
+\text{FOLLOW}(S) &= \gbr{\$} \\
+\text{FOLLOW}(A) &= \text{FOLLOW}(S) \cup \text{FIRST*}(B) \cup \text{FOLLOW}(B)=\gbr{\$,\u{a},\u{c}} \\
+\text{FOLLOW}(B) &= \text{FOLLOW}(A)=\gbr{\$,\u{a},\u{c}} \\
+\text{FOLLOW}(C) &= \text{FIRST*}(A)=\gbr{\u{a}} \\
+\text{FOLLOW}(D) &= \text{FOLLOW}(C)=\gbr{\u{a}}
+\end{align*}
+Diese Grammatik ist nicht LL(1) aufgrund von Mehrdeutigkeiten und einer Linksrekursion ($A \to AB$).
+
+Wir werden zunächst die Grammatik vereinfachen indem wir $D$ einsetzen. Dann lösen wir die Linksrekursion.
+\[
+\begin{array}{l}
+S \to A \\
+A \to AB \\
+A \to \u{a} \\
+B \to CA \\
+B \to \u{b} \\
+C \to \u{c} D \\
+C \to \u{c} \\
+C \to \varepsilon \\
+D \to \u{c} \\
+D \to \u{b}
+\end{array}
+\quad \Ra \quad
+\begin{array}{l}
+S \to A \\
+A \to AB \\
+A \to \u{a} \\
+B \to CA \\
+B \to \u{b} \\
+\color{red}{C \to \u{cc}} \\
+\color{red}{C \to \u{cb}} \\
+C \to \u{c} \\
+C \to \varepsilon \\
+\quad
+\end{array}
+\quad \Ra \quad
+\begin{array}{l}
+S \to A \\
+\color{red}{A \to \u{a} R} \\
+\color{red}{R \to BR} \\
+\color{red}{R \to \varepsilon} \\
+B \to CA \\
+B \to \u{b} \\
+C \to \u{cc} \\
+C \to \u{cb} \\
+C \to \u{c} \\
+C \to \varepsilon \\
+\end{array}
+\quad \Ra \quad
+\begin{array}{l}
+\quad \\
+A \to \u{a} R \\
+R \to BR \\
+R \to \varepsilon \\
+B \to CA \\
+B \to \u{b} \\
+C \to \u{cc} \\
+C \to \u{cb} \\
+C \to \u{c} \\
+C \to \varepsilon \\
+\end{array}
+\]
+Im letzten obigen Schritt haben wir hier $S \to A$ gestrichen und $A$ stattdessen zum Startsymbol machen.
+
+Wir setzen nun $C$ ein und anschließend $A$ (die Regel bleibt trotzdem erhalten, da sie nur verschwindet wenn sie gar nicht mehr verwendet wird, hier ist $A$ allerdings das Startsymbol).
+\[\Ra \quad
+\begin{array}{l}
+A \to \u{a} R \\
+R \to BR \\
+R \to \varepsilon \\
+\color{red}{B \to A} \\
+B \to \u{b} \\
+\color{red}{B \to \u{cc} A} \\
+\color{red}{B \to \u{cb} A} \\
+\color{red}{B \to \u{c} A} \\
+\end{array}
+\quad \Ra \quad
+\begin{array}{l}
+A \to \u{a} R \\
+R \to BR \\
+R \to \varepsilon \\
+\color{red}{B \to \u{a} R} \\
+B \to \u{b} \\
+\color{red}{B \to \u{cca} R} \\
+\color{red}{B \to \u{cba} R} \\
+\color{red}{B \to \u{ca} R} \\
+\end{array}
+\quad \Ra \quad
+\begin{array}{l}
+A \to \u{a} R \\
+\color{red}{R \to \u{a} R R} \\
+\color{red}{R \to \u{b} R} \\
+\color{red}{R \to \u{cca} R R} \\
+\color{red}{R \to \u{cba} R R} \\
+\color{red}{R \to \u{ca} R R} \\
+R \to \varepsilon \\
+\end{array}\]
+Im mittleren obigen Schritt hat die Grammatik noch immer Mehrdeutigkeiten. Wir können über $R \to BR$ beliebig viele $B$ produzieren. Jedes $B$ kann selbst aber weitere $R$ produzieren.
+Um uns diesem Problem weiter anzunähern wollen wir $B$ aus $R$ eliminieren. Dazu setzen wir im letzten obigen Schritt $B$ in $R$ ein.
+
+Wir erhalten Konstrukte der Form $R \to \alpha R R | \varepsilon$. Das ist äquivalent zu $R \to \alpha R$. Anschließend lösen wir den gemeinsamen Präfix $\u{c}$ auf.
+\[\Ra \quad
+\begin{array}{l}
+A \to \u{a} R \\
+\color{red}{R \to \u{a} R} \\
+R \to \u{b} R \\
+\color{red}{R \to \u{cca} R} \\
+\color{red}{R \to \u{cba} R} \\
+\color{red}{R \to \u{ca} R} \\
+R \to \varepsilon \\
+\end{array}
+\quad \Ra \quad
+\begin{array}{l}
+A \to \u{a} R \\
+R \to \u{a} R \\
+R \to \u{b} R \\
+\color{red}{R \to \u{c} C R} \\
+R \to \varepsilon \\
+\color{red}{C \to \u{ca}} \\
+\color{red}{C \to \u{ba}} \\
+\color{red}{C \to \u{a}} \\
+\end{array}
+\]
+Damit haben wir eine LL(1)-Grammatik erhalten.
+\end{bsp}
+\ifthenelse{\boolean{long}}{}{\end{comment}}
+

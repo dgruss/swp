@@ -31,7 +31,7 @@ Andere Variante: Der Wert von \u{a} ist nach der Zuweisung die Zeichenfolge \u{b
 \item Logische Interpretation: Ein logischer Ausdruck, beispielsweise ist der Ausdruck Wahr wenn der Wert von \u{a} gleich der Summe der Werte von \u{b} und \u{c} ist.
 Andere Variante: Der Wert von 2 der 3 Variablen ist bekannt, der Wert der 3. Variable wird so festgelegt.
 \end{\whichenum}
-Wir sehen anhand dieses Beispiels dass es wichtig ist exakt zu definieren wie ein Ausdruck
+Wir sehen anhand dieses Beispiels, dass es wichtig ist exakt zu definieren wie ein Ausdruck
 zu interpretieren ist.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -63,7 +63,7 @@ Wir definieren die Sprache $A$ nun nicht mehr über eine Grammatik sondern durch
 \item Wenn $x,y \in \lng{A}$, dann ist auch $\u{(} x \u{)} \u{+} \u{(} y \u{)} \in \lng{A}$.
 \end{\whichenum}
 \end{defn}
-An dieser Stelle sei noch einmal darauf hingewiesen dass wir $x,y$ nicht unterstreichen dürfen, da sie keine Sprachelemente sind sondern
+An dieser Stelle sei noch einmal darauf hingewiesen, dass wir $x,y$ nicht unterstreichen dürfen, da sie keine Sprachelemente sind sondern
 Platzhalter, mathematisch würde man sie auch als Variablen bezeichnen.
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 Wir wollen nun mit unserer Sprache $\lng{A}$ Ausdrücke berechnen können.
@@ -97,7 +97,7 @@ I_{\lng{A}}(\u{((10)+(9))+(3)}) &= I_{\lng{A}}(\u{(10)+(9)}) + I_{\lng{A}}(\u{3}
 Auch hier sehen wir wieder deutlich die Unterscheidung zwischen Zeichenketten im Programmcode (unterstrichen) und den Werten
 auf der semantischen Ebene (nicht unterstrichen). Um den Unterschied weiter zu verdeutlichen
 definieren wir nun die Sprache der einfachen arithmetischen Ausdrücke von Binärzahlen $\lng{B}$.
-\begin{defn}
+
 Die Sprache $\lng{B}$ definieren wir mit Alphabet $\Sigma=\gbr{\u{0},\u{1},\u{(},\u{)},\u{+}}$.
 \begin{\whichenum}
 \item $(\u{1} \gbr{\u{0},\u{1}}^*) \cup \gbr{\u{0}} \subset \lng{B}$
@@ -109,7 +109,6 @@ Die Semantik der Sprache $\lng{B}$ definieren wir durch:
 durch die Binärzahl (exakt: die Binärziffernfolge) dargestellte Zahl auf semantischer Ebene, in diesem Fall also im mathematischen Sinne.
 \item $I(\u{(}x\u{)+(}y\u{)})=I(x) + I(y)$ wenn $x,y \in \lng{B}$.
 \end{\whichenum}
-\end{defn}
 \begin{bsp}
 $I(\u{1001})=9$ aber $\u{1001}\neq 9$.
 
@@ -122,7 +121,7 @@ I_{\lng{B}}(\u{((1010)+(1001))+(11)}) &= I_{\lng{B}}(\u{(1010)+(1001)}) + I_{\ln
 \end{bsp}
 
 Wir versuchen nun der Sprache $\lng{A}$ eine zweite Funktion, die Multiplikation hinzuzufügen.
-\begin{defn}
+
 Die Sprache $\lng{D}$ ist definiert durch:
 \begin{\whichenum}
 \item ZAHL$\subset \lng{D}$
@@ -135,7 +134,7 @@ Die Semantik der Sprache $\lng{D}$ definieren wir durch:
 \item $I_{\lng{D}}(\u{(}x\u{)*(}y\u{)})=I_{\lng{D}}(x) \cdot I_{\lng{D}}(y)$ wenn $x,y \in \lng{A}$.
 \item $I_{\lng{D}}(\u{(}x\u{)+(}y\u{)})=I_{\lng{D}}(x) + I_{\lng{D}}(y)$ wenn $x,y \in \lng{A}$.
 \end{\whichenum}
-\end{defn}
+
 Mit dieser Definition ist $I_{\lng{D}}$ keine Funktion.
 
 \begin{beweis}
@@ -145,7 +144,7 @@ Möchte man eine Aussage über ``alle'' Werte bzw. ``jeden'' Wert widerlegen so 
 Fall müssen wir nur ein Gegenbeispiel finden, denn dann gilt die Aussage offensichtlich nicht für alle Werte, wir haben ja einen gefunden
 für den es nicht gilt. Diese Beweistechnik nennt man ``Beweis durch Widerspruch''.
 
-Wir werden nun zeigen dass $I_{\lng{D}}$ für das Programm \u{1+2*3} verschiedene Interpretationsmöglichkeiten zulässt da nicht festgelegt
+Wir werden nun zeigen, dass $I_{\lng{D}}$ für das Programm \u{1+2*3} verschiedene Interpretationsmöglichkeiten zulässt da nicht festgelegt
 ist ob der 2. oder 3. Fall der Definition die höhere Priorität hat.
 \begin{align*}
 I_{\lng{D}}(\u{1+2*3}) &= I_{\lng{D}}(\u{1+2}) \cdot I_{\lng{D}}(\u{3}) \tag{2. Fall der Definition} \\
@@ -155,10 +154,10 @@ I_{\lng{D}}(\u{1+2*3}) &= I_{\lng{D}}(\u{1}) \cdot I_{\lng{D}}(\u{2*3}) \tag{3. 
 &= 1 + (I_{\lng{D}}(\u{2}) \cdot I_{\lng{D}}(\u{3})) \tag{2. Fall der Definition} \\
 &= 1 + (2 \cdot 3) = 1 + 6 = 7 \neq 9
 \end{align*}
-Wir haben gezeigt dass für einen Eingabewert 2 unterschiedliche Ausgabewerte möglich sind.
+Wir haben gezeigt, dass für einen Eingabewert 2 unterschiedliche Ausgabewerte möglich sind.
 Folglich gibt es nicht für \u{jeden} Eingabewert \u{genau einen} Ausgabewert, daher kann $I_{\lng{D}}$ keine Funktion sein. \hfill $\Box$
 \end{beweis}
-Wir müssten also die Interpretationsfunktion $I_{\lng{D}}$ anders definieren. Eine Lösung wäre beispielsweise zu definieren dass der 3. Fall der Interpretationsfunktion
+Wir müssten also die Interpretationsfunktion $I_{\lng{D}}$ anders definieren. Eine Lösung wäre beispielsweise zu definieren, dass der 3. Fall der Interpretationsfunktion
 nur angewendet werden darf wenn in den beiden Operanden $x$ und $y$ kein $\u{*}$ vorkommt.
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 \section{Sprache $\lng{V}$ - arithmetische Ausdrücke mit Variablen}
@@ -193,13 +192,13 @@ Die Interpretationsfunktion $I_{\lng{V}}: \text{ENV}\times\lng{V} \to \Lambda$
 weist jedem Tupel aus Environment und Programm einen Wert in $\Lambda$ zu.
 \begin{\whichenum}
 \item $I_{\lng{V}}(\omega,k) = \sbr{k}$ wenn $k \in \text{ZAHL}$, $\omega \in \text{ENV}$.
-\item $I_{\lng{V}}(\omega,v) = \omega(v)$ wenn $vk \in \text{IVS}$, $\omega \in \text{ENV}$.
+\item $I_{\lng{V}}(\omega,v) = \omega(v)$ wenn $v \in \text{IVS}$, $\omega \in \text{ENV}$.
 \item $I_{\lng{V}}(\u{(}x\u{)+(}y\u{)})=I_{\lng{V}}(\omega,x) + I_{\lng{V}}(\omega,y)$ wenn $x,y \in \lng{V}$, $\omega \in \text{ENV}$.
 \end{\whichenum}
 \end{defn}
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
-Gegeben Sei das Environment $\omega(\u{x})=0$, $\omega(\u{y})=1$, $\omega(\u{z})=2$.
+Gegeben sei das Environment $\omega(\u{x})=0$, $\omega(\u{y})=1$, $\omega(\u{z})=2$.
 Interpretieren Sie das Programm $\u{(((x)+(2))+(y))+(z)}$.
 \begin{align*}
 I_{\lng{V}}(\omega,\u{(((x)+(2))+(y))+(z)}) &= I_{\lng{V}}(\omega,\u{((x)+(2))+(y)}) + I_{\lng{V}}(\omega,\u{z}) \\
@@ -406,7 +405,7 @@ Führen Sie das Programm \u{plus(plus(x,y),plus(eins,z))} mit dem Environment $\
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
 Laut Definition von $\lng{T}$ gibt es nur die Konstanten $0$ und $1$. Variablen können natürlich jeden beliebigen Wert in $\Z$ annehmen.
-Es kann aber auch gezeigt werden dass alle ganzen Zahlen durch einen variablenfreien Term dargestellt werden können. Daher ist es nicht nötig dass es für jede Zahl eine Konstante gibt.
+Es kann aber auch gezeigt werden, dass alle ganzen Zahlen durch einen variablenfreien Term dargestellt werden können. Daher ist es nicht nötig, dass es für jede Zahl eine Konstante gibt.
 Terme sind rekursiv definiert. Die \textbf{vollständige Induktion} (ab hier auch Induktion genannt) ist die übliche Beweistechnik für Beweise über rekursive bzw. rekursiv definierte Ausdrücke.
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -417,7 +416,7 @@ Dazu macht es Sinn sich ein kleines Beispiel zu überlegen. Dazu definieren wir,
 \item Aussage $A$: An Tag $n$ regnet es genau dann, wenn es an Tag $n-1$ geregnet hat.
 \item Aussage $T_1$: An Tag $1$ regnet es.
 \end{\whichitem}
-Wir sehen sofort dass es wohl immer regnet.
+Wir sehen sofort, dass es wohl immer regnet.
 Dies wollen wir nun auch beweisen: An jedem Tag regnet es. Man könnte auch schreiben:
 An jedem Tag $i$ regnet es. Zwecks Übersichtlichkeit bezeichnen wir die Aussage ``Es regnet an Tag $i$'' mit $T_i$
 und können dann sehr kompakt schreiben: $\tforall i: T_i$.
@@ -437,7 +436,7 @@ Wir zeigen einfach die Korrektheit für einen allgemeinen Fall (z.B. $T_{n+1}$) 
 Dazu müssen wir zunächst allgemein beschreiben was für jedes einzelne Element bis zu einem gewissen (beliebigen) $n$ gilt: $\tforall i \leq n: T_i$. Wir nennen dies \textbf{Induktionshypothese}.
 Diese Aussage ist allerdings nicht bewiesen, es ist lediglich eine Annahme darüber was für jedes Element gilt.
 
-Den entscheidenden Schritt im Beweis führen wir jetzt durch, indem wir von $n$ auf das nachfolgende Element (in unserem Fall $n+1$) springen und zeigen dass der Beweis für das nachfolgende
+Den entscheidenden Schritt im Beweis führen wir jetzt durch, indem wir von $n$ auf das nachfolgende Element (in unserem Fall $n+1$) springen und zeigen, dass der Beweis für das nachfolgende
 Element erbracht werden kann. Dabei müssen wir unbedingt die Annahme (die Induktionshypothese) verwenden, sonst handelt es sich bei unserem Beweis nicht um eine vollständige
 Induktion und sehr wahrscheinlich ist der Beweis dann auch nicht fehlerfrei.
 
@@ -455,7 +454,7 @@ Meist ist hier mehr Arbeit erforderlich als bei diesem kleinen Beispiel. Wir wer
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
 Halten wir fest: Die \textbf{vollständige Induktion} besteht aus 3 Einzelschritten: In der \textbf{Induktionsbasis} werden ein oder mehrere Basisfälle direkt bewiesen.
-In der \textbf{Induktionshypothese} wird versucht eine allgemeine Aussage (eine Hypothese) zu treffen von der angenommen wird dass sie bis zum $n$-ten Fall gilt.
+In der \textbf{Induktionshypothese} wird versucht eine allgemeine Aussage (eine Hypothese) zu treffen von der angenommen wird, dass sie bis zum $n$-ten Fall gilt.
 Im \textbf{Induktionsschritt} gehen wir einen Schritt weiter, also in den Fall $n+1$ und versuchen diesen zu beweisen. Hier muss unbedingt auf die Induktionshypothese zurückgegriffen
 werden, sonst wurde keine vollständige Induktion durchgeführt. Um eine Induktion durchführen zu können müssen die Elemente unbedingt aufzählbar sein
 (d.h. man muss eine eindeutige Reihenfolge/Sortierung für die Elemente angeben können).
@@ -551,7 +550,7 @@ $=\text{ist0?}\rbr{01} = T$}}
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
-Bei Verschachtelungen von Prädikaten in $\lng{C}$ ist zu beachten dass Prädikate direkt kein Teil der Sprache sind.
+Bei Verschachtelungen von Prädikaten in $\lng{C}$ ist zu beachten, dass Prädikate direkt kein Teil der Sprache sind.
 Daher ist auch der Ausdruck \u{if ist0?(ist1?(x)) then x else add0(x)} nicht in $\lng{C}$!
 Allerdings ist \u{if ist0?(if ist1?(x) then 110 else 010) then x else add0(x)} in $\lng{C}$.
 
@@ -612,7 +611,7 @@ Mit den Definitionen \ref{defn:semt}, \ref{defn:semcond} und \ref{defn:semexp} h
 \item $I_{\lng{T}}(\omega,c^{\Sigma}_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c^{\Sigma}_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
 \item $I_{\lng{T}}(\omega,v)=\omega(v)$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$.
 \item $I_{\lng{T}}(\omega,f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\lng{T}}(\omega,t_1),\ldots,I_{\lng{T}}(\omega,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f^{\Sigma}_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$.
-\item $\Iu{C}{\omega}{t} = \Iu{T}{\omega}{t}$, wenn $t \in \lng{T}$ und $\omega \in \text{ENV}$.
+\item $\Iu{E}{\delta,\omega}{t} = \Iu{T}{\omega}{t}$, wenn $t \in \lng{T}$ und $\omega \in \text{ENV}$ und $\delta \in \text{FENV}$.
 \item Für jedes Prädikat $p_i$ gilt:
 \begin{\whichitem}
 \item Wenn $p_i\rbr{\Iu{C}{\omega}{u_1},\ldots,\Iu{C}{\omega}{u_n}}=T$, dann gilt:
@@ -642,19 +641,19 @@ $\omega(\u{x})=100$.
 \textit{Lösung:}
 \begin{align*}
 \I{E}{\delta,\omega}{F(sub(x))}
-\intertext{\textcolor{darkblue}{Neues Environment (NE): $\omega'(\text{x1})=\I{E}{\delta,\omega}{\text{sub}(x)}=\text{sub}(\I{E}{\delta,\omega}{x})=\text{sub}(\omega(\u{x}))=\text{sub}(100)=00$}}
+\intertext{\textcolor{darkblue}{Neues Environment (NE): $\omega'(\tu{x1})=\I{E}{\delta,\omega}{\text{sub}(x)}=\text{sub}(\I{E}{\delta,\omega}{x})=\text{sub}(\omega(\u{x}))=\text{sub}(100)=00$}}
 &= \I{E}{\delta,\omega'}{\text{if ist0?(x1) then sub(x1) else add1(x1)}} \\
 \intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega'}{\text{ist0?(x1)}}=\text{ist0?}(\I{E}{\delta,\omega'}{x1})=\text{ist0?}(\omega'(\tu{x1}))=\text{ist0?}(00)=T$}}
 &= \I{E}{\delta,\omega'}{\text{sub(x1)}} \\
 &= \text{sub}(\I{E}{\delta,\omega'}{\text{x1}}) \\
-&= \text{sub}(\omega'(\text{x1})) \\
+&= \text{sub}(\omega'(\tu{x1})) \\
 &= \text{sub}(00) \\
 &= 0
 \end{align*}
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
-Im Vorlesungsskriptum findet sich außerdem auf Seite 59 die Defintion für Funktionsaufrufe mittels Call-by-Name sowie obiges Beispiel für Call-by-Name durchgerechnet.
+Im Vorlesungsskriptum findet sich außerdem auf Seite 59 die Definition für Funktionsaufrufe mittels Call-by-Name sowie obiges Beispiel für Call-by-Name durchgerechnet.
 Außerdem wird demonstriert, dass es Funktionen gibt (die in Teilbereichen undefiniert sind) die je nach Verfahren ein unterschiedliches Verhalten zeigen.
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -662,7 +661,7 @@ Wir haben bereits die vollständige Induktion kennengelernt. Mittels vollständi
 beweisen.
 
 \begin{bsp}
-Gegeben Sei der Datentyp der nicht-negativen Integer der nur die Funktionen Inkrement um 1 (\u{inc}) und Dekrement um 1 (\u{dec}), sowie die bereits bekannten
+Gegeben sei der Datentyp der nicht-negativen Integer der nur die Funktionen Inkrement um 1 (\u{inc}) und Dekrement um 1 (\u{dec}), sowie die bereits bekannten
 Prädikate \u{eq?} und \u{gt?}. Implementieren Sie die Addition zweier Zahlen in $\lng{E}$.
 
 \textit{Lösung:}
@@ -701,7 +700,7 @@ Der Basisfall wurde damit bewiesen.
                $\omega'(\u{y})=\I{E}{\delta,\omega}{\text{inc(y)}}=\text{inc}(\I{E}{\delta,\omega}{\text{y}})=\text{inc}(\omega(\u{y}))=\text{inc}(m)=m+1$}}
 &= \I{E}{\delta,\omega'}{\text{add(x,y)}} \tag{Wir ersetzen zunächst nur $\omega$!} \\
 \intertext{Für diesen Fall ($\omega'(\u{x})=n$) gilt die Induktionshypothese!
-Wir sehen dass der obige Aufruf der Interpretationsfunktion exakt so aussieht wie in der Induktionshypothese.
+Wir sehen, dass der obige Aufruf der Interpretationsfunktion exakt so aussieht wie in der Induktionshypothese.
 Unter Verwendung der Induktionshypothese (d.h. wir setzen die Induktionshypothese $\I{E}{\delta,\omega}{add(x,y)}=\omega(\u{x})+\omega(\u{y})$ ein):}
 &= \omega'(\u{x})+\omega'(\u{y}) \\
 &= n+m+1 \\
@@ -730,7 +729,7 @@ Daher können wir umformen:
 \end{align*}
 Dies ist exakt die Umformung die wir gemacht haben.
 
-Ein Vorteil in dieser Variante liegt darin dass einfach gesehen werden kann wenn die Induktionshypothese
+Ein Vorteil in dieser Variante liegt darin, dass einfach gesehen werden kann wenn die Induktionshypothese
 zutrifft.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -738,8 +737,8 @@ zutrifft.
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 Die Sprache $\lng{E}$ ist von uns konstruiert und in der Praxis nicht relevant.
 Funktionale Sprachen (Lisp, Haskell, OCaml, etc.) im Allgemeinen sind allerdings durchaus relevant - und auch angenehmer zu verwenden als $\lng{E}$.
-Dadurch dass wir $\lng{E}$ genau verstehen wird es uns auch leicht fallen neue Sprachen zu erlernen.
-Hier ein Vergleich eines rekursiven Programms zum ermitteln der $n$-ten Fibonacci-Zahl in verschiedenen funktionalen Sprachen:
+Dadurch, dass wir $\lng{E}$ genau verstehen wird es uns auch leicht fallen neue Sprachen zu erlernen.
+Hier ein Vergleich eines rekursiven Programms zum Ermitteln der $n$-ten Fibonacci-Zahl in verschiedenen funktionalen Sprachen:
 \begin{\whichitem}
 \item EXP:
 \begin{verbatim}
@@ -860,13 +859,13 @@ auf das letzte Element einer Liste zuzugreifen. Wir könnten dafür eine Funktio
 direkt durch eine Rekursion über die Liste iterieren bis zum letzten Element und
 in einem zweiten Parameter (``Akkumulator'') die Liste aufbauen.
 \begin{align*}
-\delta\tu{reverse(x)}&=\tu{if atom?(x) then x reverse2(x,nil)} \\
+\delta\tu{reverse(x)}&=\tu{if atom?(x) then x else reverse2(x,nil)} \\
 \delta\tu{reverse2(x,y)}&=\tu{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),y))}
 \end{align*}
 Verhält sich dieses Programm wie beabsichtigt?
 \begin{align*}
 &\quad \I{E}{\delta,\omega}{reverse(x)} \\
-&= \I{E}{\delta,\omega}{if atom?(x) then x reverse2(x,nil)}
+&= \I{E}{\delta,\omega}{if atom?(x) then x else reverse2(x,nil)}
 \intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{atom?(x)}=\text{atom?}\rbr{\I{E}{\delta,\omega}{x}}=\text{atom?}\rbr{\omega(\tu{x})}$\newline$=\text{atom?}\rbr{\text{[ FIR SEC THI ]}}=F$}}
 &= \I{E}{\delta,\omega}{reverse2(x,nil)}
 \intertext{\textcolor{darkblue}{NE: $\omega'(\tu{x})=\I{E}{\delta,\omega}{x}=\omega(\tu{x})=\text{[ FIR SEC THI ]}$, $\omega'(\tu{y})=\I{E}{\delta,\omega}{nil}=\text{[]}$}}
@@ -875,7 +874,7 @@ Verhält sich dieses Programm wie beabsichtigt?
 \intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega'}{eq?(x,nil)}=\text{eq?}\rbr{\I{E}{\delta,\omega'}{x},\I{E}{\delta,\omega'}{nil}}=\text{eq?}\rbr{\omega'(\tu{x}),[]}$\newline$=\text{eq?}\rbr{\text{[ FIR SEC THI ]},[]}=F$}}
 &= \I{E}{\delta,\omega'}{reverse2(rest(x),build(first(x),y))}
 \intertext{\textcolor{darkblue}{NE: $\omega''(\tu{x})=\I{E}{\delta,\omega'}{rest(x)}=\text{rest}\rbr{\I{E}{\delta,\omega'}{x}}=\text{rest}\rbr{\omega'(\tu{x})}$\newline$=\text{rest}\rbr{\text{[ FIR SEC THI ]}}=\text{[ SEC THI ]}$, \newline
-               $\omega''(\tu{y})=\I{E}{\delta,\omega'}{build(first(x),y)}=\text{build}\rbr{\I{E}{\delta,\omega'}{first(x)},\I{E}{\delta,\omega'}{y}}$\newline$=\text{build}\rbr{\text{first}\rbr{\I{E}{\delta,\omega'}{x}},\I{E}{\delta,\omega'}{y}}=\text{build}\rbr{\text{first}\rbr{\omega'(\tu{x})},\omega'(\tu{x})}$\newline$=\text{build}\rbr{\text{first}\rbr{\text{[ FIR SEC THI ]}},[]}=\text{build}\rbr{\text{FIR},[]}=\text{[ FIR ]}$}}
+               $\omega''(\tu{y})=\I{E}{\delta,\omega'}{build(first(x),y)}=\text{build}\rbr{\I{E}{\delta,\omega'}{first(x)},\I{E}{\delta,\omega'}{y}}$\newline$=\text{build}\rbr{\text{first}\rbr{\I{E}{\delta,\omega'}{x}},\I{E}{\delta,\omega'}{y}}=\text{build}\rbr{\text{first}\rbr{\omega'(\tu{x})},\omega'(\tu{y})}$\newline$=\text{build}\rbr{\text{first}\rbr{\text{[ FIR SEC THI ]}},[]}=\text{build}\rbr{\text{FIR},[]}=\text{[ FIR ]}$}}
 &= \I{E}{\delta,\omega''}{reverse2(x,y)} \\
 &= \I{E}{\delta,\omega''}{if eq?(x,nil) then y else reverse2(rest(x),build(first(x),y))}
 \intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega''}{eq?(x,nil)}=\text{eq?}\rbr{\I{E}{\delta,\omega''}{x},\I{E}{\delta,\omega''}{nil}}$\newline$=\text{eq?}\rbr{\omega''(\tu{x}),[]}=\text{eq?}\rbr{\text{[ SEC THI ]},[]}=F$}}
@@ -895,7 +894,7 @@ Verhält sich dieses Programm wie beabsichtigt?
 &= \omega''''(\tu{y}) \\
 &= \text{[ THI SEC FIR ]}
 \end{align*}
-Das Programm verhält sich für diesen Fall wie gewünscht. Um zu beweisen dass es sich immer korrekt verhält müssten wir einen Beweis führen.
+Das Programm verhält sich für diesen Fall wie gewünscht. Um zu beweisen, dass es sich immer korrekt verhält müssten wir einen Beweis führen.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 
@@ -919,9 +918,7 @@ und die Korrektheit dieser zu zeigen.
 \delta\u{\text{max}}&=\u{\text{if eq?(x,nil) then y}} \\ &\quad \u{\text{else if eq?(y,nil) x}} \\ &\quad \u{\text{else build(max(rest(x),rest(y)),nil)}}
 \end{align*}
 
-Die Korrektheit von $\delta\u{\text{max}}$ wurde per Induktion gezeigt.
-
-$\delta\u{\text{depth}}$ wurde für $\text{atom?}(\text{first}(\omega(\u{x})))=T$ gezeigt unter der Voraussetzung der Korrektheit für $\delta\u{\text{depth}}$ mit $\text{atom?}(\text{first}(\omega(\u{x})))=F$.
+Die Korrektheit von $\delta\u{\text{max}}$ wurde im Tutorium per Induktion gezeigt, dem geneigten Leser ist es überlassen diesen Beweis selbst durchzuführen.
 
 Wir haben $f_{d}(\omega(\u{x}))$ als ``Golden Device'' definiert, eine Funktion ($L \to \N$) die die gesuchte Funktion korrekt berechnet.
 
@@ -936,8 +933,9 @@ Daher erfolgt der Beweis für $\delta\u{\text{depth}}$ mit $\text{atom?}(\text{f
 Über diese Hilfsfunktion können wir relativ einfach nach dem Schema arbeiten welches in den anderen Beispielen bereits vorkam.
 
 Wir definieren:
-\[\abs{\omega(\u{x})} = \begin{cases}1 & eq?(\omega(\u{x}),nil) \\
-                                 \abs{\text{first}(\omega(\u{x}))}+\abs{\text{rest}(\omega(\u{x}))}  & \text{sonst}\end{cases}\]
+\[\abs{\omega(\u{x})} = \begin{cases}1 & \text{eq?}(\omega(\tu{x}),[]) \\
+                                     1 & \text{atom?}(\omega(\tu{x}),[]) \\
+                                     \abs{\text{first}(\omega(\tu{x}))}+\abs{\text{rest}(\omega(\u{x}))}  & \text{sonst}\end{cases}\]
 
 Die Idee mit der wir die Induktion durchführen könnte man schreiben als:
 Wenn $\delta\u{\text{depth}}$ korrekt ist für $\abs{\omega(\u{x})}=n$ ($n \in \N$),
@@ -951,10 +949,10 @@ Induktionsbasis:
 \begin{align*}
 &&\quad I(\delta,\omega,&\u{\text{depth}}) \\
 &&=I(\delta,\omega,&\u{\text{if atom?(first(x)) then depth(rest(x))}} \\ &&&\u{\text{else if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
-\intertext{\textcolor{darkblue}{NR: $I(\delta,\omega,\u{\text{atom?(first(x))}})=\text{atom?}(I(\delta,\omega,\u{\text{first(x)}}))=\text{atom?(first}(I(\delta,\omega,\u{\text{x}})))$\newline$=\text{atom?(first(nil))}=\text{atom?(nil)}=F$ (siehe Fallunterscheidung)}}
+\intertext{\textcolor{darkblue}{NR: $I(\delta,\omega,\u{\text{atom?(first(x))}})=\text{atom?}(I(\delta,\omega,\u{\text{first(x)}}))=\text{atom?(first}(I(\delta,\omega,\u{\text{x}})))$\newline$=\text{atom?(first([]))}=\text{atom?([])}=F$ (da dies zu einer Rekursion führen würde und folglich kein Basisfall ist.)}}
 &&=I(\delta,\omega,&\u{\text{if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
-\intertext{\textcolor{darkblue}{Da $\abs{\omega(\u{x})}=1$ ist muss $\omega(\u{x})=\text{nil}$ sein.}}
-&&=I(\delta,\omega,&\u{\text{nil}})=\text{nil}=f_{d}(\text{nil})=f_{d}(\omega(\u{x}))
+\intertext{\textcolor{darkblue}{Da $\abs{\omega(\u{x})}=1$ ist muss $\omega(\u{x})=\text{[]}$ sein.}}
+&&=I(\delta,\omega,&\u{\text{nil}})=\text{[]}=f_{d}(\text{[]})=f_{d}(\omega(\u{x}))
 \end{align*}
 
 Induktionsschritt:
@@ -962,36 +960,54 @@ Induktionsschritt:
 \begin{align*}
 &&\quad I(\delta,\omega,&\u{\text{depth}}) \\
 &&=I(\delta,\omega,&\u{\text{if atom?(first(x)) then depth(rest(x))}} \\ &&&\u{\text{else if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
+\end{align*}
+Fallunterscheidung nach $atom?(first(\omega(\tu{x})))$:
+\begin{itemize}
+\item Fall $atom?(first(\omega(\tu{x})))=T$
+\begin{align*}
+\intertext{\textcolor{darkblue}{NR: $I(\delta,\omega,\u{\text{atom?(first(x))}})=\text{atom?}(I(\delta,\omega,\u{\text{first(x)}}))=\text{atom?(first}(I(\delta,\omega,\u{\text{x}})))=T$ (siehe Fallunterscheidung)}}
+&&=I(\delta,\omega,&\u{\text{depth(rest(x))}})
+\intertext{\textcolor{darkblue}{$\omega'(\tu{x})=I(\delta,\omega,\u{\text{rest(x)}})=\text{rest}(I(\delta,\omega,\u{\text{x}}))=\text{rest}(\omega(\u{x}))$. Die Gesamtanzahl der Elemente dieser Liste ist mindestens um $1$ geringer, da $\text{first}(x)$ aus der Liste entfernt wurde.}}
+&&=I(\delta,\omega',&\u{\text{depth(x)}})
+\intertext{\textcolor{darkblue}{Für dieses Environment gilt die Induktionshypothese. Wir wenden die Induktionshypothese daher an:}}
+&&=&f_{d}(\omega'(\tu{x})) \\
+&&=&f_{d}(\text{rest}(\omega(\u{x})))
+\intertext{\textcolor{darkblue}{Was korrekt ist, da das Atom $first(\omega(\tu{x}))$ die Listentiefe nicht beeinflusst.}}
+\end{align*}
+\item Fall $atom?(first(\omega(\tu{x})))=F$
+\begin{align*}
 \intertext{\textcolor{darkblue}{NR: $I(\delta,\omega,\u{\text{atom?(first(x))}})=\text{atom?}(I(\delta,\omega,\u{\text{first(x)}}))=\text{atom?(first}(I(\delta,\omega,\u{\text{x}})))=F$ (siehe Fallunterscheidung)}}
 &&=I(\delta,\omega,&\u{\text{if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
-\intertext{\textcolor{darkblue}{Da $\abs{\omega(\u{x})}>1$ ist, ist $\omega(\u{x})\neq\text{nil}$}}
+\intertext{\textcolor{darkblue}{Da $\abs{\omega(\u{x})}>1$ ist, ist $\omega(\u{x})\neq\text{[]}$}}
 &&=I(\delta,\omega,&\u{\text{max(build(depth(first(x)),nil),depth(rest(x)))}})
 \intertext{\textcolor{darkblue}{Korrektheit von $\delta\u{\text{max}}$ wurde bereits gezeigt}}
 &&=&\text{max}(I(\delta,\omega,\u{\text{build(depth(first(x)),nil)}}),I(\delta,\omega,\u{\text{depth(rest(x))}})) \\
-&&=&\text{max}(\text{build}(I(\delta,\omega,\u{\text{depth(first(x))}}),\text{nil}),I(\delta,\omega,\u{\text{depth(rest(x))}}))
-\intertext{\textcolor{darkblue}{$\omega'(\u{x})=I(\delta,\omega,\u{\text{first(x)}})=\text{first}(I(\delta,\omega,\u{\text{x}}))=\text{first}(\omega(\u{x}))$. Die Gesamtanzahl der Elemente dieser Liste ist mindestens um $1$ geringer, da die Eltern-Liste nicht im rekursiven Aufruf enthalten ist.}}
-\intertext{\textcolor{darkblue}{$\omega''(\u{x})=I(\delta,\omega,\u{\text{rest(x)}})=\text{rest}(I(\delta,\omega,\u{\text{x}}))=\text{rest}(\omega(\u{x}))$. Die Gesamtanzahl der Elemente dieser Liste ist mindestens um $1$ geringer, da $\text{first}(x)$ aus der Liste entfernt wurde.}}
-&&=&\text{max}(\text{build}(I(\delta,\omega',\u{\text{depth(x)}}),\text{nil}),I(\delta,\omega'',\u{\text{depth(x)}}))
-\intertext{\textcolor{darkblue}{Damit haben wir für beide rekursiven Aufrufe jeweils ein Environment für dass die Induktionshypothese gilt. Wir wenden die Induktionshypothese daher an:}}
-&&=&\text{max}(\text{build}(f_{d}(\omega'(\u{x})),\text{nil}),f_{d}(\omega''(\u{x})))
+&&=&\text{max}(\text{build}(I(\delta,\omega,\u{\text{depth(first(x))}}),\text{[]}),I(\delta,\omega,\u{\text{depth(rest(x))}}))
+\intertext{\textcolor{darkblue}{$\omega''(\u{x})=I(\delta,\omega,\u{\text{first(x)}})=\text{first}(I(\delta,\omega,\u{\text{x}}))=\text{first}(\omega(\u{x}))$. Die Gesamtanzahl der Elemente dieser Liste ist mindestens um $1$ geringer, da die Eltern-Liste nicht im rekursiven Aufruf enthalten ist.}}
+\intertext{\textcolor{darkblue}{$\omega'''(\u{x})=I(\delta,\omega,\u{\text{rest(x)}})=\text{rest}(I(\delta,\omega,\u{\text{x}}))=\text{rest}(\omega(\u{x}))$. Die Gesamtanzahl der Elemente dieser Liste ist mindestens um $1$ geringer, da $\text{first}(x)$ aus der Liste entfernt wurde.}}
+&&=&\text{max}(\text{build}(I(\delta,\omega'',\u{\text{depth(x)}}),\text{[]}),I(\delta,\omega''',\u{\text{depth(x)}}))
+\intertext{\textcolor{darkblue}{Damit haben wir für beide rekursiven Aufrufe jeweils ein Environment für, dass die Induktionshypothese gilt. Wir wenden die Induktionshypothese daher an:}}
+&&=&\text{max}(\text{build}(f_{d}(\omega''(\u{x})),\text{[]}),f_{d}(\omega'''(\u{x}))) \\
+&&=&\text{max}(\text{build}(f_{d}(\text{first}(\omega(\u{x}))),\text{[]}),f_{d}(\text{rest}(\omega(\u{x}))))
 \end{align*}
+\end{itemize}
 
-Die maximale Verschachtelungstiefe kann nur in $\text{first}(\u{x})$ oder $\text{rest}(\u{x})$ erreicht werden.
+Die maximale Verschachtelungstiefe kann nur in $\text{first}(\omega(\u{x}))$ oder $\text{rest}(\omega(\u{x}))$ erreicht werden.
 Daher machen wir eine Fallunterscheidung die diese beiden Fälle unterscheidet (und damit alle Fälle abdeckt):
 \begin{itemize}
-\item Wird die maximale Verschachtelungstiefe $k$ (Anmerkung: $f_{d}(\omega(\u{x}))=\pi(k)$) in $\omega(\u{x})$ in $\text{first}(\u{x})$ erreicht
-so ist $f_{d}(\omega'(\u{x}))=\pi(k-1)$, da $\omega'(\u{x})$ eine Verschachtelungsebene weniger enthält (die der Eltern-Liste).
-Dann ist $\text{build}(f_{d}(\omega'(\u{x})),\text{nil})=\pi(k-1+1)=\pi(k)$.
+\item Wird die maximale Verschachtelungstiefe $k$ (Anmerkung: $f_{d}(\omega(\u{x}))=\pi(k)$) in $\omega(\u{x})$ in $\text{first}(\omega(\u{x}))$ erreicht
+so ist $f_{d}(\omega'(\tu{x}))=\pi(k-1)$, da $\omega'(\tu{x})$ eine Verschachtelungsebene weniger enthält (die der Eltern-Liste).
+Dann ist $\text{build}(f_{d}(\omega'(\tu{x})),\text{[]})=\pi(k-1+1)=\pi(k)$.
 
-In diesem Fall gilt also $\text{max}(\text{build}(f_{d}(\omega'(\u{x})),\text{nil}),f_{d}(\omega''(\u{x}))) = f_{d}(\omega(\u{x})) = \pi(k)$.
-\item Andernfalls wird die maximale Verschachtelungstiefe $k$ in $\omega(\u{x})$ in $\text{rest}(\u{x})$ erreicht. \\
+In diesem Fall gilt also $\text{max}(\text{build}(f_{d}(\omega'(\tu{x})),\text{[]}),f_{d}(\omega''(\u{x}))) = f_{d}(\omega(\u{x})) = \pi(k)$.
+\item Andernfalls wird die maximale Verschachtelungstiefe $k$ in $\omega(\u{x})$ in $\text{rest}(\omega(\u{x}))$ erreicht. \\
 Dann ist $f_{d}(\omega''(\u{x}))=\pi(k)$, da $\omega''(\u{x})$ der Eltern-Liste mit entferntem ersten Element entspricht.
 Dann ist $f_{d}(\omega''(\u{x}))=\pi(k)$.
 
-In diesem Fall gilt also ebenfalls $\text{max}(\text{build}(f_{d}(\omega'(\u{x})),\text{nil}),f_{d}(\omega''(\u{x}))) = f_{d}(\omega(\u{x})) = \pi(k)$.
+In diesem Fall gilt also ebenfalls $\text{max}(\text{build}(f_{d}(\omega'(\tu{x})),\text{[]}),f_{d}(\omega''(\u{x}))) = f_{d}(\omega(\u{x})) = \pi(k)$.
 \end{itemize}
 Daraus folgt
-\[\text{max}(\text{build}(f_{d}(\omega'(\u{x})),\text{nil}),f_{d}(\omega''(\u{x})))=f_{d}(\omega(\u{x})).\]
+\[\text{max}(\text{build}(f_{d}(\omega'(\tu{x})),\text{[]}),f_{d}(\omega''(\u{x})))=f_{d}(\omega(\u{x})).\]
 Damit wurde die Korrektheit von $\delta\u{\text{depth}}$ gezeigt.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -1095,7 +1111,7 @@ Was das geforderte Ergebnis für diesen Fall ist.
 Was ebenfalls das geforderte Ergebnis für diesen Fall ist.
 \end{\whichitem}
 \end{\whichitem}
-Damit ist der Beweis erbracht. Wir stellen fest dass Beweise von $\lng{E}$-Programmen oft kürzer sind als
+Damit ist der Beweis erbracht. Wir stellen fest, dass Beweise von $\lng{E}$-Programmen oft kürzer sind als
 die Interpretation für einen bestimmten Eingabewert.
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -1224,7 +1240,7 @@ $\delta$ hat dann folgende Form:
 
 Wir definieren $\ell$ als Funktion die jedes Symbol in ein entsprechendes Atom übersetzt. D.h. $\ell(\tu{first})=\text{FIRST}$, $\ell(\tu{variable}) = \text{VARIABLE}$, $\ell(\tu{myfunc}) = \text{MYFUNC}$, etc.
 \begin{defn}[Mapping-Funktion $\pi_{\lng{E}}$]
-Wir definieren $\pi_{\lng{E}}$ so dass jeweils das erste Element einer Liste definiert ob diese Liste eine
+Wir definieren $\pi_{\lng{E}}$ so, dass jeweils das erste Element einer Liste definiert ob diese Liste eine
 Konstante, Variable, Konditional, etc. ist.
 \begin{align*}
 \tforall c \in C^{\Sigma}: \quad &\pi_{\lng{E}}(c)= \ebr{\text{CONST } \ell(c)} \tag{Konstanten}\\
@@ -1290,7 +1306,7 @@ eine Funktion \u{FindFVS}}}{\\}
 \end{align*}
 Damit ist der Interpreter vollständig.
 
-Es fällt auf dass keinerlei Fehlerfälle bzw. Fehlerbehandlung in dem Interpreter vorkommen.
+Es fällt auf, dass keinerlei Fehlerfälle bzw. Fehlerbehandlung in dem Interpreter vorkommen.
 Dies ist für unsere Zwecke auch nicht nötig da wir nur syntaktisch korrekte Programme interpetieren wollen.
 
 Den Interpreter IX kann auch sich selbst interpretieren. Dazu muss er nur in Listenkodierung gebracht werden.
@@ -1325,7 +1341,7 @@ Das Halteproblem ist unentscheidbar.
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{beweis}
-Wir beweisen dass das Halteproblem (in $\lng{E}$) unentscheidbar ist, indem wir zeigen
+Wir beweisen, dass das Halteproblem (in $\lng{E}$) unentscheidbar ist, indem wir zeigen
 dass es kein Programm in $\lng{E}$ geben kann, welches für beliebige Programme
 und Inputs entscheidet ob das Programm hält. Dazu nehmen wir an es wäre entscheidbar in $\lng{E}$ und führen dies dann auf
 einen Widerspruch zurück. Diese Beweistechnik nennt man ``Beweis durch Widerspruch''.
@@ -1352,13 +1368,13 @@ Fallunterscheidung nach $\I{E}{\delta,\omega}{H(x,x)}=$
 =\I{E}{\delta,\omega}{if eq?(H(x,x),TRUE) then A(x) else x}=\bigstar\]
 und da $\I{E}{\delta,\omega}{H(x,x)}=$TRUE
 \[\bigstar=\I{E}{\delta,\omega}{A(x)}=\ldots\]
-Wir sehen dass das Programm nicht hält. Dies ist ein Widerspruch.
+Wir sehen, dass das Programm nicht hält. Dies ist ein Widerspruch.
 \item FALSE (d.h. $\I{E}{\delta,\omega}{A(x)}$ hält nicht): Laut Definition der Interpretationsfunktion wird dann der \u{else}-Zweig ausgeführt.
 \[\I{E}{\delta,\omega}{if eq?(H(x,x),TRUE) then A(x) else x}=
 =\I{E}{\delta,\omega}{x}
 =\omega(\tu{x})
 \]
-Wir sehen dass das Programm hält. Dies ist ebenfalls ein Widerspruch.
+Wir sehen, dass das Programm hält. Dies ist ebenfalls ein Widerspruch.
 \end{\whichitem}
 Die Fallunterscheidung deckt alle Fälle ab. Wir erhalten in jedem Fall einen Widerspruch.
 Somit haben wir den Satz bewiesen. \hfill $\Box$
@@ -1465,10 +1481,10 @@ Interpretieren Sie die folgenden prädikatenlogischen Ausdrucke in $\lng{P}$ mit
 &\quad \I{P}{\omega}{(\texists y) lt?(y,x)} \\
 &\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \Iu{P}{\omega'}{lt?(y,x)} \\
 &\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\Iu{P}{\omega'}{y},\Iu{P}{\omega'}{x}) \\
-&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\omega'(\u{y}),\omega'(\u{x})) \\
-&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\omega'(\u{y}),0) \\
-&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \omega'(\u{y}) < 0
-\intertext{Da $\omega'(\u{y}) \in \N_0$, d.h. $\omega'(\u{y}) \geq 0$, gibt es keinen Wert den $\omega'(\u{y})$ annehmen könnte um das Prädikat zu erfüllen.}
+&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\omega'(\tu{y}),\omega'(\tu{x})) \\
+&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\omega'(\tu{y}),0) \\
+&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \omega'(\tu{y}) < 0
+\intertext{Da $\omega'(\tu{y}) \in \N_0$, d.h. $\omega'(\tu{y}) \geq 0$, gibt es keinen Wert den $\omega'(\tu{y})$ annehmen könnte um das Prädikat zu erfüllen.}
 &\lra F
 \end{align*}
 \end{\whichenum}
@@ -1500,9 +1516,9 @@ Ermitteln Sie den semantischen Status für Programme in $\lng{P}$ über dem Date
 &\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \Iu{P}{\omega'}{\text{istLeer?}(add0(x))} \\
 &\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(\Iu{P}{\omega'}{add0(x)}) \\
 &\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(add0(\Iu{P}{\omega'}{x})) \\
-&\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(add0(\omega'(\u{x}))) \\
-\intertext{add0 legt eine 0 auf den Stack. Ist $\omega'(\u{x})$ nicht leer ist es danach weiterhin nicht leer.
-War $\omega'(\u{x})$ zuvor leer ist es danach nicht mehr leer.}
+&\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(add0(\omega'(\tu{x}))) \\
+\intertext{add0 legt eine 0 auf den Stack. Ist $\omega'(\tu{x})$ nicht leer ist es danach weiterhin nicht leer.
+War $\omega'(\tu{x})$ zuvor leer ist es danach nicht mehr leer.}
 &\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg F \\
 &\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; T \\
 \end{align*}
@@ -1517,7 +1533,7 @@ Der Ausdruck ist \textbf{gültig}.
 &\lra \text{ist0?}(\omega(\u{x}))\to \rbr{\text{ist1?}(\I{T}{\omega}{y})\vee\text{istLeer?}(\I{T}{\omega}{y})} \\
 &\lra \text{ist0?}(\omega(\u{x}))\to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))}
 \end{align*}
-Wir vermuten dass der semantische Status \textbf{erfüllbar} ist. Um dies zu beweisen müssen wir eine Variablenbelegung mit der der Ausdruck zu $T$ evaluiert und eine
+Wir vermuten, dass der semantische Status \textbf{erfüllbar} ist. Um dies zu beweisen müssen wir eine Variablenbelegung mit der der Ausdruck zu $T$ evaluiert und eine
 mit der er zu $F$ evaluiert.
 Fallunterscheidung nach $\omega(\u{x})$
 \begin{\whichitem}
@@ -1571,7 +1587,7 @@ definieren in der wir die Sprache $\lng{P}$ für Konditionale verwenden.
 Assignmentsprachen (imperative Sprachen) sind die häufigsten verwendeten Programmiersprachen (z.B. C, C++, Java)
 und vermutlich sind auch die meisten Programmiersprachen Assignmentsprachen.
 
-In Tabelle~\ref{unterschiede_funktional_imperativ}
+In Tabelle~\ref{unterschiede_funktional_imperativ} findet sich eine Auflistung von Merkmalen funktionaler und imperativer Sprachen.
 \begin{table}[h!t]
  \centering
 
@@ -1608,7 +1624,7 @@ dann ist $v \tu{:-} t \; \in \lng{A}$ (Assignments).
 
 Zwischen \u{begin} und \u{end} stehen \textbf{genau zwei Befehle} die von genau einem \u{;} getrennt werden. Dies ist keine Einschränkung, da durch Verschachtelung beliebig viele Befehle nacheinander
 ausgeführt werden können. Die Syntax von $\lng{A}$ erinnert an eine stark vereinfachte Version von ALGOL (oder einer verwandten Sprache - Pascal, als bekannteres Beispiel).
-Es fällt außerdem auf dass ein Term $t \in \lng{T}$ nur an ganz bestimmten Stellen in der Sprache vorkommen darf.
+Es fällt außerdem auf, dass ein Term $t \in \lng{T}$ nur an ganz bestimmten Stellen in der Sprache vorkommen darf.
 
 \begin{defn}[Semantik von AL $\lng{A}$]
 Die Interpretationsfuntkion $I_{\lng{A}}: \text{ENV} \times \lng{A} \to \text{ENV}$ nimmt ein Environment und ein Programm und berechnet ein neues Environment.
@@ -1782,7 +1798,7 @@ $\omega^{\ell+2}(\tu{y})
 =\text{minus}(n+1,1)
 =n$}}
 &= \Iu{A}{\omega^{\ell+2}}{Z_{3,\ldots,7}} \\
-\intertext{Wir sehen dass für $\omega^{\ell+2}$ die Induktionshypothese gilt und verwenden diese:}
+\intertext{Wir sehen, dass für $\omega^{\ell+2}$ die Induktionshypothese gilt und verwenden diese:}
 &= \omega^k \\
 \omega^k(\tu{z}) &= \omega^{\ell+2}(\tu{x}) \cdot \omega^{\ell+2}(\tu{y}) + \omega^{\ell+2}(\tu{z}) \\
 &= m \cdot n + (p+m) \\
@@ -1799,7 +1815,7 @@ Variablen werden dabei nur noch Adressen (aus $\N_0$) enthalten, die Werte stehe
 Environment an der entsprechenden Adresse.
 Für diese Erweiterung ist es nötig $\lng{T}$, $\lng{P}$ und $\lng{A}$ neu zu definieren um ein
 neues Environment ($\sigma$) einzuführen.
-Anhand dieser Erweiterung wird deutlich dass das Konzept Pointer im Wesentlichen nur ein zusätzliches Mapping ist,
+Anhand dieser Erweiterung wird deutlich, dass das Konzept Pointer im Wesentlichen nur ein zusätzliches Mapping ist,
 die Mächtigkeit der Sprache aber nicht ändert - jedoch ``Komfort'' für den Programmierer bringen kann.
 
 % \begin{defn}[$\omega$- und $\sigma$-Environments in $\lng{A^P}$]
@@ -1874,7 +1890,7 @@ die Mächtigkeit der Sprache aber nicht ändert - jedoch ``Komfort'' für den Pr
 
 % \ifthenelse{\boolean{long}}{}{\begin{comment}}
 % \begin{bsp}
-% Gegeben Sei folgendes Programm in $\lng{A^P}$:
+% Gegeben sei folgendes Programm in $\lng{A^P}$:
 % \lstset{numbers=left, numbersep=5pt, xleftmargin=0.3\hsize}
 % \begin{lstlisting}[mathescape]
 % $\tu{begin}$
@@ -1936,7 +1952,7 @@ Wir werden die Sprache $\lng{L}$ (gesprochen ``LP'') entwerfen, die durchaus an 
 
 An dieser Stelle ist noch ein Hinweis auf das Vorlesungsskriptum angebracht welches eine weitere Sprache
 definiert (``P'' die Sprache der Aussagenlogik) und außerdem Grundlagen der Aussagenlogik wiederholt. Wir
-gehen an dieser Stelle davon aus dass der Leser diese Grundkenntnisse ($a \to b \Lra \neg a \vee b$, ``Wie können Aussagen in menschlicher Sprache in Aussagenlogik ausgedrückt werden?'', etc.) bereits erworben hat
+gehen an dieser Stelle davon aus, dass der Leser diese Grundkenntnisse ($a \to b \Lra \neg a \vee b$, ``Wie können Aussagen in menschlicher Sprache in Aussagenlogik ausgedrückt werden?'', etc.) bereits erworben hat
 und werden daher gleich die Sprache $\lng{L}$ definieren.
 
 Programme bestehen in $\lng{L}$ aus Fakten und Regeln für Schlussfolgerungen mit einfachen prädikatenlogischen Ausdrücken.
@@ -1957,7 +1973,7 @@ dann ist $p\texttt{(}t_1\texttt{,}\ldots\texttt{,}t_n\texttt{)}$ eine Atomformel
 \end{\whichenum}
 \end{defn}
 
-Wir sehen dass $\lng{L}$ völlig unabhängig von unseren bisherigen Sprachen (insbesondere der Sprache der Terme $\mathcal{T}$) ist.
+Wir sehen, dass $\lng{L}$ völlig unabhängig von unseren bisherigen Sprachen (insbesondere der Sprache der Terme $\mathcal{T}$) ist.
 
 \begin{defn}[Semantik von LP ($\lng{L}$)] \quad 
 \begin{\whichenum}
@@ -2051,7 +2067,7 @@ vereinheitlichen (``unify''). Wollen wir beispielsweise \verb|p(X)| und \verb|p(
 vereinheitlichen, so könnten wir dies mit $\Theta_1=\gbr{\texttt{X|Y}}$, $\Theta_2=\gbr{\texttt{Y|X}}$,
 $\Theta_3=\gbr{\texttt{X|a}, \texttt{Y|a}}$, etc.
 
-Wir sehen dass bei $\Theta_3$ nach der Substitution weniger Variablen in den
+Wir sehen, dass bei $\Theta_3$ nach der Substitution weniger Variablen in den
 beiden Atomformeln vorkommen. Dies bedeutet eine zusätzliche Einschränkung.
 Wir sind suchen meist die allgemeinsten Substitutionen die die beiden Ausdrücke vereinheitlichen.
 Eine solche Substitution nennen wir MGU (Most General Unifier).
