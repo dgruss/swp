@@ -807,7 +807,7 @@ Alle anderen Listen sind keine Atome.
 \item $\text{eq?}(x,y)=T$, genau dann wenn $x=y$
 \end{\whichitem}
 \end{\whichenum}
-\item Konstanten: Je eine Konstante für jedes Atom, nil für die leere Liste
+\item Konstanten: Die leere Liste ($c_1=[]$ mit $c_1^\Sigma=\tu{nil}$), sowie je eine Konstante für jedes Atom
 \end{\whichitem}
 Die Symbole auf der syntaktischen Ebene werden entsprechend der zuvor verwendeten Bezeichnungen gewählt (z.B. $p_1^{\Sigma}=\tu{atom?}$).
 \end{defn}
@@ -1424,7 +1424,7 @@ unverändert lassen. Für diesen Zweck definieren wir den Begriff für Environme
 ``äquivalent modulo'' in Bezug auf eine Variable.
 \begin{defn}[äquivalent modulo]
 $\omega,\omega' \in \text{ENV}$ sind genau dann äquivalent modulo $v \in \text{IVS}$,
-wenn für alle $w \in \text{IVS}$ mit $v \neq w$ gilt: $\omega(w)\neq\omega'(w)$.
+wenn für alle $w \in \text{IVS}$ mit $v \neq w$ gilt: $\omega(w)=\omega'(w)$.
 Formal schreiben wir dann: $\omega \sim_{v} \omega'$, gesprochen ``$\omega,\omega'$ äquivalent modulo $v$''.
 \end{defn}
 
@@ -1443,6 +1443,12 @@ mit einem Prädikatensymbol $p^{\Sigma} \in P^{\Sigma}$ und dem entsprechenden P
 \item $\Iu{P}{\omega}{\u{(\tforall}\;v\;\u{)}\;q} \lra \tforall \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (All-Quantor)
 \item $\Iu{P}{\omega}{\u{(\texists}\;v\;\u{)}\;q} \lra \texists \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (Existenz-Quantor)
 \end{\whichenum}
+\end{defn}
+
+\begin{defn}[Syntax von PL$_0$ $\lng{P}_0$]
+Die Sprache $\lng{P}_0$ ist die quantorenfreie Teilmenge der Sprache $\lng{P}$.
+
+Es sind also $\u{(\tforall}v\u{)}q \not \in \lng{P}_0$ und $\u{(\texists}v\u{)}q \not \in \lng{P}_0$.
 \end{defn}
 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
@@ -1817,131 +1823,6 @@ Für diese Erweiterung ist es nötig $\lng{T}$, $\lng{P}$ und $\lng{A}$ neu zu d
 neues Environment ($\sigma$) einzuführen.
 Anhand dieser Erweiterung wird deutlich, dass das Konzept Pointer im Wesentlichen nur ein zusätzliches Mapping ist,
 die Mächtigkeit der Sprache aber nicht ändert - jedoch ``Komfort'' für den Programmierer bringen kann.
-
-% \begin{defn}[$\omega$- und $\sigma$-Environments in $\lng{A^P}$]
-% Wir definieren $\omega: \text{IVS} \to \text{LOC}$. Die Menge aller $\omega$ heißt
-% nach wie vor $\text{ENV}$.
-
-% Wir definieren $\sigma: \text{LOC} \to A$. $\text{LOC} \subseteq \N_0$.
-% \end{defn}
-
-% \begin{defn}[Syntax von $\lng{A^P}$]
-% \begin{\whichenum}
-% \item $\lng{A} \subset \lng{A^P}$, d.h. jedes $\lng{A}$-Programm ist syntaktisch betrachtet
-% auch ein $\lng{A^P}$-Programm.
-% \item Wenn $v,w \in \text{IVS}$, dann ist $\tu{ref} \; v \; \tu{:= ref} \; w \; \in \lng{A^P}$ (Pointer setzen).
-% \end{\whichenum}
-% \end{defn}
-
-% Die Behandlung von Variablen wurde bereits in $\lng{T}$ definiert.
-% \begin{defn}[Semantik von $\lng{T^P}$]
-% Die Semantik von $\lng{T^P}$ definieren wir durch die Interpretationsfunktion $I_{\lng{T^P}}: \text{ENV} \times \text{STATE} \times \lng{T^P} \to A$.
-% \begin{\whichenum}
-% \item $I_{\lng{T^P}}(\omega,\sigma,c^{\Sigma}_i)=c_i$ mit $c_i \in C$ (Semantik-Ebene), $c^{\Sigma}_i \in C^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
-% \item $I_{\lng{T^P}}(\omega,\sigma,v)=\sigma(\omega(v))$ mit $v \in \text{IVS}$ und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
-% \item $I_{\lng{T^P}}(\omega,\sigma,f^{\Sigma}_i\u{(}t_1\u{,}\ldots\u{,}t_n\u{)})=f_i(I_{\lng{T^P}}(\omega,\sigma,t_1),\ldots,I_{\lng{T^P}}(\omega,\sigma,t_n))$ mit $f_i \in F$ (Semantik-Ebene), $f^{\Sigma}_i \in F^{\Sigma}$ (Syntax-Ebene) und $\omega \in \text{ENV}$, $\sigma \in \text{STATE}$.
-% \end{\whichenum}
-% \end{defn}
-
-% Für die Behandlung von Konditionalen müssen wir auch $\lng{P^P}$ als Erweiterung
-% von $\lng{P}$ definieren. Wir modifizieren daher auch die Semantik von $\lng{P^P}$.
-
-% \begin{defn}[Semantik von $\lng{P^P}$]
-% Die Semantikfunktion definieren wir als $I: \text{ENV}\times\text{STATE}\times\lng{P^P}\to\gbr{T,F}$.
-% Seien $q,r \in \lng{P^P}$ und $\omega,\omega' \in \text{ENV}$, $\sigma \in \text{STATE}$.
-% \begin{\whichenum}
-% \item
-% $\Iu{P^P}{\omega,\sigma}{p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}} = p\rbr{\Iu{T^P}{\omega,\sigma}{t_1},\ldots,\Iu{T^P}{\omega,\sigma}{t_n}}$, wenn $t_1,\ldots,t_n \in \lng{T^P}$,
-% mit einem Prädikatensymbol $p^{\Sigma} \in P^{\Sigma}$ und dem entsprechenden Prädikat $p \in P$.
-% \item $\Iu{P^P}{\omega,\sigma}{q\;\u{\vee}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \vee \Iu{P^P}{\omega,\sigma}{r}}$ (Oder-Verknüpfung)
-% \item $\Iu{P^P}{\omega,\sigma}{q\;\u{\wedge}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \wedge \Iu{P^P}{\omega,\sigma}{r}}$ (Und-Verknüpfung)
-% \item $\Iu{P^P}{\omega,\sigma}{q\;\u{\to}\;r} \lra \rbr{\Iu{P^P}{\omega,\sigma}{q} \to \Iu{P^P}{\omega,\sigma}{r}}$ (Implikation)
-% \item $\Iu{P^P}{\omega,\sigma}{\u{\tneg}\;q} \lra \tneg \Iu{P^P}{\omega,\sigma}{q}$ (Negation)
-% \item $\Iu{P^P}{\omega,\sigma}{\u{(}\;q\;\u{)}} \lra \Iu{P^P}{\omega,\sigma}{q}$ (Klammerung)
-% \item $\Iu{P^P}{\omega,\sigma}{\u{(\tforall}\;v\;\u{)}\;q} \lra \tforall \omega',\sigma', \omega \sim_v \omega', \sigma \sim_{\omega'(v)} \sigma': \; \Iu{P^P}{\omega',\sigma'}{q}$ (All-Quantor)
-% \item $\Iu{P^P}{\omega,\sigma}{\u{(\texists}\;v\;\u{)}\;q} \lra \texists \omega',\sigma', \omega \sim_v \omega', \sigma \sim_{\omega'(v)} \sigma': \; \Iu{P^P}{\omega',\sigma'}{q}$ (Existenz-Quantor)
-% \end{\whichenum}
-% \end{defn}
-
-% \begin{defn}[Semantik von $\lng{A^P}$]
-% Die Interpretationsfuntkion $I_{\lng{A^P}}: \text{ENV} \times \text{STATE} \times \lng{A^P} \to \text{ENV} \times \text{STATE}$ nimmt nun zusätzlich den \text{STATE} entgegen und liefert diesen oder einen neuen wieder zurück.
-% \begin{\whichenum}
-% \item Assignments: $\Iu{A^P}{\omega,\sigma}{v \; \tu{:=} \; t} = (\omega,\sigma')$ mit $\sigma' \sim_{\omega(v)} \sigma$ und $\sigma'(\omega(v))=\Iu{T^P}{\omega,\sigma}{t}$.
-% \item Blöcke: $\Iu{A^P}{\omega,\sigma}{\tu{begin} \; a_1 \; \tu{;} \; a_2 \; \tu{end}}
-% = \Iu{A^P}{\omega',\sigma'}{a_2}$ mit $(\omega',\sigma')=\Iu{A^P}{\omega,\sigma}{a_1}$.
-% \item Konditionale:
-% \begin{\whichenum}
-% \item $\Iu{A^P}{\omega,\sigma}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A^P}{\omega,\sigma}{a_1}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=T$.
-% \item $\Iu{A^P}{\omega,\sigma}{\tu{if} \; p \; \tu{then} \; a_1 \; \tu{else} \; a_2} = \Iu{A^P}{\omega,\sigma}{a_2}$ wenn $\Iu{P^P}{\omega,\sigma}{p}=F$.
-% \end{\whichenum}
-% \item Schleifen:
-% \begin{\whichenum}
-% \item $\Iu{A^P}{\omega,\sigma}{\tu{while} \; p \; \tu{do} \; a} = \Iu{A^P}{\omega',\sigma'}{\tu{while} \; p \; \tu{do} \; a}$ mit $(\omega',\sigma')=\Iu{A^P}{\omega,\sigma}{a}$, wenn $\Iu{P^P}{\omega,\sigma}{p}=T$.
-% \item $\Iu{A^P}{\omega,\sigma}{\tu{while} \; p \; \tu{do} \; a} = (\omega,\sigma)$ wenn $\Iu{P^P}{\omega,\sigma}{p}=F$.
-% \end{\whichenum}
-% \item Pointer Assignments:
-% $\Iu{A^P}{\omega,\sigma}{\tu{ref} \; v \; \tu{:= ref} \; w} = (\omega',\sigma)$ mit $\omega \sim_v \omega'$ und $\omega'(v)=\omega(w)$.
-% \end{\whichenum}
-% \end{defn}
-
-% Wir sehen das Pointer einfach als Mapping zwischen Variablenname und Adresse (einer Zahl in $\N_0$)
-% verstanden werden können. In unserem Fall können wir explizit den Pointer
-% referenzieren und die Adresse verändern.
-
-% \ifthenelse{\boolean{long}}{}{\begin{comment}}
-% \begin{bsp}
-% Gegeben sei folgendes Programm in $\lng{A^P}$:
-% \lstset{numbers=left, numbersep=5pt, xleftmargin=0.3\hsize}
-% \begin{lstlisting}[mathescape]
-% $\tu{begin}$
-  % $\tu{i := 3}$
-% $\tu{;}$
-  % $\tu{begin}$
-    % $\tu{j := 5}$
-  % $\tu{;}$
-    % $\tu{begin}$
-      % $\tu{while lt?(i,j) do}$
-        % $\tu{begin}$
-            % $\tu{ref k := ref i}$
-          % $\tu{;}$
-            % $\tu{begin}$
-                % $\tu{ref j := ref k}$
-              % $\tu{;}$
-                % $\tu{i := plus(i,eins)}$
-            % $\tu{end}$
-        % $\tu{end}$
-    % $\tu{;}$
-      % $\tu{i := plus(i,j)}$
-    % $\tu{end}$
-  % $\tu{end}$
-% $\tu{end}$
-% \end{lstlisting}
-% Und folgendes Environment:
-% \[\begin{array}{|r|r|r|r|}
-% \hline
-% v & \omega(v) & \ell & \sigma(\ell) \\ \hline
-% \tu{i} & 0 & 0 & 0 \\ \hline
-% \tu{j} & 1 & 1 & 1 \\ \hline
-% \tu{k} & 2 & 2 & 2 \\ \hline
-% \end{array}\]
-% Interpretieren Sie das Programm.
-
-% \textit{Lösung:}
-% TODO
-
-% Nach der Ausführung haben wir also folgendes Environment:
-% \[\begin{array}{|r|r|r|r|}
-% \hline
-% v & \omega(v) & \ell & \sigma(\ell) \\ \hline
-% \tu{i} & 0 & 0 & 6 \\ \hline
-% \tu{j} & 0 & 1 & 5 \\ \hline
-% \tu{k} & 0 & 2 & 3 \\ \hline
-% \end{array}
-% \textit{Lösung:}
-% \]
-
-% \end{bsp}
-% \ifthenelse{\boolean{long}}{}{\end{comment}}
 
 \section{Die Sprache LP ($\lng{L}$)}
 Das dritte Sprachparadigma welches wir untersuchen wollen ist die ``Logische Programmierung''.
