@@ -396,10 +396,10 @@ Führen Sie das Programm \u{plus(plus(x,y),plus(eins,z))} mit dem Environment $\
 \textit{Lösung:}
 \begin{align*}
 &\quad \I{T}{\omega}{plus(plus(x,y),plus(eins,z))}\\
-&= +\rbr{\I{T}{\omega}{plus(x,y)},\I{T}{\omega}{plus(eins,z)}} \\
-&= +\rbr{+\rbr{\I{T}{\omega}{x},\I{T}{\omega}{y}},+\rbr{\I{T}{\omega}{eins},\I{T}{\omega}{z}}} \\
-&= +\rbr{+\rbr{\omega(\u{x}),\omega(\u{y})},+\rbr{1,\omega(\u{z})}} \\
-&= +\rbr{+\rbr{0,1},+\rbr{1,2}} = +\rbr{1,3} = 4
+&= \I{T}{\omega}{plus(x,y)} + \I{T}{\omega}{plus(eins,z)} \\
+&= \rbr{\I{T}{\omega}{x} + \I{T}{\omega}{y}} + \rbr{\I{T}{\omega}{eins} + \I{T}{\omega}{z}} \\
+&= \omega(\u{x}) + \omega(\u{y}) + 1 + \omega(\u{z}) \\
+&= 0+1+1+2 = 4
 \end{align*}
 \end{bsp}
 \ifthenelse{\boolean{long}}{}{\end{comment}}
@@ -1435,13 +1435,13 @@ Seien $q,r \in \lng{P}$ und $\omega,\omega' \in \text{ENV}$.
 \item
 $\Iu{P}{\omega}{p^{\Sigma}\tu{(}t_1\tu{,}\ldots\tu{,}t_n\tu{)}} = p\rbr{\Iu{T}{\omega}{t_1},\ldots,\Iu{T}{\omega}{t_n}}$, wenn $t_1,\ldots,t_n \in \lng{T}$,
 mit einem Prädikatensymbol $p^{\Sigma} \in P^{\Sigma}$ und dem entsprechenden Prädikat $p \in P$.
-\item $\Iu{P}{\omega}{q\;\u{\vee}\;r} \lra \rbr{\Iu{P}{\omega}{q} \vee \Iu{P}{\omega}{r}}$ (Oder-Verknüpfung)
-\item $\Iu{P}{\omega}{q\;\u{\wedge}\;r} \lra \rbr{\Iu{P}{\omega}{q} \wedge \Iu{P}{\omega}{r}}$ (Und-Verknüpfung)
-\item $\Iu{P}{\omega}{q\;\u{\to}\;r} \lra \rbr{\Iu{P}{\omega}{q} \to \Iu{P}{\omega}{r}}$ (Implikation)
-\item $\Iu{P}{\omega}{\u{\tneg}\;q} \lra \tneg \Iu{P}{\omega}{q}$ (Negation)
-\item $\Iu{P}{\omega}{\u{(}\;q\;\u{)}} \lra \Iu{P}{\omega}{q}$ (Klammerung)
-\item $\Iu{P}{\omega}{\u{(\tforall}\;v\;\u{)}\;q} \lra \tforall \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (All-Quantor)
-\item $\Iu{P}{\omega}{\u{(\texists}\;v\;\u{)}\;q} \lra \texists \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (Existenz-Quantor)
+\item $\Iu{P}{\omega}{q\;\u{\vee}\;r} \Lra \rbr{\Iu{P}{\omega}{q} \vee \Iu{P}{\omega}{r}}$ (Oder-Verknüpfung)
+\item $\Iu{P}{\omega}{q\;\u{\wedge}\;r} \Lra \rbr{\Iu{P}{\omega}{q} \wedge \Iu{P}{\omega}{r}}$ (Und-Verknüpfung)
+\item $\Iu{P}{\omega}{q\;\u{\to}\;r} \Lra \rbr{\Iu{P}{\omega}{q} \to \Iu{P}{\omega}{r}}$ (Implikation)
+\item $\Iu{P}{\omega}{\u{\tneg}\;q} \Lra \tneg \Iu{P}{\omega}{q}$ (Negation)
+\item $\Iu{P}{\omega}{\u{(}\;q\;\u{)}} \Lra \Iu{P}{\omega}{q}$ (Klammerung)
+\item $\Iu{P}{\omega}{\u{(\tforall}\;v\;\u{)}\;q} \Lra \tforall \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (All-Quantor)
+\item $\Iu{P}{\omega}{\u{(\texists}\;v\;\u{)}\;q} \Lra \texists \omega', \omega \sim_v \omega': \; \Iu{P}{\omega'}{q}$ (Existenz-Quantor)
 \end{\whichenum}
 \end{defn}
 
@@ -1457,34 +1457,30 @@ Interpretieren Sie die folgenden prädikatenlogischen Ausdrucke in $\lng{P}$ mit
 
 \textit{Lösung:}
 \begin{align*}
-&\quad \I{P}{\omega}{\small ((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)) \tto eq?(x,eins)} \\
-&\lra \I{P}{\omega}{\small ((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins))} \tto \I{P}{\omega}{eq?(x,eins)} \\
-&\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\I{T}{\omega}{x},\I{T}{\omega}{eins}) \\
-&\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\omega(\u{x}),1) \\
-&\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(0,1) \\
-&\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto F \\
-&\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee \I{P}{\omega}{lt?(x,eins)}} \tto F \\
-&\lra \rbr{\rbr{\I{P}{\omega}{lt?(x,plus(eins,eins))} \twedge \I{P}{\omega}{eq?(x,null)}} \tvee eq?(\I{T}{\omega}{x},\I{T}{\omega}{eins})} \tto F \\
-&\lra \rbr{\rbr{lt?(\I{T}{\omega}{x},\I{T}{\omega}{plus(eins,eins)}) \twedge eq?(\I{T}{\omega}{x},\I{T}{\omega}{null})} \tvee eq?(\omega(\u{x}),1)} \tto F \\
-&\lra \rbr{\rbr{lt?(\omega(\u{x}),plus(\I{T}{\omega}{eins},\I{T}{\omega}{eins})) \twedge eq?(\omega(\u{x}),0)} \tvee eq?(0,1)} \tto F \\
-&\lra \rbr{\rbr{lt?(0,plus(1,1)) \twedge eq?(0,0)} \tvee F} \tto F \\
-&\lra \rbr{lt?(0,2) \twedge T} \tto F \\
-&\lra \rbr{T \twedge T} \tto F \\
-&\lra T \tto F \\
-&\lra F
+&\I{P}{\omega}{((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)) \tto eq?(x,eins)} \\
+&\Lra \I{P}{\omega}{((lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins))} \tto \I{P}{\omega}{eq?(x,eins)} \\
+&\Lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\I{P}{\omega}{x},\I{P}{\omega}{eins}) \\
+&\Lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null))} \tvee \I{E}{\omega}{lt?(x,eins)}} \tto eq?(\omega(\tu{x}),1) \\
+&\Lra \rbr{\rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)}} \tvee lt?(\I{P}{\omega}{x},\I{P}{\omega}{eins})} \tto eq?(0,1) \\
+&\Lra \rbr{\rbr{\I{P}{\omega}{lt?(x,plus(eins,eins))} \twedge \I{P}{\omega}{eq?(x,null)}} \tvee lt?(\omega(\tu{x}),1)} \tto T \\
+&\Lra \rbr{\rbr{lt?(\I{P}{\omega}{x},\I{P}{\omega}{plus(eins,eins)}) \twedge eq?(\I{P}{\omega}{x},\I{P}{\omega}{null})} \tvee lt?(0,1)} \tto T \\
+&\Lra \rbr{\rbr{lt?(\omega(\tu{x}),\I{P}{\omega}{eins} + \I{P}{\omega}{eins}) \twedge eq?(\omega(\tu{x}),0)} \tvee lt?(0,1)} \tto T \\
+&\Lra \rbr{\rbr{lt?(0,1 + 1) \twedge eq?(0,0)} \tvee T} \tto T
+\intertext{Damit wissen wir eigentlich schon genug, denn $(\ldots \vee T) \tto T \Lra T \tto T \Lra T$. Der Vollständigkeit halber rechnen wir hier weiter.}
+&\Lra \rbr{\rbr{lt?(0,2) \twedge T} \tvee T} \tto T \Lra \rbr{\rbr{T \twedge T} \tvee T} \tto T \Lra \rbr{T \tvee T} \tto T \Lra T \tto T
 \end{align*}
 \item \u{(\texists y) lt?(y,x)}
 
 \textit{Lösung:}
 \begin{align*}
 &\quad \I{P}{\omega}{(\texists y) lt?(y,x)} \\
-&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \Iu{P}{\omega'}{lt?(y,x)} \\
-&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\Iu{P}{\omega'}{y},\Iu{P}{\omega'}{x}) \\
-&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\omega'(\tu{y}),\omega'(\tu{x})) \\
-&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\omega'(\tu{y}),0) \\
-&\lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \omega'(\tu{y}) < 0
+&\Lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \Iu{P}{\omega'}{lt?(y,x)} \\
+&\Lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\Iu{P}{\omega'}{y},\Iu{P}{\omega'}{x}) \\
+&\Lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\omega'(\tu{y}),\omega'(\tu{x})) \\
+&\Lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \text{lt?}(\omega'(\tu{y}),0) \\
+&\Lra \texists \omega', \omega \sim_{\u{y}} \omega': \; \omega'(\tu{y}) < 0
 \intertext{Da $\omega'(\tu{y}) \in \N_0$, d.h. $\omega'(\tu{y}) \geq 0$, gibt es keinen Wert den $\omega'(\tu{y})$ annehmen könnte um das Prädikat zu erfüllen.}
-&\lra F
+&\Lra F
 \end{align*}
 \end{\whichenum}
 \end{bsp}
@@ -1510,16 +1506,16 @@ Ermitteln Sie den semantischen Status für Programme in $\lng{P}$ über dem Date
 
 \textit{Lösung:}
 \begin{align*}
-&\quad \I{P}{\omega}{(\tforall x)\tneg \text{istLeer?}(add0(x))} \\
-&\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \Iu{P}{\omega'}{\tneg \text{istLeer?}(add0(x))} \\
-&\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \Iu{P}{\omega'}{\text{istLeer?}(add0(x))} \\
-&\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(\Iu{P}{\omega'}{add0(x)}) \\
-&\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(add0(\Iu{P}{\omega'}{x})) \\
-&\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(add0(\omega'(\tu{x}))) \\
+\I{P}{\omega}{(\tforall x)\tneg \text{istLeer?}(add0(x))} \\
+&\Lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \Iu{P}{\omega'}{\tneg \text{istLeer?}(add0(x))} \\
+&\Lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \Iu{P}{\omega'}{\text{istLeer?}(add0(x))} \\
+&\Lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(\Iu{P}{\omega'}{add0(x)}) \\
+&\Lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(add0(\Iu{P}{\omega'}{x})) \\
+&\Lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg \text{istLeer?}(add0(\omega'(\tu{x}))) \\
 \intertext{add0 legt eine 0 auf den Stack. Ist $\omega'(\tu{x})$ nicht leer ist es danach weiterhin nicht leer.
 War $\omega'(\tu{x})$ zuvor leer ist es danach nicht mehr leer.}
-&\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg F \\
-&\lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; T \\
+&\Lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; \tneg F \\
+&\Lra \tforall \omega', \omega \sim_{\u{x}} \omega': \; T \\
 \end{align*}
 Der Ausdruck ist \textbf{gültig}.
 \item \u{ist0?(x)\tto(ist1?(y)\tvee\text{istLeer?}(y))}
@@ -1527,10 +1523,10 @@ Der Ausdruck ist \textbf{gültig}.
 \textit{Lösung:}
 \begin{align*}
 &\quad \I{P}{\omega}{ist0?(x)\tto(ist1?(y)\tvee\text{istLeer?}(y))} \\
-&\lra \I{P}{\omega}{ist0?(x)}\to\rbr{\I{P}{\omega}{ist1?(y)\tvee\text{istLeer?}(y)}} \\
-&\lra \text{ist0?}(\I{P}{\omega}{x})\to\rbr{\I{P}{\omega}{ist1?(y)}\vee\I{P}{\omega}{\text{istLeer?}(y)}} \\
-&\lra \text{ist0?}(\omega(\u{x}))\to \rbr{\text{ist1?}(\I{T}{\omega}{y})\vee\text{istLeer?}(\I{T}{\omega}{y})} \\
-&\lra \text{ist0?}(\omega(\u{x}))\to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))}
+&\Lra \I{P}{\omega}{ist0?(x)}\to\rbr{\I{P}{\omega}{ist1?(y)\tvee\text{istLeer?}(y)}} \\
+&\Lra \text{ist0?}(\I{P}{\omega}{x})\to\rbr{\I{P}{\omega}{ist1?(y)}\vee\I{P}{\omega}{\text{istLeer?}(y)}} \\
+&\Lra \text{ist0?}(\omega(\u{x}))\to \rbr{\text{ist1?}(\I{T}{\omega}{y})\vee\text{istLeer?}(\I{T}{\omega}{y})} \\
+&\Lra \text{ist0?}(\omega(\u{x}))\to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))}
 \end{align*}
 Wir vermuten, dass der semantische Status \textbf{erfüllbar} ist. Um dies zu beweisen müssen wir eine Variablenbelegung mit der der Ausdruck zu $T$ evaluiert und eine
 mit der er zu $F$ evaluiert.
@@ -1538,25 +1534,25 @@ Fallunterscheidung nach $\omega(\u{x})$
 \begin{\whichitem}
 \item $\omega(\u{x})=1$:
 \begin{align*}
-&\lra \text{ist0?}(1)\to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
-&\lra F \to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
-\intertext{``Aus Falschem folgt Beliebiges'', d.h. $\lra T$ - wir können aber auch weiter umformen:}
-&\lra \tneg F \vee \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
-&\lra T \vee \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
-&\lra T
+&\Lra \text{ist0?}(1)\to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
+&\Lra F \to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
+\intertext{``Aus Falschem folgt Beliebiges'', d.h. $\Lra T$ - wir können aber auch weiter umformen:}
+&\Lra \tneg F \vee \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
+&\Lra T \vee \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
+&\Lra T
 \end{align*}
 \item $\omega(\u{x})=0$:
 \begin{align*}
-&\lra \text{ist0?}(0)\to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
-&\lra T \to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
+&\Lra \text{ist0?}(0)\to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
+&\Lra T \to \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
 \intertext{Die nächsten 3 Umformungszeilen sind trivial, wir führen sie hier trotzdem nochmal genau durch:}
-&\lra \tneg T \vee \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
-&\lra F \vee \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
-&\lra \text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y})) \\
+&\Lra \tneg T \vee \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
+&\Lra F \vee \rbr{\text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y}))} \\
+&\Lra \text{ist1?}(\omega(\u{y}))\vee\text{istLeer?}(\omega(\u{y})) \\
 \intertext{Damit der Ausdruck zu $F$ evaluiert müssen die Oder-verknüpften Ausdrücke alle zu $F$ evaluieren. Dazu wählen wir $\omega(\u{y})=0$.}
-&\lra \text{ist1?}(0)\vee\text{istLeer?}(0)
-\quad \lra \quad F\vee F
-\quad \lra \quad F
+&\Lra \text{ist1?}(0)\vee\text{istLeer?}(0)
+\quad \Lra \quad F\vee F
+\quad \Lra \quad F
 \end{align*}
 \end{\whichitem}
 Der Ausdruck ist \textbf{erfüllbar}.
@@ -1565,11 +1561,11 @@ Der Ausdruck ist \textbf{erfüllbar}.
 \textit{Lösung:}
 \begin{align*}
 &\quad \I{P}{\omega}{\text{istLeer?}(x)\twedge ist1?(x)} \\
-&\lra \I{P}{\omega}{\text{istLeer?}(x)}\wedge\I{P}{\omega}{ist1?(x)} \\
-&\lra \text{istLeer?}(\I{T}{\omega}{x})\wedge\text{ist1?}(\I{T}{\omega}{x}) \\
-&\lra \text{istLeer?}(\omega(\u{x}))\wedge\text{ist1?}(\omega(\u{x})) \\
+&\Lra \I{P}{\omega}{\text{istLeer?}(x)}\wedge\I{P}{\omega}{ist1?(x)} \\
+&\Lra \text{istLeer?}(\I{T}{\omega}{x})\wedge\text{ist1?}(\I{T}{\omega}{x}) \\
+&\Lra \text{istLeer?}(\omega(\u{x}))\wedge\text{ist1?}(\omega(\u{x})) \\
 \intertext{$\text{istLeer?}(\omega(\u{x}))=T$ genau dann wenn $\omega(\u{x})=\varepsilon$, dann ist aber $\text{ist1?}(\omega(\u{x}))=F$. Die Und-Verknüfpung kann also nicht zu $T$ evaluieren.}
-&\lra F
+&\Lra F
 \end{align*}
 Der Ausdruck ist \textbf{nicht erfüllbar}.
 \end{\whichenum}
