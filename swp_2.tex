@@ -479,7 +479,7 @@ t_3 &= \u{plus(eins,plus(eins,eins))} \\
 &\vdots \\
 t_{k+1} &= \u{plus(eins,}t_{k}\u{)} \\
 \end{align*}
-$k$ entsprichtder Anzahl der ${\tueins}$ im Ausdruck.
+$k$ entspricht der Anzahl der ${\tueins}$ im Ausdruck.
 
 \begin{\whichitem}
 \item \textbf{Induktionsbasis:} \quad
@@ -680,7 +680,7 @@ Zu zeigen ist also: $\tforall \omega: \I{E}{\delta,\omega}{add(x,y)}=\omega(\u{x
 \begin{align*}
 \I{E}{\delta,\omega}{add(x,y)}
 \intertext{\textcolor{darkblue}{Neues Environment? $\omega'(\u{x})=\omega(\u{x})$, $\omega'(\u{y})=\omega(\u{y})$, d.h. es wäre $\omega'=\omega$. Es gilt Gleichheit, daher ist es völlig egal
-ob hier $\omega'$ eingeführt wird oder nicht. Dieser Fall tritt immer dann auf wenn die Aufruf-Parameter gleich den Funktionsparametern aus der Definition sind. In diesen Fälllen führen wir in diesem Skriptum zwecks Übersichtlichkeit keine neuen Environments ein.}}
+ob hier $\omega'$ eingeführt wird oder nicht. Dieser Fall tritt immer dann auf wenn die Aufruf-Parameter gleich den Funktionsparametern aus der Definition sind. In diesen Fällen führen wir in diesem Skriptum zwecks Übersichtlichkeit keine neuen Environments ein.}}
 &= \I{E}{\delta,\omega}{\text{if eq?(x,0) then y else add(dec(x),inc(y))}}
 \intertext{\textcolor{darkblue}{NR: $\I{E}{\delta,\omega}{\text{eq?}(x,0)}=\text{eq?}(\I{E}{\delta,\omega}{x},\I{E}{\delta,\omega}{0})=\text{eq?}(\omega(\u{x}),0)=\text{eq?}(0,0)=T$}}
 &= \I{E}{\delta,\omega}{y} \\
@@ -815,7 +815,7 @@ Die Symbole auf der syntaktischen Ebene werden entsprechend der zuvor verwendete
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
 Definieren Sie eine Funktion \u{second} in $\lng{E}$ welches immer das 2. Element einer Liste zurückliefert.
-Interpetieren Sie ihre Funktion für den Parameter [ FIR SEC THI ].
+Interpretieren Sie ihre Funktion für den Parameter [ FIR SEC THI ].
 
 \textit{Lösung:} Zuerst trennen wir das erste Element von der Liste, anschließend
 geben wir das neue erste Element zurück:
@@ -836,7 +836,7 @@ geben wir das neue erste Element zurück:
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
 Definieren Sie eine Funktion \u{reverse} in $\lng{E}$ welches eine Liste elementweise umgedreht zurückliefert.
-Interpetieren Sie ihre Funktion für den Parameter [ FIR SEC THI ].
+Interpretieren Sie ihre Funktion für den Parameter [ FIR SEC THI ].
 
 \textit{Lösung:} Bei der Konstruktion rekursiver Programme versuchen wir meist von einem Basisfall ausgehend
 komplexere Fälle aufzubauen.
@@ -1307,7 +1307,7 @@ eine Funktion \u{FindFVS}}}{\\}
 Damit ist der Interpreter vollständig.
 
 Es fällt auf, dass keinerlei Fehlerfälle bzw. Fehlerbehandlung in dem Interpreter vorkommen.
-Dies ist für unsere Zwecke auch nicht nötig da wir nur syntaktisch korrekte Programme interpetieren wollen.
+Dies ist für unsere Zwecke auch nicht nötig da wir nur syntaktisch korrekte Programme interpretieren wollen.
 
 Den Interpreter IX kann auch sich selbst interpretieren. Dazu muss er nur in Listenkodierung gebracht werden.
 \ifthenelse{\boolean{long}}{}{\end{comment}}
