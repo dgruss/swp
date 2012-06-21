@@ -1464,15 +1464,10 @@ Interpretieren Sie die folgenden prädikatenlogischen Ausdrucke in $\lng{P}$ mit
 &\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(0,1) \\
 &\lra \rbr{\I{P}{\omega}{\small (lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto F \\
 &\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee \I{P}{\omega}{lt?(x,eins)}} \tto F \\
-&\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee eq?(\I{T}{\omega}{x},\I{T}{\omega}{eins})} \tto F \\
-&\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee eq?(\omega(\u{x}),1)} \tto F \\
-&\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee eq?(0,1)} \tto F \\
-&\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)} \tvee F} \tto F \\
-&\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)}} \tto F \\
-&\lra \rbr{\I{P}{\omega}{lt?(x,plus(eins,eins))} \twedge \I{P}{\omega}{eq?(x,null)}} \tto F \\
-&\lra \rbr{lt?(\I{T}{\omega}{x},\I{T}{\omega}{plus(eins,eins)}) \twedge eq?(\I{T}{\omega}{x},\I{T}{\omega}{null})} \tto F \\
-&\lra \rbr{lt?(\omega(\u{x}),plus(\I{T}{\omega}{eins},\I{T}{\omega}{eins})) \twedge eq?(\omega(\u{x}),0)} \tto F \\
-&\lra \rbr{lt?(0,plus(1,1)) \twedge eq?(0,0)} \tto F \\
+&\lra \rbr{\rbr{\I{P}{\omega}{lt?(x,plus(eins,eins))} \twedge \I{P}{\omega}{eq?(x,null)}} \tvee eq?(\I{T}{\omega}{x},\I{T}{\omega}{eins})} \tto F \\
+&\lra \rbr{\rbr{lt?(\I{T}{\omega}{x},\I{T}{\omega}{plus(eins,eins)}) \twedge eq?(\I{T}{\omega}{x},\I{T}{\omega}{null})} \tvee eq?(\omega(\u{x}),1)} \tto F \\
+&\lra \rbr{\rbr{lt?(\omega(\u{x}),plus(\I{T}{\omega}{eins},\I{T}{\omega}{eins})) \twedge eq?(\omega(\u{x}),0)} \tvee eq?(0,1)} \tto F \\
+&\lra \rbr{\rbr{lt?(0,plus(1,1)) \twedge eq?(0,0)} \tvee F} \tto F \\
 &\lra \rbr{lt?(0,2) \twedge T} \tto F \\
 &\lra \rbr{T \twedge T} \tto F \\
 &\lra T \tto F \\
@@ -1631,7 +1626,7 @@ ausgeführt werden können. Die Syntax von $\lng{A}$ erinnert an eine stark vere
 Es fällt außerdem auf, dass ein Term $t \in \lng{T}$ nur an ganz bestimmten Stellen in der Sprache vorkommen darf.
 
 \begin{defn}[Semantik von AL $\lng{A}$]
-Die Interpretationsfuntkion $I_{\lng{A}}: \text{ENV} \times \lng{A} \to \text{ENV}$ nimmt ein Environment und ein Programm und berechnet ein neues Environment.
+Die Interpretationsfunktion $I_{\lng{A}}: \text{ENV} \times \lng{A} \to \text{ENV}$ nimmt ein Environment und ein Programm und berechnet ein neues Environment.
 \begin{\whichenum}
 \item Assignments: $\Iu{A}{\omega}{v \; \tu{:=} \; t} = \omega'$ mit $\omega' \sim_{v} \omega$ und $\omega'(v)=\Iu{T}{\omega}{t}$.
 \item Blöcke: $\Iu{A}{\omega}{\tu{begin} \; a_1 \; \tu{;} \; a_2 \; \tu{end}} = \Iu{A}{\Iu{A}{\omega}{a_1}}{a_2}$.
