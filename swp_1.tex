@@ -352,7 +352,7 @@ Wenn $E$ ein erweiterter regulärer Ausdruck ist und $c$ eine Variable aus $B$, 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 Die Sprache der natürlichen Zahlen inkl. Null beschreiben wir durch den Ausdruck
 \verb#0|((1|2|3|4|5|6|7|8|9)(0|1|2|3|4|5|6|7|8|9)*)#.
-Durch die Definition erweiterter regulärer Ausdrücke können wir nun komplexe Ausdrücke in due einzelnen Bestandteile kapseln und so
+Durch die Definition erweiterter regulärer Ausdrücke können wir nun komplexe Ausdrücke in die einzelnen Bestandteile kapseln und so
 besser lesbare Ausdrücke schaffen.
 Diesen Ausdruck können wir nun aufteilen indem wir die Teilausdrücke \verb#digit_not_null := (1|2|3|4|5|6|7|8|9)# und \verb#digit := 0 | digit_not_null# definieren.
 Dann erhalten wir den wesentlich leichter verständlichen Ausdruck \verb#0|(digit_not_null digit*)#.
