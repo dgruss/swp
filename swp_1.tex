@@ -352,7 +352,7 @@ Wenn $E$ ein erweiterter regulärer Ausdruck ist und $c$ eine Variable aus $B$, 
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 Die Sprache der natürlichen Zahlen inkl. Null beschreiben wir durch den Ausdruck
 \verb#0|((1|2|3|4|5|6|7|8|9)(0|1|2|3|4|5|6|7|8|9)*)#.
-Durch die Definition erweiterter regulärer Ausdrücke können wir nun komplexe Ausdrücke in due einzelnen Bestandteile kapseln und so
+Durch die Definition erweiterter regulärer Ausdrücke können wir nun komplexe Ausdrücke in die einzelnen Bestandteile kapseln und so
 besser lesbare Ausdrücke schaffen.
 Diesen Ausdruck können wir nun aufteilen indem wir die Teilausdrücke \verb#digit_not_null := (1|2|3|4|5|6|7|8|9)# und \verb#digit := 0 | digit_not_null# definieren.
 Dann erhalten wir den wesentlich leichter verständlichen Ausdruck \verb#0|(digit_not_null digit*)#.
@@ -534,7 +534,7 @@ Nun können wir nur noch \verb|b| produzieren, daher fügen wir ein $B$ in die 1
 \item $B \to \u{a} B$
 \end{\whichenum}
 \\
-Nun produzieren wir zuerst ein $\u{b}$ und dann beliebig viele $\u{a}$, allerdings terminiert die Rekursion nie. Wir fügen also eine regel $B \to \varepsilon$ ein
+Nun produzieren wir zuerst ein $\u{b}$ und dann beliebig viele $\u{a}$, allerdings terminiert die Rekursion nie. Wir fügen also eine Regel $B \to \varepsilon$ ein
 und erhalten die richtig umgeformte Grammatik:&
 \begin{\whichenum}
 \item $A \to \u{b} B$
@@ -549,7 +549,7 @@ Es ist auffällig, dass unsere Umformung der Form entspricht die in den Regeln b
 \begin{tabular}{p{0.7\hsize}p{0.24\hsize}}
 In diesem Beispiel möchten wir nun auch die Regeln der Linksfaktorisierung und indirekte Linksrekursion durch intuitive Herangehensweise 
 herleiten.
-Gegeben Sei die folgende Grammatik die arithmetische Ausdrücken einer bestimmten Form beschreibt:&
+Gegeben sei die folgende Grammatik die arithmetische Ausdrücken einer bestimmten Form beschreibt:&
 \vspace{-0.5cm}
 \begin{\whichenum}
 \item $E \to G$
@@ -902,7 +902,7 @@ Diese Definition kann für andere Parser leicht angepasst werden.
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \newpage
 \begin{bsp}
-Gegeben Sei die folgende Grammatik (ähnlich der Grammatik aus dem vorherigen Beispiel):
+Gegeben sei die folgende Grammatik (ähnlich der Grammatik aus dem vorherigen Beispiel):
 \begin{align*}
 A &\to A \u{a} &\qquad&& B &\to \u{b} | \u{q} \\
 A &\to A B C &\qquad&& C &\to A \u{c} \\
