@@ -937,7 +937,7 @@ Wir definieren:
                                      1 & \text{atom?}(\omega(\tu{x}),[]) \\
                                      \abs{\text{first}(\omega(\tu{x}))}+\abs{\text{rest}(\omega(\u{x}))}  & \text{sonst}\end{cases}\]
 
-Die Idee mit der wir die Induktion durchführen könnte man schreiben als:
+Die Idee---mit der wir die Induktion durchführen---könnte man schreiben als:
 Wenn $\delta\u{\text{depth}}$ korrekt ist für $\abs{\omega(\u{x})}=n$ ($n \in \N$),
 dann ist $\delta\u{\text{depth}}$ auch korrekt für $\abs{\omega(\u{x})}=n+1$.
 
@@ -1032,7 +1032,7 @@ Dazu können auch neue Konstanten eingeführt werden, welche dann jedoch wieder 
 Im Fall von Prädikaten ist der Fehlerwert entweder $T$ oder $F$.
 \end{defn}
 
-Die Definition von Atomen beim Datentyp der Listen erlaubt es den Listen leicht zu kombinieren. Elemente des
+Die Definition von Atomen beim Datentyp der Listen erlaubt es Listen leicht zu kombinieren. Elemente des
 zweiten Datentyps sind Atome.
 \ifthenelse{\boolean{long}}{}{\begin{comment}}
 \begin{bsp}
@@ -1120,7 +1120,7 @@ Eine Alternative zur Kombination von Datentypen ist die \textbf{Kodierung} eines
 Dies findet auch in vielen alltäglichen Programmen Anwendung - genau genommen immer dann wenn nicht nur die eingebauten Datentypen einer Sprache verwendet werden.
 
 \begin{defn}[Mapping-Funktion $\pi$]
-Gegeben ein Datentyp $D=(A,F,P,C)$ und ein Datentyp $E$ mit der Grundmenge $B$.
+Gegeben sei ein Datentyp $D=(A,F,P,C)$ und ein Datentyp $E$ mit der Grundmenge $B$.
 \begin{\whichitem}
 \item Die Funktion $\pi: A \to B$ weist jedem Wert aus $A$ einen Wert in $B$ zu, d.h. $\tforall x \in A: \: \pi(x) \in B$.
 \item $\tforall f_i(\ldots) \in F$ wird ein Funktionausdruck $\pi\ebr{f_i}(\ldots)$ über dem Datentyp $E$ konstruiert welcher die Funktion implementiert.
@@ -1234,7 +1234,7 @@ Für den Interpreter sollen die Kodierungseigenschaften gelten:
 Der Einfachheit halber behandeln wir nur den Fall $A=L$, dann ist in unserem Fall $\pi_{A}(x)=x$.
 Die Kodierung von $\omega$ kann beispielsweise durch eine Liste von 2-elementigen Listen geschehen wobei das 1. Element jeweils der Variablenname
 und das 2. Element jeweils der Variablenwert ist. Das heißt der Sachverhalt $\omega(\tu{x1})=\ell_1, \omega(\tu{x2})=\ell_2$ wird dargestellt durch
-$\ebr{ \ebr{\text{X1 } \ell_1} \ebr{\rbr{X2 } \ell_2} }$. Analog kann die Kodierung von FENV geschehen wobei hier 2 Werte pro Variable gespeichert werden: Die Parameterliste und das Programm in Listekodierung.
+$\ebr{ \ebr{\text{X1 } \ell_1} \ebr{\rbr{X2 } \ell_2} }$. Analog kann die Kodierung von FENV geschehen wobei hier 2 Werte pro Variable gespeichert werden: Die Parameterliste und das Programm in Listenkodierung.
 $\delta$ hat dann folgende Form: 
 \[\ebr{\quad\ebr{F_1 \ebr{ \ebr{x_1 \ldots x_n} \pi_{\lng{E}}(\text{exp})}} \quad \ldots \quad \ebr{F_n \ebr{ \ebr{x_1 \ldots x_n} \pi_{\lng{E}}(\text{exp}')}}\quad}.\]
 
@@ -1608,8 +1608,8 @@ Befehle stellen Zustandsübergänge dar.
 Wir definieren nun die Sprache \textbf{AL}.
 Wie schon bei \textbf{EXP} kürzen wir auch hier \textbf{AL} durch $\lng{A}$ ab - $\lng{A}$ gesprochen ``AL''.
 \begin{defn}[Syntax von AL $\lng{A}$]
-Gegeben die Sprachen $\text{T}$ und $\lng{P}_0$ über einem beliebigen Datentyp $D$
-definieren wir die Syntax von $\lng{A}$ wie folgt:
+Gegeben seien die Sprachen $\text{T}$ und $\lng{P}_0$ über einen beliebigen Datentyp $D$,
+so definieren wir die Syntax von $\lng{A}$ wie folgt:
 \begin{\whichenum}
 \item Wenn $v \in \text{IVS}$ und $t \in \lng{T}$,
 dann ist $v \tu{:-} t \; \in \lng{A}$ (Assignments).
@@ -1910,7 +1910,7 @@ In Sprache können wir unser Programm so darstellen:
 
 Um Anfragen zu beantworten müssen wir einen Algorithmus definieren der ggf.
 vom $\lng{L}$-Interpreter ausgeführt würde. Dazu benötigen wir Substitution und
-Unifikation.
+Unification.
 \begin{defn}[Variablensubstitution]
 Eine Substitution $\Theta = \gbr{x_1 | t_1, \ldots, x_n | t_n}$ ist eine Menge von Paaren der Form
 $x_i | t_i$, wobei $x_i$ eine Variable ist und $t_i$ ein logischer Term.
