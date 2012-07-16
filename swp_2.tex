@@ -942,12 +942,12 @@ Wenn $\delta\u{\text{depth}}$ korrekt ist für $\abs{\omega(\u{x})}=n$ ($n \in \
 dann ist $\delta\u{\text{depth}}$ auch korrekt für $\abs{\omega(\u{x})}=n+1$.
 
 Induktionshypothese:
-\[\forall \omega(\u{x}) \in L, \quad \abs{\omega(\u{x})} \leq n : \quad I(\delta,\omega,\abs{\omega(\u{x})}) = f_{d}(\omega(\u{x}))\]
+\[\forall \omega(\u{x}) \in L, \quad \abs{\omega(\u{x})} \leq n : \quad I(\delta,\omega,\tu{depth(x)}) = f_{d}(\omega(\u{x}))\]
 
 Induktionsbasis:
 \[\omega(\u{x}) \in L, \abs{\omega(\u{x})} = 1\]
 \begin{align*}
-&&\quad I(\delta,\omega,&\u{\text{depth}}) \\
+&&\quad I(\delta,\omega,&\u{\text{depth(x)}}) \\
 &&=I(\delta,\omega,&\u{\text{if atom?(first(x)) then depth(rest(x))}} \\ &&&\u{\text{else if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
 \intertext{\textcolor{darkblue}{NR: $I(\delta,\omega,\u{\text{atom?(first(x))}})=\text{atom?}(I(\delta,\omega,\u{\text{first(x)}}))=\text{atom?(first}(I(\delta,\omega,\u{\text{x}})))$\newline$=\text{atom?(first([]))}=\text{atom?([])}=F$ (da dies zu einer Rekursion führen würde und folglich kein Basisfall ist.)}}
 &&=I(\delta,\omega,&\u{\text{if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
@@ -958,7 +958,7 @@ Induktionsbasis:
 Induktionsschritt:
 \[\omega(\u{x}) \in L, \abs{\omega(\u{x})} = n+1, n \in \N\]
 \begin{align*}
-&&\quad I(\delta,\omega,&\u{\text{depth}}) \\
+&&\quad I(\delta,\omega,&\u{\text{depth(x)}}) \\
 &&=I(\delta,\omega,&\u{\text{if atom?(first(x)) then depth(rest(x))}} \\ &&&\u{\text{else if eq?(x,nil) then nil}} \\ &&&\u{\text{else max(build(depth(first(x)),nil),depth(rest(x)))}})
 \end{align*}
 Fallunterscheidung nach $atom?(first(\omega(\tu{x})))$:
