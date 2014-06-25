@@ -173,7 +173,7 @@ Die Funktion die von Variablennamen auf eine Wertemenge abbildet nennen wir $\om
 Man kann sich diese Funktion auch als Tabelle vorstellen bzw. in einem Interpreter als Tabelle implementieren.
 \begin{defn}
 Die Menge aller Environments sei
-\[\text{ENV} = \gbr{x | x \in \P\rbr{\text{IVS} \times \Lambda}, \forall \rbr{a,b},\rbr{a',b'} \in x : \quad a = a' \to b = b',\]
+\[\text{ENV} = \gbr{x | x \in \P\rbr{\text{IVS} \times \Lambda}}, \forall \rbr{a,b},\rbr{a',b'} \in x : \quad a = a' \to b = b',\]
 das heißt, die Potenzmenge des kartesischen Produkts der Variablennamen und der Werte, wobei es keine Tupel gibt, bei denen der gleiche Variablenname mit unterschiedlichen Werten verknüpft ist.
 \end{defn}
 $\text{IVS} \times \Lambda$ wäre hierbei die Menge die alle möglichen Variablennamen mit allen möglichen Werten verknüpft. Die Potenzmenge dieser Menge enthält alle Teilmengen, das heißt auch jedes spezielle Environment (und ungültige) ist in dieser Menge enthalten. Mit der zusätzlichen Bedingung am Ende der Definition wird die Einschränkung auf gültige Environments getroffen.

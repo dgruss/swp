@@ -283,9 +283,8 @@ Wir erhalten hier im Parser eine Endlos-Rekursion, da in $T \to T0, T \to T1$ ei
 
 \begin{defn}[Mehrdeutig, Eindeutig]
 Sei $G=(V_N,V_T,S,\Phi)$ eine Grammatik. Wenn es für ein Wort $w \in L(G)$ mehrere
-unterschiedliche Ableitungssequenzen $\omega,\psi$ gibt, d.h. $S \to \omega_1, \omega_1 \to \ldots, \ldots \to \omega_n, \omega_n \to w$,
-                                                         $S \to \psi_1, \psi_1 \to \ldots, \ldots \to \psi_k, \omega_k \to w$,
-wobei $\exists \psi_i : \psi_i \neq \omega_i$, ist es mehrdeutig. Eine Grammatik ist genau dann eindeutig, wenn sie nicht mehrdeutig ist.
+unterschiedliche Ableitungssequenzen $\alpha,\beta$ gibt, d.h. $S \to \alpha_1, \alpha_1 \to \ldots, \ldots \to \alpha_n, \alpha_n \to w$ und $S \to \beta_1, \beta_1 \to \ldots, \ldots \to \beta_k, \beta_k \to w$,
+wobei $\exists \beta_i : \beta_i \neq \alpha_i$, ist es mehrdeutig. Eine Grammatik ist genau dann eindeutig, wenn sie nicht mehrdeutig ist.
 \end{defn}
 
 \begin{defn}[Linksrekursiv]
@@ -578,7 +577,7 @@ Wir erhalten dann die nebenstehende Grammatik.&
 \item $G \to E \u{*} E$
 \item \textcolor{red}{$E \to \u{(} B$}
 \item \textcolor{red}{$B \to E \u{)}$}
-\item \textcolor{red}{$B \to \u{(} \u{\text{num}} \u{)}$}
+\item \textcolor{red}{$B \to \u{\text{num}} \u{)}$}
 \item \textcolor{red}{$B \to G \u{)} \u{/} \u{(} G \u{)}$}
 \end{\whichenum}
 \end{tabular}\\\begin{tabular}{p{0.65\hsize}p{0.29\hsize}}
@@ -590,7 +589,7 @@ Dazu können wir die Regel $G$ einfach ``einsetzen'' - d.h. aus Regel 1 werden 2
 \item \textcolor{red}{$E \to E \u{*} E$}
 \item $E \to \u{(} B$
 \item $B \to E \u{)}$
-\item $B \to \u{(} \u{\text{num}} \u{)}$
+\item $B \to \u{\text{num}} \u{)}$
 \item \textcolor{red}{$B \to E \u{+} E \u{)} \u{/} \u{(} E \u{*} E \u{)}$}
 \item \textcolor{red}{$B \to E \u{+} E \u{)} \u{/} \u{(} E \u{+} E \u{)}$}
 \item \textcolor{red}{$B \to E \u{*} E \u{)} \u{/} \u{(} E \u{*} E \u{)}$}
@@ -607,7 +606,7 @@ Dadurch entstehen wieder neue gemeinsame Präfixe die dann gelöst werden müsse
 \item $E \to \u{(} B$
 \item $B \to E \u{)}$
 \item[] \setcounter{enumi}{4}
-\item $B \to \u{(} \u{\text{num}} \u{)}$
+\item $B \to \u{\text{num}} \u{)}$
 \item \textcolor{red}{$B \to E C$}
 \item \textcolor{red}{$C \to \u{+} E \u{)} \u{/} \u{(} E \u{*} E \u{)}$}
 \item \textcolor{red}{$C \to \u{+} E \u{)} \u{/} \u{(} E \u{+} E \u{)}$}
@@ -620,7 +619,7 @@ Dadurch entstehen wieder neue gemeinsame Präfixe die dann gelöst werden müsse
 \item $E \to \u{(} B$
 \item $B \to E \u{)}$
 \item[] \setcounter{enumi}{4}
-\item $B \to \u{(} \u{\text{num}} \u{)}$
+\item $B \to \u{\text{num}} \u{)}$
 \item $B \to E C$
 \item \textcolor{red}{$C \to \u{+} E \u{)} \u{/} \u{(} E D$}
 \item \textcolor{red}{$C \to \u{*} E \u{)} \u{/} \u{(} E D$}
@@ -633,7 +632,7 @@ Dadurch entstehen wieder neue gemeinsame Präfixe die dann gelöst werden müsse
 \item $E \to \u{(} B$
 \item \textcolor{red}{$B \to E F$}
 \item \textcolor{red}{$F \to \u{)}$}
-\item $B \to \u{(} \u{\text{num}} \u{)}$
+\item $B \to \u{\text{num}} \u{)}$
 \item \textcolor{red}{$F \to C$}
 \item $C \to \u{+} E \u{)} \u{/} \u{(} E D$
 \item $C \to \u{*} E \u{)} \u{/} \u{(} E D$
@@ -1040,14 +1039,14 @@ D &\to \u{b}
 \begin{align*}
 \text{FIRST}(S) &= \text{FIRST*}(A)=\gbr{\u{a}} \\
 \text{FIRST}(A) &= \gbr{\u{a}} \\
-\text{FIRST}(B) &= \text{FIRST*}(C) \cup \text{FIRST*}(A)=\gbr{\u{a},\u{c}} \\
+\text{FIRST}(B) &= \gbr{\u{b}} \cup \text{FIRST*}(C) \cup \text{FIRST*}(A)=\gbr{\u{a},\u{b},\u{c}} \\
 \text{FIRST}(C) &= \gbr{\u{c},\varepsilon} \\
 \text{FIRST}(D) &= \gbr{\u{c},\u{b}}
 \end{align*}
 \begin{align*}
 \text{FOLLOW}(S) &= \gbr{\$} \\
-\text{FOLLOW}(A) &= \text{FOLLOW}(S) \cup \text{FIRST*}(B) \cup \text{FOLLOW}(B)=\gbr{\$,\u{a},\u{c}} \\
-\text{FOLLOW}(B) &= \text{FOLLOW}(A)=\gbr{\$,\u{a},\u{c}} \\
+\text{FOLLOW}(A) &= \text{FOLLOW}(S) \cup \text{FIRST*}(B) \cup \text{FOLLOW}(B)=\gbr{\$,\u{a},\u{b},\u{c}} \\
+\text{FOLLOW}(B) &= \text{FOLLOW}(A)=\gbr{\$,\u{a},\u{b},\u{c}} \\
 \text{FOLLOW}(C) &= \text{FIRST*}(A)=\gbr{\u{a}} \\
 \text{FOLLOW}(D) &= \text{FOLLOW}(C)=\gbr{\u{a}}
 \end{align*}
