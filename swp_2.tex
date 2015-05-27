@@ -131,11 +131,12 @@ Die Sprache $\lng{D}$ ist definiert durch:
 Die Semantik der Sprache $\lng{D}$ definieren wir durch:
 \begin{\whichenum}
 \item $I_{\lng{D}}(x) = \sbr{x}$ wenn $x \in \lng{D}_N$.
-\item $I_{\lng{D}}(\u{(}x\u{)*(}y\u{)})=I_{\lng{D}}(x) \cdot I_{\lng{D}}(y)$ wenn $x,y \in \lng{A}$.
 \item $I_{\lng{D}}(\u{(}x\u{)+(}y\u{)})=I_{\lng{D}}(x) + I_{\lng{D}}(y)$ wenn $x,y \in \lng{A}$.
+\item $I_{\lng{D}}(\u{(}x\u{)*(}y\u{)})=I_{\lng{D}}(x) \cdot I_{\lng{D}}(y)$ wenn $x,y \in \lng{A}$.
 \end{\whichenum}
 
-Mit dieser Definition ist $I_{\lng{D}}$ keine Funktion.
+Würden wir die Klammern aus der Definition $I_{\lng{D}}$ weglassen, so würde es sich nicht um eine Funktion handeln.
+Wir nennen diese Sprache ohne Klammern $I_{\lng{D}'}$ um anhand dieser Beweise über die Interpretationsfunktion zu üben.
 
 \begin{beweis}
 Laut Definition~\ref{defn:Funktion} ist eine Relation eine Funktion wenn es für jeden möglichen Eingabewert genau einen Ausgabewert gibt.
@@ -144,21 +145,20 @@ Möchte man eine Aussage über ``alle'' Werte bzw. ``jeden'' Wert widerlegen so 
 Fall müssen wir nur ein Gegenbeispiel finden, denn dann gilt die Aussage offensichtlich nicht für alle Werte, wir haben ja einen gefunden
 für den es nicht gilt. Diese Beweistechnik nennt man ``Beweis durch Widerspruch''.
 
-Wir werden nun zeigen, dass $I_{\lng{D}}$ für das Programm \u{1+2*3} verschiedene Interpretationsmöglichkeiten zulässt da nicht festgelegt
+Wir werden nun zeigen, dass $I_{\lng{D}'}$ für das Programm \u{1+2*3} verschiedene Interpretationsmöglichkeiten zulässt da nicht festgelegt
 ist ob der 2. oder 3. Fall der Definition die höhere Priorität hat.
 \begin{align*}
-I_{\lng{D}}(\u{1+2*3}) &= I_{\lng{D}}(\u{1+2}) \cdot I_{\lng{D}}(\u{3}) \tag{2. Fall der Definition} \\
-&= (I_{\lng{D}}(\u{1}) + I_{\lng{D}}(\u{2})) \cdot 3 \tag{3. Fall der Definition} \\
+I_{\lng{D}'}(\u{1+2*3}) &= I_{\lng{D}'}(\u{1+2}) \cdot I_{\lng{D}'}(\u{3}) \tag{3. Fall der Definition} \\
+&= (I_{\lng{D}'}(\u{1}) + I_{\lng{D}'}(\u{2})) \cdot 3 \tag{2. Fall der Definition} \\
 &= (1+2) \cdot 3 = 3 \cdot 3 = 9 \\
-I_{\lng{D}}(\u{1+2*3}) &= I_{\lng{D}}(\u{1}) \cdot I_{\lng{D}}(\u{2*3}) \tag{3. Fall der Definition} \\
-&= 1 + (I_{\lng{D}}(\u{2}) \cdot I_{\lng{D}}(\u{3})) \tag{2. Fall der Definition} \\
+I_{\lng{D}'}(\u{1+2*3}) &= I_{\lng{D}'}(\u{1}) + I_{\lng{D}'}(\u{2*3}) \tag{2. Fall der Definition} \\
+&= 1 + (I_{\lng{D}'}(\u{2}) \cdot I_{\lng{D}'}(\u{3})) \tag{3. Fall der Definition} \\
 &= 1 + (2 \cdot 3) = 1 + 6 = 7 \neq 9
 \end{align*}
-Wir haben gezeigt, dass für einen Eingabewert 2 unterschiedliche Ausgabewerte möglich sind.
-Folglich gibt es nicht für \u{jeden} Eingabewert \u{genau einen} Ausgabewert, daher kann $I_{\lng{D}}$ keine Funktion sein. \hfill $\Box$
+Wir haben gezeigt, dass für einen Eingabewert mehrere unterschiedliche Ausgabewerte möglich sind.
+Folglich gibt es nicht für \u{jeden} Eingabewert \u{genau einen} Ausgabewert, daher kann $I_{\lng{D}'}$ keine Funktion sein. \hfill $\Box$
 \end{beweis}
-Wir müssten also die Interpretationsfunktion $I_{\lng{D}}$ anders definieren. Eine Lösung wäre beispielsweise zu definieren, dass der 3. Fall der Interpretationsfunktion
-nur angewendet werden darf wenn in den beiden Operanden $x$ und $y$ kein $\u{*}$ vorkommt.
+Syntax und Semantik müssen also eindeutig sein, damit die Interpretationsfunktion eine Funktion ist.
 \ifthenelse{\boolean{long}}{}{\end{comment}}
 \section{Sprache $\lng{V}$ - arithmetische Ausdrücke mit Variablen}
 Wir erweitern die Sprache $\lng{A}$ durch Variablen und schaffen so eine mächtigere Sprache $\lng{V}$.
@@ -1465,12 +1465,14 @@ Interpretieren Sie die folgenden prädikatenlogischen Ausdrucke in $\lng{P}$ mit
 &\Lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null)) \tvee lt?(x,eins)}} \tto eq?(\I{P}{\omega}{x},\I{P}{\omega}{eins}) \\
 &\Lra \rbr{\I{P}{\omega}{(lt?(x,plus(eins,eins)) \twedge eq?(x,null))} \tvee \I{E}{\omega}{lt?(x,eins)}} \tto eq?(\omega(\tu{x}),1) \\
 &\Lra \rbr{\rbr{\I{P}{\omega}{lt?(x,plus(eins,eins)) \twedge eq?(x,null)}} \tvee lt?(\I{P}{\omega}{x},\I{P}{\omega}{eins})} \tto eq?(0,1) \\
-&\Lra \rbr{\rbr{\I{P}{\omega}{lt?(x,plus(eins,eins))} \twedge \I{P}{\omega}{eq?(x,null)}} \tvee lt?(\omega(\tu{x}),1)} \tto T \\
-&\Lra \rbr{\rbr{lt?(\I{P}{\omega}{x},\I{P}{\omega}{plus(eins,eins)}) \twedge eq?(\I{P}{\omega}{x},\I{P}{\omega}{null})} \tvee lt?(0,1)} \tto T \\
-&\Lra \rbr{\rbr{lt?(\omega(\tu{x}),\I{P}{\omega}{eins} + \I{P}{\omega}{eins}) \twedge eq?(\omega(\tu{x}),0)} \tvee lt?(0,1)} \tto T \\
-&\Lra \rbr{\rbr{lt?(0,1 + 1) \twedge eq?(0,0)} \tvee T} \tto T
-\intertext{Damit wissen wir eigentlich schon genug, denn $(\ldots \vee T) \tto T \Lra T \tto T \Lra T$. Der Vollständigkeit halber rechnen wir hier weiter.}
-&\Lra \rbr{\rbr{lt?(0,2) \twedge T} \tvee T} \tto T \Lra \rbr{\rbr{T \twedge T} \tvee T} \tto T \Lra \rbr{T \tvee T} \tto T \Lra T \tto T
+&\Lra \rbr{\rbr{\I{P}{\omega}{lt?(x,plus(eins,eins))} \twedge \I{P}{\omega}{eq?(x,null)}} \tvee lt?(\omega(\tu{x}),1)} \tto F \\
+&\Lra \neg\rbr{\rbr{\I{P}{\omega}{lt?(x,plus(eins,eins))} \twedge \I{P}{\omega}{eq?(x,null)}} \tvee lt?(\omega(\tu{x}),1)} \tvee F \\
+&\Lra \neg\rbr{\rbr{\I{P}{\omega}{lt?(x,plus(eins,eins))} \twedge \I{P}{\omega}{eq?(x,null)}} \tvee lt?(\omega(\tu{x}),1)} \\
+&\Lra \neg\rbr{\rbr{lt?(\I{P}{\omega}{x},\I{P}{\omega}{plus(eins,eins)}) \twedge eq?(\I{P}{\omega}{x},\I{P}{\omega}{null})} \tvee lt?(0,1)} \\
+&\Lra \neg\rbr{\rbr{lt?(\omega(\tu{x}),\I{P}{\omega}{eins} + \I{P}{\omega}{eins}) \twedge eq?(\omega(\tu{x}),0)} \tvee lt?(0,1)} \\
+&\Lra \neg\rbr{\rbr{lt?(0,1 + 1) \twedge eq?(0,0)} \tvee T}
+\intertext{Damit wissen wir eigentlich schon genug, denn $\neg(\ldots \vee T) \Lra \neg T \Lra F$. Der Vollständigkeit halber rechnen wir hier weiter.}
+&\Lra \neg\rbr{\rbr{lt?(0,2) \twedge T} \tvee T} \Lra \neg\rbr{\rbr{T \twedge T} \tvee T} \Lra \neg\rbr{T \tvee T} \Lra \neg T \Lra F
 \end{align*}
 \item \u{(\texists y) lt?(y,x)}
 
