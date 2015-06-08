@@ -1124,6 +1124,7 @@ Dies findet auch in vielen alltäglichen Programmen Anwendung - genau genommen i
 Gegeben sei ein Datentyp $D=(A,F,P,C)$ und ein Datentyp $E$ mit der Grundmenge $B$.
 \begin{\whichitem}
 \item Die Funktion $\pi: A \to B$ weist jedem Wert aus $A$ einen Wert in $B$ zu, d.h. $\tforall x \in A: \: \pi(x) \in B$.
+\item Die Funktion $\pi: \gbr{T,F} \to \gbr{T,F}$ weist jedem Wert aus $\gbr{T,F}$ einen Wert in $\gbr{T,F}$ zu, d.h. $\tforall x \in \gbr{T,F}: \: \pi(x) \in \gbr{T,F}$. Häufig kommt hier die Identitätsfunktion zum Einsatz.
 \item $\tforall f_i(\ldots) \in F$ wird ein Funktionausdruck $\pi\ebr{f_i}(\ldots)$ über dem Datentyp $E$ konstruiert welcher die Funktion implementiert.
 \item $\tforall p_i(\ldots) \in P$ wird ein Prädikatenausdruck $\pi\ebr{p_i}(\ldots)$ über dem Datentyp $E$ konstruiert welcher das Prädikat implementiert.
 \item $\tforall c_i \in C$ wird ein Funktionsausdruck (mglw. eine Konstante als 0-parametrige Funktion) $\pi\ebr{c_i}$ über dem Datentyp $E$ konstruiert welcher die Konstante darstellt.
@@ -1837,14 +1838,13 @@ Unterstreichungen lassen wir ebenfalls weg, da wir nicht mehr zwischen Syntax- u
 
 \begin{defn}[Syntax von LP ($\lng{L}$)] \quad
 \begin{\whichenum}
-\item $x$ ist eine Konstante wenn $X$ nur aus Kleinbuchstaben besteht. Eine Konstante in $\lng{L}$ ist ein logischer Term.
-\item $x$ ist eine Variable wenn $X$ nur aus Buchstaben besteht und der erste Buchstabe groß geschrieben ist. Eine Variable in $\lng{L}$ ist ein logischer Term.
-\item Wenn $t_1,\ldots,t_n$ logische Terme sind und $f$ eine $n$-stellige Funktion, dann ist auch $f(t_1,\ldots,t_n)$ ein logischer Term.
+\item $x$ ist eine Konstante wenn $x$ nur aus Kleinbuchstaben und Zahlen besteht. Eine Konstante in $\lng{L}$ ist ein logischer Term.
+\item $x$ ist eine Variable wenn $x$ nur aus Buchstaben besteht und der erste Buchstabe groß geschrieben ist. Eine Variable in $\lng{L}$ ist ein logischer Term.
 \item Wenn $p$ ein $n$-stelliges Prädikat ist und $t_1,\ldots,t_n$ sind logische Terme,
 dann ist $p\texttt{(}t_1\texttt{,}\ldots\texttt{,}t_n\texttt{)}$ eine Atomformel.
-\item Wenn $A \in \lng{P}$ eine Atomformel ist, dann ist $A \texttt{.}$ ein ``Fakt''.
-\item Wenn $A_1,\ldots,A_k,A$ Atomformeln sind, dann ist der Ausdruck $A  \texttt{:-}  A_1  \texttt{,}  \ldots  \texttt{,}  A_k  \texttt{.}$ eine ``Regel''.
-\item Ein Programm in $\lng{L}$ besteht aus einer oder mehreren Atomformeln.
+\item Wenn $A_1,\ldots,A_k,A$ logische Terme sind, und $A$ eine Atomformel, dann ist der Ausdruck $A  \texttt{:-}  A_1  \texttt{,}  \ldots  \texttt{,}  A_k  \texttt{.}$ eine ``Regel''.
+\item Wenn $A$ eine Atomformel ist, dann ist $A \texttt{.}$ (die Kurzschreibweise für $A \texttt{:-} \texttt{.}$) ein ``Fakt''.
+\item Ein Programm in $\lng{L}$ besteht aus einer oder mehreren Regeln und einer Atomformel als Anfrage.
 \end{\whichenum}
 \end{defn}
 
@@ -1852,10 +1852,8 @@ Wir sehen, dass $\lng{L}$ völlig unabhängig von unseren bisherigen Sprachen (i
 
 \begin{defn}[Semantik von LP ($\lng{L}$)] \quad 
 \begin{\whichenum}
-\item Der Ausdruck $A\texttt{.}$
-ist äquivalent zur Implikation $T \to A$, äquivalent zu $A$.
-\item Der Ausdruck $A  \texttt{:-}  A_1  \texttt{,}  \ldots  \texttt{,}  A_k  \texttt{.}$
-ist äquivalent zur Implikation $A_1 \wedge \ldots \wedge A_k \to A$.
+\item Der Ausdruck $A\texttt{.}$ ist äquivalent zur Implikation $T \to A$, äquivalent zu $A$ (also ein Fakt).
+\item Der Ausdruck $A  \texttt{:-}  A_1  \texttt{,}  \ldots  \texttt{,}  A_k  \texttt{.}$ ist äquivalent zur Implikation $A_1 \wedge \ldots \wedge A_k \to A$.
 \item Ein Programm in $\lng{L}$ besteht aus Fakten $f_1,\ldots,f_n$ und Regeln $r_1,\ldots,r_n$. Wir nennen ein Programm auch ``Wissensbasis''.
 Das Programm ist äquivalent zu einer logischen Formel $f_1 \wedge \ldots \wedge f_n \wedge r_1 \wedge \ldots \wedge r_n$.
 \end{\whichenum}
